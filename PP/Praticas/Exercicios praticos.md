@@ -264,6 +264,8 @@ Ao escolher $x$ = 4 e $z$ = 5 cumpria o constraint $x < z$ e ao escolher $y$ = 1
 
 # 1.3.1
 
+Backtracking:
+
 $X_A$ = r
 - $X_B$ = g
   - $X_C$ = b
@@ -290,6 +292,181 @@ Node E
 ## d)
 
 E = y True
+
+## e)
+
+Gashnig's Backjumping
+
+A = r latest = {}
+- B = g latest = {}
+  - C = b latest = {}
+    - D = r latest = {}
+      - E = g latest = {}
+        - F = b latest = {}
+          - G = ~~r~~, ~~b~~ latest = C porque corre de cima para baixo e C elimina o blue do dominio, ficando assim vazio. Antes o A removeu o red.
+  - C = {} backtrack
+- B = y latest = {}
+  - C = b latest = {}
+    - D = r latest = {}
+      - E = g latest = {}
+        - F = b latest = {}
+          - G = ~~r~~, ~~b~~ latest = C
+  - C = {} backtrack
+- B = {} backtrack
+
+A = b latest = {}
+- B = g latest = {}
+  - C = b latest = {}
+    - D = r latest = {}
+      - E = g latest = {}
+        - F = b latest = {}
+          - G = ~~r~~, ~~b~~ latest = D
+    - D = g latest = {}
+      - E = g latest = {}
+        - F = b latest = {}
+          - G = r COMPLETED 
+
+---
+
+Graph-based backjumping
+
+Primeiro aplica-se os induced parents.
+
+A = r Induced = {}
+- B = g Induced = {}
+  - C = b Induced = {}
+    - D = r Induced = {}
+      - E = g Induced = {}
+        - F = b Induced = {}
+          - G = ~~r~~, ~~b~~ Induced = {A, C, D, E} JUMP TO E
+      - E = y Induced = {}
+        - F = Induced = {}
+          - G = ~~r~~, ~~b~~ Induced = {A, C, D, E} JUMP TO E
+      - E não tem valores por isso salta para o próximo induced: Induced = {A, C, D}, ou seja, para D
+    - D = g Induced = {}
+      - E = g Induced = {}
+        - F = b Induced = {}
+          - G ~~r~~, ~~b~~ Induced = {A,C,D,E}
+      - E = y Induced = {}
+        - F = b Induced = {}
+          - G ~~r~~, ~~b~~ Induced = {A,C,D,E}
+      - E não tem valores por isso salta para o próximo induced: Induced = {A, C, D}, ou seja para D
+    - D Também não tem valores por isso vai para o próximo, ou seja C
+  - C Que também não tem e vai para A
+
+A = b Induced = {}
+- B = g Induced = {}
+  - C = b Induced = {}
+    - D = r Induced = {}
+      - E = g Induced = {}
+        - F = b Induced = {}
+          - G = ~~r~~, ~~b~~ Induced = {A,C,D,E}
+      - E = y Induced = {}
+        - F = b Induced = {}
+          - G = ~~r~~, ~~b~~ Induced = {A,C,D,E}
+      - E não tem valores então vai para o próximo, Induced = {A,C,D}
+    - D = g
+      - E = g
+        - F = b
+          - G = r
+
+---
+
+Conflict-based 
+
+A = r JUMP = {}
+- B = g JUMP = {}
+  - C = b JUMP = {}
+    - D = r JUMP = {}
+      - E = g JUMP = {}
+        - F = b JUMP = {}
+          - G Nao tem valores possíveis JUMP = {A, C}
+  - C Não tem valores possíveis JUMP = {A}
+
+A = b JUMP = {}
+- B = g JUMP = {}
+  - C = b JUMP = {}
+    - D = r JUMP = {}
+      - E = g JUMP = {}
+        - F = b JUMP = {}
+          - G Não tem valores JUMP = {C, D}
+    - D = g JUMP = {}
+      - E = g JUMP = {}
+        - F = g JUMP = {}
+          - G = r JUMP = {}
+
+## e)
+
+G
+
+## f)
+        
+C
+
+## g)
+
+B
+
+## h)
+
+True
+
+## i)
+
+G
+
+## j)
+
+E
+
+## k)
+
+F
+
+## l)
+
+True
+
+## m)
+
+G
+
+## n)
+
+False
+
+## o)
+
+E
+
+## p)
+
+False
+
+## q)
+
+D
+
+## r)
+
+True
+
+## s)
+
+G
+
+## t)
+
+C
+
+## u)
+
+A
+
+## v)
+
+False
+
 
 <br>
 
@@ -396,6 +573,71 @@ Constraints:
 - E + O + $X_2$ = N + 10 * $X_3$
 - S + M + $X_3$ = O + 10 * $X_4$
 - M = $X_4$
+
+<br>
+
+# 1.5.5
+
+## f)
+
+$X_A$ = 1 $latest_A$ = {}
+- $X_B$ = ~~1~~, .., ~~8~~ $latest_B$ = A -> JUMP
+
+$X_A$ = 2 $latest_A$ = {}
+- $X_B$ = 1 $latest_B$ = {}
+  - $X_C$ = ~~1~~,..,~~8~~ $latest_C$ = B -> JUMP
+- $X_B$ = ~~2~~,..,~~8~~ backtrack
+
+$X_A$ = 3 $latest_A$ = {}
+- $X_B$ = 1 $latest_B$ = {}
+  - $X_C$ = ~~1~~,..,~~8~~ $latest_C$ = B -> JUMP
+- $X_B$ = ~~2~~,..,~~8~~ backtrack
+
+$X_A$ = 4 $latest_A$ = {}
+- $X_B$ = ~~1~~, 2 $latest_B$ = {}
+  - $X_C$ = 1 COMPLETED
+
+## g)
+
+A = 1 Induced = {}
+- B= ~~1~~, .., ~~8~~ Induced = {A}
+
+A = 2 Induced = {}
+- B = 1 Induced = {}
+  - C = ~~1~~, ..~~8~~ Induced = {B}
+- B= ~~2~~, .. ~~8~~ Induced = {A}
+
+A = 3 Induced = {}
+- B = 1 Induced = {}
+  - C = ~~1~~, .., ~~8~~ Induced = {B}
+- B = ~~2~~, .., ~~8~~ Induced = {}
+
+A = 4 Induced = {}
+- B = ~~1~~, 2 Induced = {}
+  - C = 1 Completed
+
+# h)
+
+A = 1 Jump = {}
+- B = ~~1~~, .., ~~8~~ Jump = {A}
+
+A = 2 Jump = {}
+- B = 1 Jump = {}
+  - C = ~~1~~, .., ~~8~~ Jump = {B}
+- B = ~~2~~, .., ~~8~~ Jump = {A}
+
+A = 3 Jump = {}
+- B = 1 Jump = {}
+  - C = ~~1~~, .., ~~8~~ Jump = {B}
+- B = ~~2~~, .., ~~8~~ Jump = {A}
+
+A = 4 Jump = {}
+- B = ~~1~~, 2 Jump = {}
+  - C = 1
+
+## i) 
+
+Na maioria dos casos o conflict based permite saltar para mais longe na arvore.
 
 <br>
 
