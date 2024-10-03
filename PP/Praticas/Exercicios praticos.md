@@ -467,6 +467,82 @@ A
 
 False
 
+<br>
+
+# 1.3.3
+
+## a)
+
+O par $x_1$ e $x_4$ é um no-good. Nesse caso podemos fazer a constraint `not (x1 == 1 /\ x4 == 2)`
+
+## b)
+
+It would fail at $x_4$ and wouldn't keep going.
+
+# 1.3.4
+
+$x_1$ = 1
+- $x_2$ = 1
+  - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 1, $x_2$ = 1)
+- $x_2$ = 2
+  - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 1, $x_2$ = 2)
+- $x_2$ = 3
+  - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 1, $x_2$ = 3)
+
+$x_1$ = 2
+- $x_2$ = 1
+  - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 2, $x_2$ = 1)
+- $x_2$ = 2
+  - $x_3$ = 1
+    - $x_4$ = ~~1~~, 2
+      - $x_5$ = ~~1~~, ~~2~~ -> Leaf dead end -> No-good: ($x_3$ = 1, $x_4$ = 2)
+    - $x_4$ não tem mais valores, então temos internal dead end -> No-good: ($x_3$ = 1)
+- $x_2$ = 3
+  - $x_3$ = 1 -> Não continua porque temos o no-good $x_3$ = 1, ou seja adicionamos ($x_1$ = 2, $x_2$ = 3), aos no-goods
+  - $x_3$ = 2 -> Não continua porque temos o no-good ($x_1$ = 2, $x_2$ = 3)
+
+$x_1$ = 3
+- Iriamos repetir a coisa toda // TODO TENTA FAZER ESTA BOMBA EM CASA
+
+<br>
+
+# 1.4.1
+
+## a)
+
+Se metermos $x_1$ = True a probabilidade de F ser satisfeito é 100%, se metermos $x_1$ = False a probabilidade de F ser satisfeito é $\dfrac{1}{2^{99}}$
+
+Então P(F ser satisfeito) = P($x_1$ = T) + P($x_1$ = F /\ resto = F) = $\dfrac{1}{2} + \dfrac{1}{2} \times \dfrac{1}{2^{99}}$
+
+## b)
+
+1 flip -> Não confirmado pelo stor, mas deve bué ser lol
+
+<br>
+
+# 1.4.2
+
+## a)
+
+É possível sim, eventualmente todas as hipoteses vão ser consideradas e vai acabar por resolver o problema.
+
+## b)
+
+(!P V !Q), (P V Q)
+
+Se começarmos com P = False e Q = False, ao fazermos flip simultaneamente vai haver sempre uma clausua a falhar.
+
+<br>
+
+# 1.4.3
+
+A = False<br>
+B = False<br>
+C = True<br>
+D = False<br>
+
+Choose: C = False<br>
+Choose: A = True
 
 <br>
 
@@ -655,3 +731,17 @@ pairs = {$(x, z), (z, x), (z, y), (y, z)$}
 | 6 | $(y, z)$ | -- | -- |
 
 In this case we don't need to put $(z, x)$ back in queue in id 5. Because in this algorithm k != i and k != j. In the slides algorithm that is different, and we would need to put $(z, x)$ back in queue for id 5.
+
+# Exercicio 2) de exame (2023-2024)
+
+(P V Q V !R), (!P), (!Q V R)
+
+P = True<br>
+Q = True<br>
+R = False
+
+Não satisfaz: (!P), (!Q V R)
+
+Choose: P = False -> Não satisfaz: (!Q V R)
+
+Choose: R = True -> Satisfaz todas
