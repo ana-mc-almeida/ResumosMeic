@@ -745,3 +745,53 @@ Não satisfaz: (!P), (!Q V R)
 Choose: P = False -> Não satisfaz: (!Q V R)
 
 Choose: R = True -> Satisfaz todas
+
+<br>
+
+# 2.2.1
+
+## 1)
+
+incr-01-to-10(d2, d1):
+- pre-requisitos: { d1 = 1, d2 = 0 }
+- effects: { d1 = 0, d2 = 1 }
+
+## 2)
+
+{ incr-x0-to-x1, incr-01-to-10, incr-x0-to-x1 }
+
+<br>
+
+# 2.2.2
+
+## a)
+
+O caminho mais rápido tem 4 iterações
+
+| Step | Action | State Change |
+| ---- | ------ | ----- |
+| 1 | take(r1, loc1, c1) | pos(c1) = r1, cargo(r1) = c1 
+| 2 | move(r1, loc1, loc2) | pos(r1) = loc2
+| 3 | put(r1, loc2, c1) | pos(c1) = loc2, cargo(r1) = nil
+| 4 | VERIFICA SE CONSEGUE | | 
+
+<br>
+
+# 2.2.3
+
+## a)
+
+Precisamos de 4 ações, porque com apenas 2 não seria possível considerar o caso em que estamos a colocar e tirar os blocos da mesa.
+
+## b)
+
+Sim, porque sem essa variável seria impossível de garantir que só se pode pegar em um bloco de cada vez. Para além disso não saberiamos que bloco é que estamos a colocar sem essa variável.
+
+## c)
+
+Há 2 estados, um deles é o normal, chegando à solução pela maneira normal. O outro seria
+
+s1 = { top(a) = b, top(b) = a, top(c) = nil, loc(a) = b, loc(b) = hand, loc(c) = table, holding = b }
+
+Este estado é impossível de obter, mas acho que se consideram estados impossíveis.
+
