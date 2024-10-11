@@ -92,8 +92,69 @@ São assumidas duas coisas:
 
 ### Viterbi
 
-// TODO Adicionar uma explicação decente quando fizer nos labs, porque os slides tão uma merda. Nem o daniel percebeu e teve ali a perguntar bué '-'
+#### Algoritmo
 
+<img src="Imagens/Aula8 Viterbi Algorithm.png">
+
+#### Exemplo
+
+Descobrir qual é a sequencia PoS tags para a frase "will cook will". Seguindo as seguintes probabilidades:
+
+<img src="Imagens/Aula8 Viterbi Example.png">
+
+| SS | will | cook | will |
+| -- | ---- | ---- | ---- |
+| Noun | *S(1,1)* | *S(1,2)* | *S(1,3)* |
+| Verb | *S(2,1)* | *S(2,2)* | *S(2,3)* |
+
+| BP | will | cook | will |
+| -- | ---- | ---- | ---- |
+| Noun | 0 | *BP(1,2)* | *BP(1,3)* |
+| Verb | 0 | *BP(2,2)* | *BP(2,3)* |
+
+Calculando cada uma das células:
+
+*S(1,1)* = P(will | Noun) * P(Noun | \<s>) = 0.2 * 0.7 = 0.14
+
+*S(2,1)* = P(will | Verb) * P(Verb | \<s>) = 0.25 * 0.3 = 0.075
+
+*S(1,2)* = max {<br>
+&emsp;*S(1,1)* * P(cook | Noun) * P(Noun | Noun) = 0.14 * 0.2 * 0.2 = 0.0056<br>
+&emsp;*S(2,1)* * P(cook | Noun) * P(Noun | Verb) = 0.075 * 0.2 * 0.4 = 0.006<br>
+} = 0.006 -> que é o segundo argumento da função max por isso colocamos *BP(1,2)* = 2
+
+*S(2,2)* = max {<br>
+&emsp;*S(1,1)* * P(cook | Verb) * P(Verb | Noun) = 0.14 * 0.2 * 0.4 = 0.0056<br>
+&emsp;*S(2,1)* * P(cook | Verb) * P(Verb | Verb) = 0.075 * 0.1 * 0.55 = 0.004125<br>
+} = 0.0056 -> que é o primeiro argumento da função max por isso colocamos *BP(2,2)* = 1
+
+*S(1,3)* = max {<br>
+&emsp;*S(1,2)* * P(will | Noun) * P(Noun | Noun) = 0.006 * 0.2 * 0.2 = 0.00024<br>
+&emsp;*S(2,2)* * P(will | Noun) * P(Noun | Verb) = 0.0056 * 0.2 * 0.4 = 0.00048<br>
+} = 0.00048 -> que é o segundo argumento da função max por isso colocamos *BP(1,3)* = 2
+
+*S(2,3)* = max {<br>
+&emsp;*S(1,2)* * P(will | Verb) * P(Verb | Noun) = 0.006 * 0.25 * 0.4 = 0.0006<br>
+&emsp;*S(2,2)* * P(will | Verb) * P(Verb | Verb) = 0.0056 * 0.25 * 0.55 = 0.00077<br>
+} = 0.00077 -> que é o segundo argumento da função max por isso colocamos *BP(2,3)* = 2
+
+Preenchendo os valores na tabela ficamos com:
+
+| SS | will | cook | will |
+| -- | ---- | ---- | ---- |
+| Noun | 0.14 | 0.006 | 0.00048 |
+| Verb | 0.075 | 0.0056 | 0.00077 |
+
+| BP | will | cook | will |
+| -- | ---- | ---- | ---- |
+| Noun | 0 | 2 | 2 |
+| Verb | 0 | 1 | 2 |
+
+Olhando para a ultima coluna da tabela SS sabemos que o valor mais provavel é ser um verbo, depois usamos a tabela BP para saber a sequência inteira. da seguinte maneira:
+
+<img src="Imagens/Aula8 Viterbi Example2.png">
+
+E assim sabemos que a sequencia mais provável é Noun -> Verb -> Verb
 
 ## Deep-learning
 
@@ -103,7 +164,7 @@ Part-of-Speech é uma labelling task. RNN's, LSTM's ou outras arquiteturas podem
 
 # Main Concepts
 
-As palavras são consistuidas por morphenes. As morphenes podem ser:
+As palavras são constituidas por morphenes. As morphenes podem ser:
 - Stems (lexical morphenes) - têm o significado principal da palavra.
 - Affixes (grammatical morphenes) - muda o significado da stem.
 
