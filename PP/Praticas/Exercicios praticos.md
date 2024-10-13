@@ -775,6 +775,158 @@ O caminho mais rápido tem 4 iterações
 | 3 | put(r1, loc2, c1) | pos(c1) = loc2, cargo(r1) = nil
 | 4 | VERIFICA SE CONSEGUE | | 
 
+NO EXAME é preciso escrever o estado todo ao escolher cada ação e não apenas o que mudou, para além disso é preciso mostrar todas as ações possíveis e não apenas aquela que se vai escolher quando se faz o algoritmo Forward-Search. Por fim é preciso mostrar também $\pi$, o plano que se escolheu.
+
+## b)
+
+g = { pos(c1) = loc2, pos(c2) = loc2 }
+
+$A^{-1}$
+- put(r1, loc2, c1) g1
+- put(r1, loc2, c2) g2
+- put(r2, loc2, c1) g3
+- put(r2, loc2, c2) g4
+
+g1 = { pos(c1) = r1, pos(r1) = loc2, pos(r2) = loc2, cargo(r1) = c1 }
+
+$A^{-2}$
+- put(r2, loc2, c2) g5
+- move(r1, loc1, loc2) g6
+- take(r1, loc2, c1) g7
+
+g6 = { pos(c1) = r1, pos(r1) = loc1, pos(r2) = loc2, cargo(r1) = c1 }
+
+$A^{-3}$
+- put(r2, loc2, c2) g8
+- take(r1, loc1, c1) g9
+
+g9 = { loc(r1) = loc1, pos(c1) = loc1, cargo(r1) = nil, pos(c2) = loc2 }
+
+$S_0$ contains g9 por isso tá completo
+
+## c)
+
+Atoms in $\hat{s}_0$ = $s_0$
+- loc(r1) = loc1
+- loc(r2) = loc2
+- cargo(r1) = nil
+- cargo(r2) = nil
+- pos(c1) = loc1
+- pos(c2) = loc2
+
+A1
+- move(r1, loc1, loc2)
+- move(r2, lo1, loc2)
+- take(r1, loc1, c1)
+- take(r2, loc2, r2)
+
+Atoms in $\hat{s}_1$
+- loc(r1) = loc2
+- loc(r2) = loc1
+- cargo(r1) = c1
+- cargo(r2) = c2
+- pos(c1) = r1
+- pos(c2) = r2
+- $\hat{s}_0$
+
+A2
+- move(r1, loc2, loc1)
+- move(r2, loc2, loc1)
+- put(r1, loc2, c1)
+- put(r2, loc1, c2)
+- put(r1, loc1, c1)
+- put(r2, loc2, c2)
+- take(r1, loc2, c2)
+- take(r2, loc1, c1)
+- A1
+
+Atoms in $\hat{s}_2$
+- pos(c1) = loc2
+- pos(c2) = loc1
+- cargo(r1) = c2
+- cargo(r2) = c1
+- pos(c1) = r2
+- pos(c2) = r1
+- $\hat{s}_1$
+
+<img src="Imagens/2.2.2.c.png">
+
+*Comecei a fazer apenas as precondições e efeitos relevantes a partir de $\hat{s}_1$, para o desenho ser legivel.*
+
+Para voltar atrás só precisamos de ver por quantas ações passamos até atingirmos o nosso goal desde $\hat{s}_0$. E assim chegamos a que $h^{FF}(s_0) = 3$
+
+## d)
+
+queue <- { pos(c1) = loc2 } // só adicionamos isto à queue porque a outra landmark do goal já é cumprida por $s_0$.
+
+queue = { ~~pos(c1) = loc2~~ }, Landmarks = { pos(c1) = loc2 }
+
+R = { put(r1, loc2, c1), put(r2, loc2, c1) } // $s_0$ não satisfaz as precondições de nenhuma ação presente em R, por isso continuamos.
+
+N = ?
+
+$\hat{s}_0$
+- loc(r1) = loc1
+- loc(r2) = loc2
+- cargo(r1) = nil
+- cargo(r2) = nil
+- pos(c1) = loc1
+- pos(c2) = loc2
+
+$A_1$ \ R
+- move(r1, loc1, loc2)
+- move(r2, loc2, loc1)
+- take(r1, loc1, c1)
+- take(r2, loc2, c2)
+
+$\hat{s}_1$
+- loc(r1) = loc2
+- loc(r2) = loc1
+- cargo(r1) = c1
+- cargo(r2) = c2
+- pos(c1) = r1
+- pos(c2) = r2
+- $\hat{s}_0$
+
+$A_2$ \ R
+- move(r1, loc2, loc1)
+- move(r2, loc2, loc1)
+- put(r2, loc1, c2)
+- put(r1, loc1, c1)
+- put(r2, loc2, c2)
+- take(r1, loc2, c2)
+- take(r2, loc1, c1)
+- $A_1$ \ R
+
+$\hat{s}_2$
+- pos(c1) = loc2
+- pos(c2) = loc1
+- cargo(r1) = c2
+- cargo(r2) = c1
+- pos(c1) = r2
+- pos(c2) = r1
+- $\hat{s}_1$
+
+$A_3$ \ R
+- $A_2$ \ R
+
+$\hat{s}_3$
+- $\hat{s}_2$
+
+Como $\hat{s}_2$ = $\hat{s}_3$, podemos parar e N = R = { put(r1, loc2, c1), put(r2, loc2, c1) }
+
+Preconditions = { loc(r1) = loc2 /\ pos(c1) = r1 }, { loc1(r2) = loc2 /\ pos(c1) = r2 }
+
+Q = Preconditions
+
+L = { pos(c1) = loc2, loc(r1) = loc2 /\ pos(c1) = r1 }
+
+R: { move(r1, loc1, loc2), take(r1, loc1, c1), take(r1, loc2, c1) }
+
+R is satisfied by $s_0$ -> take(r1, loc1, c1)
+
+$h^{sl}(s_0)$ = len(L) = 2
+
 <br>
 
 # 2.2.3
@@ -795,3 +947,36 @@ s1 = { top(a) = b, top(b) = a, top(c) = nil, loc(a) = b, loc(b) = hand, loc(c) =
 
 Este estado é impossível de obter, mas acho que se consideram estados impossíveis.
 
+<br>
+
+# 2.2.5
+
+start ---------------- finish
+value(foo) = 1
+value(bar) = 5
+value(baz) = 0
+
+## a)
+
+A thread é que se $a_2$ vier antes de $a_1$ isso iria mudar o value(bar) para 1 e assim a precondition de $a_1$ não vai ser satisfeita. O resolver é remover a seta que vai do start até ao $a_2$ e criar uma seta desde $a_1$ até $a_2$.
+
+## b)
+
+Sim, uma execução possível seria:
+- Criar $a_1$ para satisfazer o open goal value(foo) = 5, em finish.
+- Criar $a_2$ para satisfazer o open goal value(bar) = 1, em finish.
+- Criar um causal link com o efeito value(bar) = 5, em start, para o open goal value(bar) = 5, em $a_1$.
+
+## c) + d)
+
+Em teoria dá para ir infinitamente se ficarmos a stackar ações de forma a termos sempre um open goal.
+
+## e)
+
+Only one, the smaller.
+
+## f) 
+
+<img src="Imagens/2.2.5.f.png">
+
+Seguindo a ordem: Vermelho, Laranja, Rosa, Azul
