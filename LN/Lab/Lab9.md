@@ -1,6 +1,6 @@
 # 1
 
-N: N, V, ADJ, ADV <br>
+N: s, NP, VP, N, V, ADJ, ADV <br>
 T: Set of terminaal symbols
 
 alex eats soup everyday:
