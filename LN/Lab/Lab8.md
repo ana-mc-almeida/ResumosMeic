@@ -14,11 +14,11 @@ A sequência mais provavel é Noun Verb Verb
 
 # 2
 
-Noun Verb
+Verb Noun
 
 # 3
 
-"YOU ARE SO STUPID" Code 0312<br>
+"YOU ARE SO STUPID" Code 4312<br>
 "YOU ARE" Code 43
 
 # Morphology
