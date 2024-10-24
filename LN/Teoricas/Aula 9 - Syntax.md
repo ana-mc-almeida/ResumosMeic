@@ -22,15 +22,15 @@ Corpus onde todas as frases estão anotadas sintaticamente.
 
 ### Constituents
 
-Gupos de palavras que se conportam como unidade ou como frases.
+Gupos de palavras que se comportam como unidade ou como frases.
 
 ## Context-Free Grammars - CFGs
 
-CFGs capturam os contituents das frases e a sua ordem.
+CFGs capturam os constituents das frases e a sua ordem.
 
 ### Parsing Example
 
-Para a frase "O Zé ama a Ana" e usando o seguinte conjunto de regras obtemos:
+Para a frase "O Zé ama a Ana" e usando o seguinte conjunto de regras e obtemos:
 
 <img src="Imagens/Aula9 Syntatic Parsing Example.png">
 

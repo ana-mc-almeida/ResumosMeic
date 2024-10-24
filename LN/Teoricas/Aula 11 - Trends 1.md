@@ -40,7 +40,7 @@ Os adaptares têm um número de parametros bastante pequeno relativamente ao mod
 
 Durante a inference, são usados tanto os pesos do pre-trained model como os pesos das adapter layers para gerar o output.
 
-### LoRA (Low-Ran Adaptation)
+### LoRA (Low-Rank Adaptation)
 
 *Não percebi nada, ninguém percebeu ig, nem o chat me salvou :(*
 

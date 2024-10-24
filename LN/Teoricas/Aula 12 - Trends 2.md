@@ -1,6 +1,6 @@
 # Large Language Models
 
-Um Language Model calcula a probabilidade de cada sequência de tokes. Com LM podemos gerar uma linguagem ao adiciar um token de cada vez, tendo em conta os tokens gerados até agora (autoregressive language models).
+Um Language Model calcula a probabilidade de cada sequência de tokens. Com LM podemos gerar uma linguagem ao adiciar um token de cada vez, tendo em conta os tokens gerados até agora (autoregressive language models).
 
 A palavra "Large" serve para mostrar que este modelo é gigante, considerando:
 - O tamanho do modelo (parametros)
@@ -25,7 +25,7 @@ Decoding -> Sub-processo da Inference. Gera uma sequência de texto com base nas
 
 ### Decoding
 
-- Greedy Search: vê a probabilidade ed cada palavra no vocabulário e escolher a que tiver maior probabilidade.
+- Greedy Search: vê a probabilidade de cada palavra no vocabulário e escolhe a que tiver maior probabilidade.
 - Beam Search: vai explorando multiplos caminhos, mantendo um registo dos melhores a cada passo. Nenhum dos caminhos é escolhido até ao fim do processo de decoding.
 - Sampling: o modelo escolhe um subset de tokens (várias maneiras de escolher) e escolhe aleatoriamente um token desse subset.
 - Temperature: ajusta a distribuição da probabilidade com escala.
