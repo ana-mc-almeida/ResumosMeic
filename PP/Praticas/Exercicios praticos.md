@@ -980,3 +980,47 @@ Only one, the smaller.
 <img src="Imagens/2.2.5.f.png">
 
 Seguindo a ordem: Vermelho, Laranja, Rosa, Azul
+
+# Exercicio 1 Grupo 5 Exame 2023/2024
+
+## a)
+
+É consistent porque os assingments das variáveis:
+
+$t_1$ = 1<br>
+$t_2$ = 2<br>
+$r$ = r1<br>
+$t_3$ = 3<br>
+$t_4$ = 4<br>
+$l$ = loc1<br>
+
+Não é seguro porque
+
+$t_1$ = 1<br>
+$t_2$ = 3<br>
+$r$ = r1<br>
+$t_3$ = 2<br>
+$t_4$ = 4<br>
+$l$ = loc2<br>
+
+## b)
+
+$r$ != r1<br>
+$t_2$ < $t_3$<br>
+$l$ = loc1
+
+<br>
+
+# 2.3.2
+
+| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \times r_{kj}$ | $r_{ij} \cap [r_{ik} \times r_{kj}]$ |
+| - | - | - | -------- | -------- | -------- | -------------------- | ------------------------------------ |
+| 1 | 2 | 3 | [4, 7] | [-5, -1] | [$-\infin, \infin]$ | [$-\infin, \infin]$ | [4, 7] |
+| 1 | 2 | 4 | [5, 8] | [-5, -1] | [2, 6] | [-3, 5] | [5, 5] |
+| 1 | 3 | 4 | ... | | | 
+| ... |
+| 2 | 3 | 4 | [4, 6] | [-7, -4] | [5, 5] | [-2, 1] | {} |
+
+Como encontramos uma inconsistencia (interseção vazia) o algoritmo acaba e sabemos que a STN é inconsistente.
+
+# Exercicio 2 Grupo 5 
