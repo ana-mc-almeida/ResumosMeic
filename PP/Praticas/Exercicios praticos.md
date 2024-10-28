@@ -83,11 +83,79 @@ Constraints:
 | $x_0, x_1$ | -------- | ------- |
 | $x_0, x_2$ | -------- | ------- |
 
-$D_{x_0}$ = {3,4,7}
-$D_{x_1}$ = {2,4,6}
-$D_{x_2}$ = {3,4,7}
-$D_{x_3}$ = {6,7,8}
+$D_{x_0}$ = {3,4,7}<br>
+$D_{x_1}$ = {2,4,6}<br>
+$D_{x_2}$ = {3,4,7}<br>
+$D_{x_3}$ = {6,7,8}<br>
 
+<br>
+
+# 1.2.2
+
+| Edges | Domain Change | New edges | Explanation |
+| ----- | ------------- | --------- | ----------- |
+| $x,z$ | ----- | ----- | Há sempre um valor de $z$ que satisfaz $R_{zx}$ para qualquer valor de $x$. |
+| $z,x$ | ----- | ----- | O mesmo que em cima. |
+| $y,z$ | ----- | ----- | Para qualquer valor de $y$, há sempre um valor de $z$ que satisfaz $R_{zy}$, esse valor é o 2.
+| $z,y$ | $D_z$ = {2} | $(x,z), (y,z)$ | O valor 5 da variável $z$ não tem suporte de nenhum valor de $y$. Logo 5 pode ser removido do domínio de $y$ porque não satisfaz $R_{zy}$. Então temos de adicionar os edges que têm uma constraint com $z$ à queue. |
+| $x,z$ | $D_x$ = {2} | $(z,x)$ | Como agora o $D_z$ = {2}, já não há nenhum valor de $z$ que satisfaça o valor 5 de $x$ para a constraint $R_{zx}$. Então reduzimos o dominio. |
+| $y,z$ | ----- | ----- | Continua a haver um valor de $z$ que satisfaz todos os valores de $y$ |
+| $z,x$ | ----- | ----- | $R_{zx}$ é satisfeita para todos os valores de $z$.
+
+$D_x$ = {2}<br>
+$D_y$ = {2,4}<br>
+$D_z$ = {2}<br>
+
+Pontos chave:
+- Quando analisamos um edge $(a,b)$ só vamos alterar o domínio da variável $a$. 
+- Se houverem alterações ao dominío os edges que vamos adicionar à queue vão ter sempre o $a$ em segundo lugar.
+  - Por exemplo $(b,a)$ ou $(c,a)$
+- Só adicionamos à queue edges que não lá estejam ainda.
+
+<br>
+
+# 1.2.3
+
+Primeiro aplica-se arc-consistency:
+
+| Edges | Domain Changes | New Edges |
+| ----- | -------------- | --------- |
+| $X_1,X_3$ | $D_1$ = {3,4,7} | ---
+| $X_3,X_1$ | $D_3$ = {3,4,7} | $(X_1,X_3)$
+| $X_1,X_4$ | ---- | ---- |
+| $X_4,X_1$ | ---- | ---- |
+| $X_2,X_4$ | $D_2$ = {2,4,6} | ---- |
+| $X_4,X_2$ | ---- | ---- |
+| $X_1,X_3$ | ---- | ---- |
+
+$D_1$ = {3,4,7}<br>
+$D_2$ = {2,4,6}<br>
+$D_3$ = {3,4,7}<br>
+$D_4$ = {6,7,8}<br>
+
+| Trios | Constraint Change | New Trios |
+| ----- | ----------------- | --------- |
+| $X_1,X_3,X_2$ | ---- | ---- |
+| $X_1,X_4,X_2$ | ---- | ---- |
+| $X_1,X_2,X_3$ | ---- | ---- |
+| $X_1,X_4,X_3$ | ---- | ---- |
+| $X_1,X_2,X_4$ | ---- | ---- |
+| $X_1,X_3,X_4$ | ---- | ---- |
+| $X_2,X_1,X_3$ | ---- | ---- |
+| $X_2,X_4,X_3$ | ---- | ---- |
+| $X_2,X_1,X_4$ | ---- | ---- |
+| $X_2,X_3,X_4$ | ---- | ---- |
+| $X_3,X_1,X_4$ | $R_{3,4} = X_4 > X_3$ | $(X_1,X_3,X_4),(X_2,X_3,X_4),(X_1,X_4,X_3),(X_2,X_4,X_3)$ |
+| $X_3,X_2,X_4$ | ---- | ---- |
+| $X_1,X_3,X_4$ | ---- | ---- |
+| $X_2,X_3,X_4$ | ---- | ---- |
+| $X_1,X_4,X_3$ | ---- | ---- |
+| $X_2,X_4,X_3$ | ---- | ---- |
+
+Uma nova constraint é adicionada: $R_{3,4} = X_4 > X_3$
+
+<br>
+ 
 # 1.2.5
 
 ## a)
