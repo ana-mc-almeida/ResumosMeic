@@ -22,14 +22,14 @@ $d = (v_1,..., v_n)$ ordering of the nodes.
 
 <img src="Imagens/Aula 4 Ordering example.png">
 
-## Induced widh and induced graph
+## Induced width and induced graph
 
 The induced graph of (G, d) is an ordererd graph (G*, d). G* is created by:
 1. Processing nodes of G from last to first (top to bottom)
 2. Connecting all of the parents of a node after processing.
 
 Induced width of (G, d), w*(d), is the width of (G*, d)
-Induced width of a graph, w*, is still the minimmum induced widh over all of its orderings.
+Induced width of a graph, w*, is still the minimmum induced width over all of its orderings.
 
 ### Example
 
