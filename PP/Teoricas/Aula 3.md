@@ -68,9 +68,8 @@ In this case we can have the same results, but it is not necessary to loop throu
 Basicamente em vez de guardar as coisas numa queue, tem duas listas, uma $S_{(x_i,a_i)}$ que contem todas as conexões. E uma outra $counter(i, a_i, j)$ que é o número de ligações entre o valor $a_i$ da variavel $x_i$ e todos os valores da variavel $x_j$.<br>
 Primeiro para cada counter checka-se se $counter(x_i, a_i, x_j) == 0$. E se for quer dizer que não há conexões entre o valor $a_i$ e a variavel $x_j$. E então vai ser adicionado a uma lista. Depois de todos os counters serem analisados, vai percorrer-se a lista e decrementar os counters dos valores que estavam ligados àquela variável. No caso de esse counter chegar a zero, esse par variavel-valor são adicionados à lista.  
 
-#### Coisas suspeitas para perguntar à prof:
-- Wtf porque é que isto diminui o espaço???
-- Para que é que serve a lista M? Parece só tar lá a guardar cenas que não vão ser usadas para nada no futuro lol.
+Na realidade, ao contrário do que diz nos slides, este algoritmo não diminui o espaço, mas diminui o tempo. Mas é muito pouco utilizado. 
+A lista M que se mostra no algoritmo tem uma funcionalidade qualquer no livro. Apesar se não ser usada para nada no pseudo código ela tem uma utilidade qualquer.
 
 
 ## Path-consistency
