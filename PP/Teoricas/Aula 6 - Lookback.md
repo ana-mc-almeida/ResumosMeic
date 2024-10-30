@@ -61,7 +61,7 @@ Map coloring problem:
 
 <img src="Imagens/Aula6 graph-based example1.png">
 
-## Conflict-based backjumping
+## Conflict-directed backjumping
 
 ### Explanation
 

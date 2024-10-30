@@ -698,7 +698,63 @@ $X_1$ = 0
       - $X_5$ = 0
         - $X_6$ = 0
 
+## f)
 
+- $X_1$ = 0
+  - $X_2$ = 0
+    - $X_3$ = ~~0~~, 1
+      - $X_4$ = ~~0~~, ~~1~~, ~~2~~ latest = $X_3$ porque remove os valores 1 e 2 do domínio de $X_4$ por causa da constraint $X_4$ < $X_3$. O valor 0 já tinha sido removido por $X_1$.
+    - $X_3$ = 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = ~~0~~, ~~1~~, ~~2~~ latest = $X_4$ porque remove o valor 1 que era o último que restava depois de $X_2$ remover 0 e $X_3$ remover 2.
+      - $X_4$ = ~~2~~ latest = $X_3$
+    - $X_3$ = {} backtrack
+  - $X_2$ = 1
+    - $X_3$ = ~~0~~, ~~1~~, 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = 0
+          - $X_6$ = 0
+
+## g)
+
+Primeiro temos de fazer o induced graph para sabermos os induced acestors de cada node:
+<img src="Imagens/1.5.2g.png">
+
+- $X_1$ = 0
+  - $X_2$ = 0
+    - $X_3$ = ~~0~~, 1
+      - $X_4$ = ~~0~~, ~~1~~, ~~2~~ $I$ = {$X_1$, $X_2$, $X_3$}
+    - $X_3$ = 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = ~~0~~, ~~1~~, ~~2~~ $I$ = {$X_2$, $X_3$, $X_4$}
+      - $X_4$ = ~~2~~ Não tem valores por isso saltamos para o próximo ancestor em $I$.
+    - $X_3$ = {} Não tem valores por isso saltamos para o próximo ancestor em $I$.
+  - $X_2$ = 1
+    - $X_3$ = ~~0~~, ~~1~~, 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = 0
+          - $X_6$ = 0
+
+## h)
+
+Também tem de se fazer o induced graph, mas é igual ao de cima.
+
+- $X_1$ = 0
+  - $X_2$ = 0
+    - $X_3$ = ~~0~~, 1
+      - $X_4$ = ~~0~~, ~~1~~, ~~2~~ JUMP = {$X_1$, $X_3$}
+    - $X_3$ = 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = ~~0~~, ~~1~~, ~~2~~ JUMP = {$X_2$, $X_3$, $X_4$}
+      - $X_4$ = ~~2~~ Não tem valores seguintes por isso saltamos para o próximo ancestor em JUMP.
+    - $X_3$ = {} Não tem valores seguintes por isso saltamos para o próximo ancestor em JUMP.
+  - $X_2$ = 1
+    - $X_3$ = ~~0~~, ~~1~~, 2
+      - $X_4$ = ~~0~~, 1
+        - $X_5$ = 0
+          - $X_6$ = 0
+        
+      
 <br>
 
 # 1.5.4
