@@ -51,7 +51,7 @@ Para o graph-based backjumping, precisamos de usar induced ancestors. Se não o 
 
 ### Explanation
 
-Percorre-se a árvore até se encontrar um leaft dead-end. Geram-se os induced ancestors para essa variável. Faz-se backjump até ao induced parent dessa variável. Continua-se a procura se existirem valores não explorados para esse induced parent. Se já todos os valores tiverem sido explorados, no branch atual, remove-se essa variável da lista dos induced ancestors e faz-se backjump para o novo induced parent. Se não tiver valores por explorar, repete-se o processo.
+Percorre-se a árvore até se encontrar um leaf dead-end. Geram-se os induced ancestors para essa variável. Faz-se backjump até ao induced parent dessa variável. Continua-se a procura se existirem valores não explorados para esse induced parent. Se já todos os valores tiverem sido explorados, no branch atual, remove-se essa variável da lista dos induced ancestors e faz-se backjump para o novo induced parent. Se não tiver valores por explorar, repete-se o processo.
 
 ### Example
 
