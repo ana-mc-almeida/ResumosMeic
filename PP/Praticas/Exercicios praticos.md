@@ -580,7 +580,7 @@ $x_1$ = 3
 
 Se metermos $x_1$ = True a probabilidade de F ser satisfeito é 100%, se metermos $x_1$ = False a probabilidade de F ser satisfeito é $\dfrac{1}{2^{99}}$
 
-Então P(F ser satisfeito) = P($x_1$ = T) + P($x_1$ = F /\ resto = F) = $\dfrac{1}{2} + \dfrac{1}{2} \times \dfrac{1}{2^{99}}$
+Então P(F ser satisfeito) = P($x_1$ = T) + P($x_1$ = F /\ resto = T) = $\dfrac{1}{2} + \dfrac{1}{2} \times \dfrac{1}{2^{99}}$
 
 ## b)
 
