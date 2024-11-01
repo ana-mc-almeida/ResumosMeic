@@ -158,7 +158,7 @@ E ficamos com o chronicle:
 
 ### Flaw 3 - Pair of possibly-conflicting assertions
 
-É basicamente o mesmo que uma thread em PSPs onde duas assertions podem causar conflitos uma à outra.
+É basicamente o mesmo que uma threat em PSPs onde duas assertions podem causar conflitos uma à outra.
 
 Por exemplo:
 
