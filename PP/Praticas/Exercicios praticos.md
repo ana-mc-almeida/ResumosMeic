@@ -1075,11 +1075,6 @@ Este estado é impossível de obter, mas acho que se consideram estados impossí
 
 # 2.2.5
 
-start ---------------- finish
-value(foo) = 1
-value(bar) = 5
-value(baz) = 0
-
 ## a)
 
 A thread é que se $a_2$ vier antes de $a_1$ isso iria mudar o value(bar) para 1 e assim a precondition de $a_1$ não vai ser satisfeita. O resolver é remover a seta que vai do start até ao $a_2$ e criar uma seta desde $a_1$ até $a_2$.
@@ -1104,6 +1099,45 @@ Only one, the smaller.
 <img src="Imagens/2.2.5.f.png">
 
 Seguindo a ordem: Vermelho, Laranja, Rosa, Azul
+
+<br>
+
+# 2.2.6
+
+## a)
+
+As duas flaws são os open goals `loc(r1) = d2` e `loc(r2) = d1`.
+
+## b)
+
+<img src="Imagens/2.2.6 b.png">
+
+<br>
+
+# 2.2.7
+
+## 2.
+
+São os open goals `at(home)`, `have(bread)` e `have(flowers)`.
+
+## 3.
+
+<img src="Imagens/2.2.7 3.png">
+
+1. Vermelho escuro -> Resolve o open goal `at(home)` de $a_g$.
+2. Laranja -> Resolve o open goal `have(bread)` de $a_g$.
+3. Verde -> Resolve o open goal `at(y)` de buy(y, bread). Faz com que y = bakery.
+4. Azul turquesa -> Resolve a threat de o go(z, bakery) acontecer depois de go(x, home) e modificar o effect e go(x, home).
+5. Azul escuro -> Resolve o open goal `at(x)` de go(x, home). Faz com que x = bakery.
+6. Roxo -> Resolve o open goal `have(flowers)` de $a_g$.
+7. Castanho -> Resolve o open goal `at(w)` de buy(w, flowers). Faz com que w = florist.
+8. Rosa -> Resolve a threat de o go(k, bakery) acontecer entre go(z, bakery) e buy(bakery, bread). Força a que aconteça antes.
+9. Vere lima -> Resolve o open goal `at(z)` em go(z, bakery). Faz com que z = florist.
+10. Cinzento -> Resolve o open goal `at(k)` em go(k, florist). Faz com que k = home.
+11. Vermelho claro -> Resolve o open goal `sells(florist, flowers)` em buy(florist, flowers).
+12. Vermelho claro (fiquei sem cores) -> Resolve o open goal `sells(bakery, bread)` em buy(bakery, bread).
+
+<br>
 
 # Exercicio 1 Grupo 5 Exame 2023/2024
 
