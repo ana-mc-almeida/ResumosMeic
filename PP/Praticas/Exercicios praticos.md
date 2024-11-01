@@ -1169,9 +1169,23 @@ $l$ = loc1
 
 <br>
 
+# 2.3.1
+
+Exemplo consistent:
+
+Se tivermos (**$T, C$**) = ([$t_1$,$t_2$] loc(r1) = loc1 e [$t_3$, $t_4$] loc(r1) = (loc1, loc2) , {$t_1$ < $t_2$ < $t_3$, $t_4$})
+
+($T,C$) vai ser sempre consistent porque os intervalos [$t_1$,$t_2$] e [$t_3$,$t_4$] nunca se intersetam.
+
+Exemplo não consistente:
+
+Se tivermos (**$T, C$**) = ([$t_1$,$t_2$] loc(r1) = loc1 e [$t_3$, $t_4$] loc(r1) = loc2 , {$t_1$ < $t_3$ < $t_4$ < $t_2$})
+
+Neste caso $C$ é consistent, mas ($T,C$) não é porque há dois valores para loc(r1) no intervalo [$t_3$, $t_4$] para quaisquer que sejam os t's.
+
 # 2.3.2
 
-| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \times r_{kj}$ | $r_{ij} \cap [r_{ik} \times r_{kj}]$ |
+| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
 | - | - | - | -------- | -------- | -------- | -------------------- | ------------------------------------ |
 | 1 | 2 | 3 | [4, 7] | [-5, -1] | [$-\infin, \infin]$ | [$-\infin, \infin]$ | [4, 7] |
 | 1 | 2 | 4 | [5, 8] | [-5, -1] | [2, 6] | [-3, 5] | [5, 5] |
@@ -1181,4 +1195,52 @@ $l$ = loc1
 
 Como encontramos uma inconsistencia (interseção vazia) o algoritmo acaba e sabemos que a STN é inconsistente.
 
-# Exercicio 2 Grupo 5 
+<br>
+
+# 2.3.5
+
+
+| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
+| - | - | - | -------- | -------- | -------- | --------------------- | -------------------------------- |
+| 1 | 2 | 3 | [$-\infin,\infin$] | [-2,-1] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] |
+| 1 | 2 | 4 | [3,4] | [-2,-1] | [$-\infin,\infin$] | [$-\infin,\infin$] | [3,4] |
+| 1 | 2 | 5 | [$-\infin,\infin$] | [-2,-1] | [6,7] | [4,6] | [4,6] |
+| 1 | 3 | 4 | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] | [1,2] |
+| 1 | 3 | 5 | [4,5] | [$-\infin,\infin$] | [6,7] | [$-\infin,\infin$] | [4,5]
+| 1 | 4 | 5 | [$-\infin,\infin$] | [$-\infin,\infin$] | [6,7] | [$-\infin,\infin$] | [$-\infin,\infin$] |
+| 2 | 1 | 3 | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] |
+| 2 | 1 | 4 | [$-\infin,\infin$] | [1,2] | [3,4] | [4,6] | [4,6] |
+| 2 | 1 | 5 | [6,7] | [1,2] | [4,6] | [5,7] | [6,7] |
+| 2 | 3 | 4 | [1,2] | [$-\infin,\infin$] | [3,4] | [$-\infin,\infin$] | [$-\infin,\infin$] |
+| 2 | 3 | 5 | [4,5] | [$-\infin,\infin$] | [4,6] | [$-\infin,\infin$] | [4,5] |
+| 2 | 4 | 5 | [$-\infin,\infin$] | [-4,-3] | [4,6] | [0,3] | [0,3] |
+| 3 | 1 | 2 | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] | [1,2] |
+| 3 | 1 | 4 | [4,6] | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [4,6] |
+| 3 | 1 | 5 | [6,7] | [$-\infin,\infin$] | [4,5] | [$-\infin,\infin$] | [6,7] |
+| 3 | 2 | 4 | [3,4] | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [3,4] |
+| 3 | 2 | 5 | [4,6] | [$-\infin,\infin$] | [4,5] | [$-\infin,\infin$] | [4,6] |
+| 3 | 4 | 5 | [0,3] | [-2,-1] | [4,5] | [2,4] | [2,3] |
+| 4 | 1 | 2 | [1,2] | [4,6] | [-4,-3] | [0,3] | [1,2] |
+| 4 | 1 | 3 | [$-\infin,\infin$] | [4,6] | [-2,-1] | [2,5] | [2,5] |
+| 4 | 1 | 5 | [6,7] | [4,6] | [2,3] | [6,9] | [6,7] |
+| 4 | 2 | 3 | [$-\infin,\infin$] | [3,4] | [-2,-1] | [1,3] |
+| 4 | 2 | 5 | [4,6] | [3,4] | [2,3] | [5,7] | [5,6] |
+| 4 | 3 | 5 | [4,5] | [1,2] | [2,3] | [3,5] | [4,5] |
+| 5 | 1 | 2 | [1,2] | [6,7] | [-6,-5] | [0,2] | [1,2] |
+| 5 | 1 | 3 | [2,5] | [6,7] | [-5,-4] | [1,3] | [2,3] |
+| 5 | 1 | 4 | [4,6] | [6,7] | [-3,-2] | [3,5] | [4,5] |
+| 5 | 2 | 3 | [1,3] | [5,6] | [-5,-4] | [0,2] | [1,2] |
+| 5 | 2 | 4 | [3,4] | [5,6] | [-3,-2] | [2,4] | [3,4] |
+| 5 | 3 | 4 | [1,2] | [4,5] | [-3,-2] | [1,3] | [1,2] |
+| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
+
+1 -> 2 [1,2]<br>
+1 -> 3 [2,3]<br>
+1 -> 4 [4,5]<br>
+1 -> 5 [6,7]<br>
+2 -> 3 [1,2]<br>
+2 -> 4 [3,4]<br>
+2 -> 5 [5,6]<br>
+3 -> 4 [1,2]<br>
+3 -> 5 [4,5]<br>
+4 -> 5 [2,3]
