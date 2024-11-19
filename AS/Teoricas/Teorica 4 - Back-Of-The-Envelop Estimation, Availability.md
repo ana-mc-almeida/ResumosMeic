@@ -37,7 +37,11 @@ Uma failure acontece quando é possível observar o sistema a fazer algo diferen
 
 ### Fault
 
-Uma fault é a causa da failure. No entanto, as faults podem ser tratadas para que não sejam observáveis para não se tornarem failures.
+Uma fault é a causa da failure. No entanto, as faults podem ser tratadas para que não sejam observáveis para não se tornarem failures. Pode ser por exemplo uma omissão: é feito um pedido, não se obtém resposta, mas um pedido seguinte obtém resposta. Outro exemplo pode ser incorrect timing: quando recebermos mensagens fora de ordem.
+
+### Error
+
+Um error é uma consequência de uma fault que não é visível pelo exterior. Por exemplo, quando programamos em C e nos esquecemos de libertar memória, essa não libertação é um Error porque não é visível diretamente. Quando chegamos a um ponto em que ficamos sem memória, e recebemos uma Out of Memory Exception, temos uma Failure.
 
 ### Availability Calulation
 
