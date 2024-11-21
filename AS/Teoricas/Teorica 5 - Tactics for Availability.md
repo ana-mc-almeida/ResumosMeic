@@ -25,7 +25,8 @@ Availability tactics servem para prevenir ou aguentar faults para que o serviço
 - Redundant spare: Existe uma configuração em que um componente duplicado passa a fazer o trabalho de um componente primário que falhou.
 - Rollback: O sistema reverte as alterações até ao último *good state*.
 - Exception handling: Quando uma exceção é detata o sistema pode tratar dela de forma a não cair. Por exemplo criando uma classe com a origem, nome e descrição da exceção.
-- Software upgrade: ???
+- Software upgrade: Quando é preciso fazer uma atualização no software sem dar shutdown ao sistema. Por exemplo, quando queremos migrar uma base de dados para uma melhorada.
+  - Se quisermos corrigir um erro numa rede de servidores, podemos ir dando shutdown e resolvendo o problema um a um. Assim só há um que está offline. Se passarmos para algo mais complexo como migrar uma database, já temos maiores problemas.
 - Retry: Assume que a fault é temporária e que quando se voltar a tentar já não vai acontecer. Deve haver um limite de retries para se passar a considerar uma failure.
 - Ignore fault behavior: Se sabemos que um componente tem uma falha ignoramos as mensagens enviadas por ele. Por exemplo, ignoramos as informações enviadas de um sensor defeituoso.
 - Graceful degradation: Mantém os componentes mais importantes do sistema a funcionar enquanto sacrifica alguns menos importantes. Isto só funciona em sistemas com componenetes que apenas melhoram o sistema, mas não são essenciais para ele sobreviver.
