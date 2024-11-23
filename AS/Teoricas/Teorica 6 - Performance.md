@@ -30,7 +30,7 @@ Uma maneira de melhorar performance é gerindo como deve de ser a demanda por re
   - Se usarmos esta tactic e for inaceitável perder eventos, temos de garantir que a queue é grande suficiente para aguentar o pior caso.
 - Prioritize events: Se os eventos tiverem prioridades diferentes, podemos acossiar prioridades aos eventos e se não tivermos recursos para processar todos, ignoramos os menos relevantes.
 - Reduce computational overhead: Para os eventos que entram no sistema temos as seguintes tactics:
-  1. Reduce indirection: Usamos intermediarios faz com que processemos os eventos de uma queue em paralelo, removê-los faz com que melhoremos a latency, já que todos os recursos são usados para o primeiro evento da queue. *Não tenho a certeza que seja mesmo isto '-'*
+  1. Reduce indirection: Remover os itermediários entre dois componentes, isto piora a modifiability, mas melhora a performance porque acedemos diretamente aos componentes que queremos.
   2. Co-locate communicating resources: Colocamos componentes que se chamam muitas vezes no mesmo processador para evitar esperar o delay da comunicação entre uma network.
   3. Periodic cleaning: Fazemos um cleanup periodico de recursos que se tornaram ineficientes. Por exemplo, uma hashtable que já tem muita informação podem precisar de ser reinicializada.
 - Bound execution times: Limita-se o tempo de execução que cada evento pode demorar. 
