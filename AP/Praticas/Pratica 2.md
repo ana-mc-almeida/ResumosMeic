@@ -54,7 +54,7 @@ $\hat{y}^{(4)}$ = sign(-1.5) = -1 != $y^{(4)}$ -> Certo
 
 ## 1.2
 
-$0 + 1 \cdot x_1 + 1.75 \cdot x_2 <=> x_2 = \dfrac{1}{1.75} \cdot x_1 <=> x_2 = 0.57 \cdot x_1$
+$0 + 1 \cdot x_1 + 1.75 \cdot x_2 = 0 <=> x_2 = -\dfrac{1}{1.75} \cdot x_1 <=> x_2 = -0.57 \cdot x_1$
 
 <img src="Imagens/L2 1.2.png">
 
