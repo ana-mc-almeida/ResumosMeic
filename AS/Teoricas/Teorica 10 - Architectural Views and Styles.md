@@ -36,3 +36,15 @@ Style guide:
 5. Notations: Informação extra ig.
 6. Relation to other styles: Mostra como views deste style se podem relacionar com views de outros styles.
 7. Exemplos.
+
+# Module Representation
+
+- Nome
+- Resposabilidade
+- Interface / Visibilidade
+- Implementação / Especicação
+
+Relações entre modules:
+- Depends on
+- Is part of
+- Is a
