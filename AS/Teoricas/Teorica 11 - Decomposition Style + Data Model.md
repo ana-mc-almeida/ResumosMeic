@@ -3,7 +3,7 @@
 O decomposition style pega nos modules e decompõem-nos em partes mais pequenas. A decomposição de um modulo pode ser para:
 - Atingir Quality Attributes: Por exemplo, para suportar modifiability divide-se um modulo em duas partes, a implementação e interface.
 - Build-versus-buy decisions: Algumas partes do modulo podem ser usadas de outras fontes, por exemplo de open-source software ou de projetos antigos.
-- Product line implementation: Para acelerar a produção podemos distinguir os modulos comuns dos mais diferentes.
+- Product line implementation: Para podermos buildar a aplicação com modulos diferentes, usando product families.
 - Team allocation: Para acelerar o desenvolvimento equipas de desenvolvimento diferentes trabalham em modulos diferentes em paralelo.
 
 ### Resumo
@@ -31,7 +31,7 @@ São os gráficos que se usam para representar databases.
 
 Podem ser usados por vários motivos:
 - Conceptual: Só queremos representar conceitos e as relações entre eles.
-- Logical: A evolução da representação conceptual é uma representação lógica
+- Logical: A evolução da representação conceptual é uma representação lógica. Foca-se na consistencia.
 - Fisica: Preocupação com a implementação das data entities.
 
 ### Resumo
