@@ -21,3 +21,25 @@ What it's for:
 Notations: UML
 
 Relation to Other Styles: *uses* style and module decomposition.
+
+# Aspects Style
+
+Serve para identificar os modulos responsáveis por crosscutting concerns. Estes modulos chamam-se aspects. Num sistema de um banco há o modulo Account que para além de ter as suas responsabilidades básicas, por exemplo retirar ou depositar dinheiro, também escreve logs da sua atividade. O modulo relacionado ao logging seria um aspect. 
+
+Overview: The aspects style shows aspect modules that implement crosscutting concerns and how they are bound to other modules in the system.
+
+Elements: Aspect, which is a specialized module that contains the implementation of a crosscutting concern.
+
+Relations: Crosscuts, which binds an aspect module to a module that will be affected by the crosscutting logic of that aspect.
+
+Constraints:
+- An aspect can crosscut one or more regular modules as well as aspect modules.
+- An aspect that crosscuts itself may cause infinite recursion, depending on the implementation.
+
+What It's For: 
+- Modeling crosscutting concerns in object-oriented designs
+- Enhancing modifiability
+
+Notations: UML
+
+Relation to other styles: Generalization Style
