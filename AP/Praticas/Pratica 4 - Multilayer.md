@@ -98,7 +98,7 @@ Onde $p_i = \dfrac{e^{z_i}}{\sum\limits^d_{k=1} e^{z_k}} $
 
 Cross-Entropy: $L(y,p) = - \sum\limits^d_{k=1} y_k \log(p_k) = -y^Tz + \log \sum\limits_j e^{z_j}$
 
-Logo $\dfrac{\partial L(y,p)}{\partial z} = -y$ softmax($z$) $= -y + p$
+Logo $\dfrac{\partial L(y,p)}{\partial z} = -y+$ softmax($z$) $= -y + p$
 
 ---
 
