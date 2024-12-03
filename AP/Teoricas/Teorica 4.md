@@ -62,19 +62,39 @@ An NN with one hidden layer and a linear output can approximate arbitrarily well
 
 # Loss Function
 
-// TODO
+### Squared Loss
+
+$L(y, \hat{y}) = \dfrac{1}{2}||\hat{y} - y||^2$
+
+$\dfrac{\partial L(y, \hat{y})}{\partial z^{[L]}} = \dfrac{\partial \dfrac{1}{2}||z^{[L]} - y||^2}{\partial z^{[L]}} = z^{[L]} - y = \hat{y} - y$
+
+### Cross-Entropy
+
+Aqui $y_k$ é um vetor em que todas as entradas são 0, menos a respetiva ao valor certo, que tem valor 1.
+
+$L(y,p) = - \sum\limits^d_{k=1} y_k \log(p_k) = -y^Tz + \log \sum\limits_j e^{z_j}$
+
+$\dfrac{\partial L(y,p)}{\partial z} = -y+$ softmax($z$) $= -y + p$
 
 # Gradient Descent
 
-## Hidden Layer Gradient
+### Gradient output layer:
 
-Recap: $z^{(l+1)} = W^{(l+1)}h^{(l)}(x) + b(l+1)$, $\theta = (W^{(l)}, b^{(l)})$
+$$\dfrac{\partial L(y, \hat{y})}{\partial z^{[L]}}$$
 
-$\dfrac{\partial L(f(x;\theta), y)}{\partial h_j^{(l)}} = \sum\limits_i \dfrac{\partial L(f(x;\theta), y)}{\partial z_i^{(l + 1)}} \dfrac{\partial z_i^{(l + 1)}}{\partial h_j^{(l)}} = \sum\limits_i \dfrac{\partial L(f(x;\theta), y)}{\partial z_i^{(l + 1)}} W_{i,j}^{(l+1)}$
+### Gradient hidden layer parameters:
 
-## Parametre Gradient
+$$\dfrac{\partial L(y, \hat{y})}{\partial W^{[l]}} = \dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}} h^{[l-1]^T}$$
 
-$\dfrac{\partial L(f(x; \theta), y)}{\partial W_{i,j}^{(l)}} = \dfrac{\partial L(f(x; \theta), y)}{\partial z_i^{(l)}} \dfrac{\partial z_i^{(l)}}{\partial W_{i,j}^{(l)}} = \dfrac{\partial L(f(x; \theta), y)}{\partial z_i^{(l)}} h_j^{(l-1)}$
+$$\dfrac{\partial L(y, \hat{y})}{\partial b^{[l]}} = \dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}}$$
+
+### Gradient hidden layer below:
+
+$$\dfrac{\partial L(y, \hat{y})}{\partial h^{[l]}} = W^{[l+1]^T}\dfrac{\partial L(y, \hat{y})}{\partial z^{[l+1]}}$$
+
+### Gradient hidden layer below before activation $g$:
+
+$$\dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}} = \dfrac{\partial L(y, \hat{y})}{\partial h^{[l]}} \odot g'(z^{[l]}) $$
 
 ## Backpropagation
 
