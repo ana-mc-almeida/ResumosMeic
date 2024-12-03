@@ -19,6 +19,9 @@ Notations: UML, Dependency Structure Matrix
 
 Relations to other styles: Combina com o layered style usando a relação *allowed-to-use*.
 
+Uma *call* não é um *uses*, se a chamada for uma notificação, não está a usar nada do outro modulo. Um exemplo pode ser que o alarme toca, isso é como se fosse uma chamada para nós acordarmos, mas é irrelevante para o alarme se a pessoa acorda ou não.
+O design pattern Observer é uma implementação do *uses* style porque fica a observar o comportamento de um modulo, e recebe notificações desse modulo.
+
 # Layered Style
 
 Serve para dividir o sistema em unidades, neste caso em layers. Cada layer tem um conjunto de modulos com um cohesive conjunto de serviços. As camadas são criadas para que cada layer só possa usar as camadas debaixo (em alguns casos apenas a camada imediatamente abaixo). As layers têm uma relação *allowed-to-use* para as layers abaixo.
@@ -46,3 +49,8 @@ Relation to other styles:
 - Module Decomposition
 - Tiers
 - *uses* Style
+
+Para enviar mensagens de baixo para cima usam-se callbacks. Uma layer recebe uma função e quando terminar de a processar avisa a camada de cima.
+É possível ter várias presentation layers, uma para um web browser e outra para uma mobile app. Também é possível mover de uma database postgres para uma MySQL.
+
+Cada layer determina uma Virtual Machine. Cada camada fornece tudo aquilo que a camada de cima precisa, assim não é preciso andar a descer até à camada mais funda.
