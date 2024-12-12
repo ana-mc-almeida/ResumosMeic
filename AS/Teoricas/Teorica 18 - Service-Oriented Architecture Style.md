@@ -35,6 +35,3 @@ Computation is achieved by a set of cooperating components that provide and/or c
 - Allowing interoperability of distributed components running on different platforms or across the Internet.
 - Integrating legacy systems.
 - Allowing dynamic reconfiguration.
-
-# Adventure Builder
-
