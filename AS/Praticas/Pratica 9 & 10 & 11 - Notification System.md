@@ -17,7 +17,7 @@
 
 - Oupout
 - User register
-- Send notificaation -> Most important
+- F1: Send notification -> Most important
 
 A client application sends a notification text to its subscribers devices (iOS, Android, Laptop/Desktop) according to the respective format (push, SMS, email)
 
@@ -47,7 +47,7 @@ P1:
 - Source: Client application
 - Stimulus: Send notification -> Periodic
 - Artifact: Notification system
-- Environment: Normal mode
+- Environment: Normal operation
 - Response: Notification is delivered
 - Response measure: 
   - Throughput: 120 Push/s, 12 SMS/s, 60 email/s
@@ -88,6 +88,9 @@ M1: (Scalability)
 
 ### Availability
 
+A1:
+- Stimulus: Notification system crash
+
 A2:
 - Stimulus: Third-party service crash
 - Response: Notifications are stored and retried.
@@ -111,3 +114,39 @@ S2:
 - Device types: iOS, Android and Laptop
 - Actors: client applications
 - Third--party services
+
+# Rounds
+
+## Round 1
+
+Purpose: Fully functional system (F1) with authentication (S2)
+
+Note: probably it will change more on the module viewtype
+
+### Iteration 1
+
+Purpose: Identify responsabilities
+
+## Round 2
+
+Purpose: Support plug and unplug of third party services (I1) and new third-party services services (I2)
+
+## Round 3
+
+Purpose: Support normal mode (P1) and peak performance (P2)
+
+## Round 4
+
+Purpose: Have a scalable system (M1)
+
+## Round 5
+
+Purpose: Robust communication with third-party services (A2)
+
+## Round 6
+
+Purpose: Handdle spam attacks (S1)
+
+## Round 7
+
+Purpose: Have high available system (A1)
