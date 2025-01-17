@@ -28,7 +28,7 @@ E tem a closed form solution: $\hat{w} = (\boldsymbol{X}^T \boldsymbol{X})^{-1} 
 
 If the term $\boldsymbol{X}^T \boldsymbol{X}$ in $\hat{w} = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T y$ is not invertible, we need to use the ridge regression:
 
-$\hat{w}_\text{ridge} = (\boldsymbol{X}^T \boldsymbol{X} + \lambda I)^{-1} \boldsymbol{X}^T y = \text{arg } \min\limits_w ||\boldsymbol{X}\boldsymbol{w} - \boldsymbol{y}||^2 + \lambda||\boldsymbol{w}||^2_2$, with $||\boldsymbol{w}||^2_2 = \sum\limits_i w_i^2$, the squared $l_2$ norm. $l_2$ regularization is also called weigth decay, or penalized Least Squares.
+$\hat{w}_\text{ridge} = (\boldsymbol{X}^T \boldsymbol{X} + \lambda I)^{-1} \boldsymbol{X}^T y = \text{arg } \min\limits_w ||\boldsymbol{X}\boldsymbol{w} - \boldsymbol{y}||^2 + \lambda||\boldsymbol{w}||^2_2$, with $||\boldsymbol{w}||^2_2 = \sum\limits_i w_i^2$, the squared $\ell_2$ norm. $\ell_2$ regularization is also called weigth decay, or penalized Least Squares.
 
 # Maximum A Posteriori (MAP)
 
@@ -84,8 +84,8 @@ $\text{arg} \min\limits_W \sum\limits_t^N L(W;(x,y)) + \lambda \Omega(W) $
 
 $\Omega(W)$ is the regularization function and $\lambda$ controls the weight.
 
-- $l_2$ regularization promotes smaller weights: $\Omega(W) = \sum\limits_y ||w_y||_2^2$
-- $l_1$ regularization promotes smaller and sparse weights: $\Omega(W) = \sum\limits_y ||w_y||_1$
+- $\ell_2$ regularization promotes smaller weights: $\Omega(W) = \sum\limits_y ||w_y||_2^2$
+- $\ell_1$ regularization promotes smaller and sparse weights: $\Omega(W) = \sum\limits_y ||w_y||_1$
 
 # Non-Linear Classifiers
 
