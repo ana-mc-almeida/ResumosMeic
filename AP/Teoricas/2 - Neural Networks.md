@@ -30,7 +30,7 @@ $$\dfrac{\partial L(y, \hat{y})}{\partial h^{[l]}} = W^{[l+1]^T}\dfrac{\partial 
 
 $$\dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}} = \dfrac{\partial L(y, \hat{y})}{\partial h^{[l]}} \odot g'(z^{[l]}) $$
 
-<img src="Imagens/T4 Backpropagation.png">
+<img src="Imagens/2 - Backpropagation.png">
 
 ## Autodiff
 
