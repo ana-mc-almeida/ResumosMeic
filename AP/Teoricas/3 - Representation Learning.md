@@ -30,7 +30,7 @@
 Auto-encoders are feed-forward NNs trained to reproduce its input at its output layer.
 
 - Encoder - maps input to a hidden representation : $h = g(W x + b)$.
-- Decoder - maps hidden representation to a reconstruction : $\hat{x} = WT h(x)+c$ .
+- Decoder - maps hidden representation to a reconstruction : $\hat{x} = W^T h(x)+c$ .
 - Loss function - $\mathcal{L} (\hat{x}, x) = \dfrac{1}{2}||\hat{x} - x||^2$
 - Objective - $\hat{W} = \text{arg} \min\limits_W \sum\limits_i ||W^Tg(Wx_i)-x_i||^2$.
 
@@ -63,7 +63,7 @@ SVD is a matrix factorization method that decomposes a matrix $A \in \mathbb{R}^
 
 ### Sparse Auto-Encoders
 
--  Add a sparsity penalty $\Omega(h)$ to the loss function to encourage sparse representations in the hidden layer.
+-  Add a sparsity penalty $\ell_1$ to the loss function to encourage sparse representations in the hidden layer.
 - Typically, the number of hidden units is larger than the number of input features.
 -  The sparsity penalty acts as a regularization term that limits the number of active neurons.
 
@@ -79,14 +79,23 @@ SVD is a matrix factorization method that decomposes a matrix $A \in \mathbb{R}^
 - The objective is to reconstruct the clean input $x$ from the noisy input $\tilde{x}$ by minimizing: $\frac{1}{2} \| \hat{x} - \tilde{x} \|_2^2$.
 - This acts as an implicit regularization, promoting smooth representations by ensuring the model can handle small perturbations in the input.
 
-
 ### Stacked Auto-Encoders
 
 - Multiple layers of auto-encoders are stacked together to learn hierarchical representations.
 
 ### Variational Auto-Encoders (VAEs)
 
-- VAEs learn a latent variable model of the data by assuming a probabilistic latent space.
+A Variational Auto-Encoder (VAE) is a type of generative model that learns to map input data to a probabilistic latent space and reconstruct the data from that latent space. Unlike traditional autoencoders, VAEs use probability distributions (typically Gaussian) to model the latent variables, allowing for sampling and generation of new data. The model consists of two parts:
+
+- Encoder: Maps input data to a distribution (mean and variance) in the latent space.
+- Decoder: Reconstructs the input data from a sampled latent variable.
+
+The VAE is trained to minimize two losses:
+
+- Reconstruction loss: Measures how well the model reconstructs the input.
+- KL divergence: Ensures the latent space distribution is close to a prior distribution (usually a standard normal distribution).
+
+VAEs are widely used for tasks like data generation, anomaly detection, and learning compact representations of data. They allow smooth interpolation and generation of new data points.
 
 ## Regularized Auto-Encoders
 
