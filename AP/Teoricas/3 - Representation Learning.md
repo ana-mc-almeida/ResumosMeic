@@ -27,10 +27,17 @@
 
 ## Auto-Encoders
 
-Auto-encoders are feed-forward NNs trained to reproduce its input at its output layer.
+Auto-encoders are feed-forward NNs trained to reproduce its input at its output layer. They are useful to learn good representations of data in an unsupervised manner, for example to capture a lower-dimensional manifold that approximately contains the data.
 
 - Encoder - maps input to a hidden representation : $h = g(W x + b)$.
+  - Commonly used in tasks where the input needs to be analyzed or transformed into a meaningful representation. For example: sentiment analysis and text classification.
+  - Example: BERT (Bidirectional Encoder Representations from Transformers)
 - Decoder - maps hidden representation to a reconstruction : $\hat{x} = W^T h(x)+c$ .
+  - Used for tasks that require generative outputs (e.g., language generation, text completion).
+  - Example: GPT (Generative Pre-trained Transformer)
+- Encoder-Decoder - Combines both encoder and decoder.
+  - Typically used for sequence-to-sequence tasks. For example: machine translation, summarization, question answering and image captioning.
+  - Example: Transformer models for machine translation
 - Loss function - $\mathcal{L} (\hat{x}, x) = \dfrac{1}{2}||\hat{x} - x||^2$
 - Objective - $\hat{W} = \text{arg} \min\limits_W \sum\limits_i ||W^Tg(Wx_i)-x_i||^2$.
 

@@ -62,9 +62,15 @@ Is a linear model that gives a score for each class.
 
 $\text{softmax} = \dfrac{e^{w_y^T\phi(x)}}{\sum\limits_{y'} e^{w_{y'}^T\phi(x)}} $
 
+Derivative, com cross-entropy loss: $\dfrac{\partial L}{\partial z_i} = \hat{y}_i - y_i$
+
 ### Sigmoid
 
 $\text{sigmoid}(u) = \dfrac{e^u}{1 + e^u}$
+
+Derivative: $\sigma'(x) = \sigma(x)(1 - \sigma(x))$
+
+ReLUs are significantly simpler and have a much simpler derivative than the sigmoid, leading to faster computation times. Also, sigmoids are easy to saturate and, when that happens, the corresponding gradients are only residual, making learning slower. ReLUs saturate only for negative inputs, and have constant gradient for positive inputs, often exhibiting faster learning.
 
 # Gradient Descent
 

@@ -2,6 +2,8 @@
 
 $\text{tanh}(z) = \dfrac{e^z - e^{-z}}{e^z + e^{-z}}$
 
+Derivative: $\dfrac{\partial}{\partial x} \text{tanh}(x) = 1 - \text{tanh}^2(x) $
+
 $\sigma(z) = \dfrac{1 + \text{tanh}(z/2)}{2}$
 
 ### Universal Approximation Theorem
