@@ -371,3 +371,243 @@ public class Memoize {
     }
 }
 ```
+
+## Intercession at Load Time
+
+Podemos melhorar o programa para permitir que corra logo após modificar o bytecode sem termos de dar overwrite ao ficheiro .class em disco.
+
+```
+import javassist.*;
+import java.io.*;
+import java.lang.reflect.*;
+
+public class MemoizeAndRun extends Memoize {
+    public static void main(String[] args) throws ... {
+        if (args.length < 2) {
+            ...
+        } 
+        else {
+            ClassPool pool = ClassPool.getDefault();
+            CtClass ctClass = pool.get(args[0]);
+            memoize(ctClass, ctClass.getDeclaredMethod(args[1]));
+            Class<?> rtClass = ctClass.toClass();
+            Method main = rtClass.getMethod("main", args.getClass());
+            String[] restArgs = new String[args.length - 2];
+            System.arraycopy(args, 2, restArgs, 0, restArgs.length);
+            main.invoke(null, new Object[] { restArgs });
+        }
+    }
+}
+```
+
+O problema é que é dificil de usar o programa de memoization e é dificil memoizar vários metodos ao mesmo tempo. Para resolver isso, usamos annotations:
+
+```
+public class Fib {
+
+    @Memoized
+    public static Long fib (Long n) {
+        if (n < 2) {
+            return n;
+        }
+        else {
+            return fib(n - 1) + fib(n - 2);
+        }
+    }
+    ...
+}
+```
+
+Annotation Definition, exemplo para multi value para os argumentos:
+
+```
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Foo {
+    String bar();
+    long baz();
+}
+```
+
+Use:
+
+```
+public class C1 {
+@Foo(bar="Hello World", baz=100)
+    public void m1(int a, long b) {
+        ...
+    }
+}
+```
+
+As annotations usadas para definir novas annotations chamam-se meta-annotations:
+
+Pre-defined annotations - Meta-annotations - @Target
+- ElementType.TYPE
+- ElementType.FIELD
+- ElementType.METHOD
+- ElementType.PARAMETER
+- ElementType.CONSTRUCTOR
+- ElementType.LOCAL_VARIABLE
+- ElementType.ANNOTATION_TYPE
+
+Pre-defined annotations - Meta-annotations - @Retention
+- RetentionPolicy.SOURCE (Mantêm-se durante compilação)
+- RetentionPolicy.CLASS (Mantêm-se durante load time)
+- RetentionPolicy.RUNTIME (Mantêm-se durante runtime)
+
+Usando annotated methods ficamos com:
+
+```
+import javassist.*;
+import java.io.*;
+import java.lang.reflect.*;
+
+public class MemoizeAndRun extends Memoize {
+    public static void main(String[] args) throws ... {
+        if (args.length < 2) {
+            ...
+        }
+        else {
+            ClassPool pool = ClassPool.getDefault();
+            CtClass ctClass = pool.get(args[0]);
+            memoizeMethods(ctClass);
+            Class<?> rtClass = ctClass.toClass();
+            Method main = rtClass.getMethod("main", args.getClass());
+            String[] restArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, restArgs, 0, restArgs.length);
+            main.invoke(null, new Object[] { restArgs });
+        }
+    }
+
+    static void memoizeMethods(CtClass ctClass) throws ... {
+        for (CtMethod ctMethod : ctClass.getDeclaredMethods()) {
+            Object[] annotations = ctMethod.getAnnotations();
+            if ((annotations.length == 1) && (annotations[0] instanceof Memoized)) {
+                memoize(ctClass, ctMethod);
+            }
+        }
+    }
+}
+```
+
+E, como precisamos de uma hashtable para cada metodo memoized, alteramos também o metodo `memoize` da class `Memoize`:
+
+```
+public class Memoize {
+    static void memoize(CtClass ctClass, CtMethod ctMethod) throws NotFoundException, CannotCompileException {
+        String name = ctMethod.getName();
+        CtField ctField = CtField.make(
+            "static java.util.Hashtable " + name + "Results = " +
+            " new java.util.Hashtable();",
+            ctClass);
+        ctClass.addField(ctField);
+        ctMethod.setName(name + "$original");
+        ctMethod = CtNewMethod.copy(ctMethod, name, ctClass, null);
+        ctMethod.setBody(
+            "{" +
+            "   Object result = " + name + "Results.get($1);" +
+            "   if (result == null) {" +
+            "       result = " + name + "$original($$);" +
+            "       " + name + "Results.put($1, result);" +
+            "   }" +
+            "   return ($r)result;" +
+            "}");
+        ctClass.addMethod(ctMethod);
+    }
+}
+```
+
+Problemas:
+- Só dá para memoizar uma classe.
+- Temos de especificar qual é a classe.
+- O memoizer não consegue memoizar classes automaticamente.
+
+Para resolver isto temos de especializar o Class Loader. O Class Loader do Javassist funciona da seguinte forma:
+
+```
+import javassist.*;
+import Foo;
+
+public class Main {
+    public static void main(String[] args) throws Throwable {
+        ClassPool pool = ClassPool.getDefault();
+        //Create Javassist class loader
+        Loader classLoader = new Loader(pool);
+        //Obtain the compile time class Foo
+        CtClass ctFoo = pool.get("Foo");
+        //Modify class Foo
+        ...
+        //Obtain the run time class Foo
+        Class rtFoo = classLoader.loadClass("Foo");
+        //Instantiate Foo
+        Object foo = rtFoo.newInstance();
+        ...
+    }
+}
+```
+
+É possível associar _Listeners_ ao Class Loader do Javassist. Os Listeners são notificados:
+- quando são adicionados ao Class Loader (method `start`)
+- quando a classe está prestes a ser loaded (method `onLoad`)
+
+Listeners implement interface javassist.Translator:
+```
+public interface Translator {
+    public void start(ClassPool pool) throws NotFoundException, CannotCompileException;
+    public void onLoad(ClassPool pool, String classname) throws NotFoundException, CannotCompileException;
+}
+```
+
+E ficamos com:
+
+```
+public class MyTranslator implements Translator {
+    void start(ClassPool pool) throws NotFoundException, CannotCompileException {
+        // Do nothing
+    }
+
+    void onLoad(ClassPool pool, String className) throws NotFoundException, CannotCompileException {
+        // Obtain the compile time class
+        CtClass ctClass = pool.get(className);
+        try {
+            memoizeMethods(ctClass);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }   
+        // That's all. The class will now be automatically
+        // loaded from the modified byte code
+    }
+
+    void memoizeMethods(CtClass ctClass) throws NotFoundException, CannotCompileException, ClassNotFoundException {
+        for (CtMethod ctMethod : ctClass.getDeclaredMethods()) {
+            Object[] annotations = ctMethod.getAnnotations();
+            if ((annotations.length == 1) && (annotations[0] instanceof Memoized)) {
+                memoize(ctClass, ctMethod);
+            }
+        }
+    }
+
+}
+```
+
+```
+public class MemoizeAndRun {
+    public static void main(String[] args) throws ... {
+        if (args.length < 1) {
+            ...
+        } 
+        else {
+            Translator translator = new MemoizeTranslator();
+            ClassPool pool = ClassPool.getDefault();
+            Loader classLoader = new Loader();
+            classLoader.addTranslator(pool, translator);
+            String[] restArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, restArgs, 0, restArgs.length);
+            classLoader.run(args[0], restArgs);
+        }
+    }
+}
+```
