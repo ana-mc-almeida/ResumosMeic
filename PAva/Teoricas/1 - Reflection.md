@@ -101,8 +101,6 @@ Regras relativas a nexted backquotes:
 
 ## memoize example
 
-TODO: Checkar wtf é aquele último `result` no código em "Depois de aplicar memoization"
-
 Por exemplo, a sequência de fibonacci, se for implementada recursivamente, tem time complexity O($2^n$). 
 
 ```
@@ -135,6 +133,7 @@ Para resolver isso usa-se memoization. Implementando essa tecnica em Emacs Lisp 
 )
 ```
 
+Nota: O `let` tem o seu primeiro argumento separador por dois parentenses porque esse argumento representa as bindings, é possível ter mais que uma binding<br>
 Depois de aplicar memoization:
 
 ```
@@ -158,6 +157,8 @@ Depois de aplicar memoization:
     )
 )
 ```
+
+O último result serve para retornar na mesma o valor de `fib`, para além de modificar o código.
 
 Depois de `(fib 0)`:
 
