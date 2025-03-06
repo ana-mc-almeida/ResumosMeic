@@ -612,3 +612,70 @@ public class MemoizeAndRun {
     }
 }
 ```
+
+## Intercession at Run Time
+
+O Javassist também nos permite criar novas classes em Run Time
+
+```
+ClassPool pool = ClassPool.getDefault();
+CtClass ctFoo = pool.makeClass("Foo");
+ctFoo.setSuperclass(...);
+...
+ctFoo.addField(...);
+...
+ctFoo.addMethod(...);
+...
+Class rtFoo = ctFoo.toClass();
+```
+
+Por exemplo, conseguimos criar um Evaluator
+
+```
+import javassist.*;
+import java.lang.reflect.*;
+
+public class Evaluator {
+    public static void main (String[] args) throws Exception {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass ctEvaluator = pool.makeClass("Eval");
+        String expression = args[0];
+        String template =
+            "public static double eval () { " +
+            " return ("+ expression +");" +
+            "},";
+        CtMethod ctMethod = CtNewMethod.make(template, ctEvaluator);
+        ctEvaluator.addMethod(ctMethod);
+        Class evaluator = ctEvaluator.toClass();
+        Method meth = evaluator.getDeclaredMethod("eval");
+        System.out.println(meth.invoke(null));
+    }
+}
+```
+
+A maior preocupação que temos de ter é usar o mesmo nome quando criamos o metodo (`template`) e quando o obtemos de volta (`meth`).
+
+Nesta versão temos o problema de que podemos apenas availar uma expressão de cada vez e as expressões não podem ter espaços, porque contariam como vários argumentos. Para resolver isso implementamos um REPL:
+
+```
+public static void main (String[] args) throws Exception {
+    ClassPool pool = ClassPool.getDefault();
+    BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    for(int i = 0; true; i++) {
+        System.out.print("> ");
+        String expression = input.readLine();
+        CtClass ctEvaluator = pool.makeClass("Eval" + i);
+        String template =
+            "public static double eval () { " +
+            " return ("+ expression +");" +
+            "},";
+        CtMethod ctMethod = CtNewMethod.make(template, ctEvaluator);
+        ctEvaluator.addMethod(ctMethod);
+        Class evaluator = ctEvaluator.toClass();
+        Method meth = evaluator.getDeclaredMethod("eval");
+        System.out.println(meth.invoke(null));
+    }
+}
+```
+
+Como não podemos modificar classes quando estamos na JVM, temos de criar uma nova classe, e para garantir que os nomes são diferentes criamos o nome com o index da execução com sufixo.
