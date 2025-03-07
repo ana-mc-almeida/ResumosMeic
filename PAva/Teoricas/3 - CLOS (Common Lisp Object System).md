@@ -205,3 +205,43 @@ For example:
 )
 ```
 
+# Classes
+
+```
+(defclass foo (bar baz)
+    ((slot1 :initform (fact 5)
+            :reader foo-slot1
+            :writer set-foo-slot1
+        )
+        (slot2 :type string
+            :initarg :slot2
+            :accessor foo-slot2
+        )
+        (slot3 :allocation :class)
+    )
+    (:default-initargs :slot2 "hi there")
+)
+
+(defmethod foo-slot1 ((obj foo))
+    (slot-value obj 'slot1)
+)
+
+(defmethod set-foo-slot1 ((obj foo) new-value)
+    (setf (slot-value obj 'slot1) new-value)
+)
+
+(defmethod foo-slot2 ((obj foo))
+    (slot-value obj 'slot2)
+)
+
+(defmethod (setf foo-slot2) (new-value (obj foo))
+    (setf (slot-value obj 'slot2) new-value)
+)
+```
+
+- Podemos ou não definir o tipo dos atributos.
+- Para dizermos que um atributo tem um getter usamos `:reader`.
+- Para dizermos que um atributo tem um setter usamos `:writer`.
+- Se quisermos dizer que tem um getter e setter podemos usar `:accessor`
+- Para inicializar argumentos temos de usar o formato acima.
+- Para instanciar um objeto da classe `foo` usamos `make-instance`. (Como se fosse o `new` em Java).
