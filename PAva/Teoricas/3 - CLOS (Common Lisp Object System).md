@@ -273,3 +273,88 @@ For example:
 - Python 2.2 (2001) f d b e a c
 - Python 2.3 (2003) f d e a b c
 
+### Meta Classes
+
+Classes are represented by instances of other classes.<br>
+A metaclass is a class whose instances are classes.<br>
+The metaclass of an object is the class of the class of the object.<br>
+
+- Determines the inheritance process that is used by the classes that are its instances.
+- Determines the representation of the instances of the classes that are its instances.
+- Determines the access to the slots of the instances of the classes that are its instances.
+
+<img src="Images/Metaclass Hierarchy.png">
+
+The t class does not have a superclass and is superclass of all classes except itself.<br>
+The standard-object class is a direct subclass of class t, is an instance of class standard-class and is superclass of all classes that are instances of standard-class except itself.
+
+Results of some tests:
+
+Metaclass `standard-class`:
+```
+> (defclass foo () ())
+#<STANDARD-CLASS FOO>
+> (make-instance 'foo)
+#<FOO @ #x717910a2>
+> (class-of (make-instance 'foo))
+#<STANDARD-CLASS FOO>
+> (class-of (class-of (make-instance 'foo)))
+#<STANDARD-CLASS STANDARD-CLASS>
+> (class-of (class-of (class-of (make-instance 'foo))))
+#<STANDARD-CLASS STANDARD-CLASS>
+```
+
+We get in a loop when we reach standard-class
+
+Metaclass `built-in-class`:
+```
+> (class-of 1)
+#<BUILT-IN-CLASS FIXNUM>
+> (class-of (class-of 1))
+#<STANDARD-CLASS BUILT-IN-CLASS>
+> (class-of (class-of (class-of 1)))
+#<STANDARD-CLASS STANDARD-CLASS>
+```
+
+Metaclass `forward-referenced-class`:
+```
+> (defclass bar (baz) ())
+#<STANDARD-CLASS BAR>
+> (setq bar-supers (class-direct-superclasses (find-class 'bar)))
+(#<FORWARD-REFERENCED-CLASS BAZ>)
+> (class-of (first bar-supers))
+#<STANDARD-CLASS FORWARD-REFERENCED-CLASS>
+> (defclass baz () ())
+#<STANDARD-CLASS BAZ>
+> bar-supers
+(#<STANDARD-CLASS BAZ>)
+```
+
+BAZ class is considered an instance of FORWARD REFERENCED CLASS when it was not defined yet.
+
+Function `change-class`:
+```
+> (setq foo-instance (make-instance 'foo))
+#<FOO @ #x717a0562>
+> (change-class foo-instance 'baz)
+#<BAZ @ #x717a0562>
+> foo-instance
+#<BAZ @ #x717a0562>
+```
+
+#### Obtain class:
+
+- From an object `foo`: `(class-of foo)`
+- From the name of a type `'bar`: `(find-class 'bar)`
+
+Example:
+```
+> (class-of "I am a string")
+#<BUILT-IN-CLASS STRING>
+> (find-class 'string)
+#<BUILT-IN-CLASS STRING>
+> (defclass foo () ())
+#<STANDARD-CLASS FOO>
+> (find-class 'foo)
+#<STANDARD-CLASS FOO>
+```
