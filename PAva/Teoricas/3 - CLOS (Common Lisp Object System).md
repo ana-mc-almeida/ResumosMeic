@@ -245,3 +245,31 @@ For example:
 - Se quisermos dizer que tem um getter e setter podemos usar `:accessor`
 - Para inicializar argumentos temos de usar o formato acima.
 - Para instanciar um objeto da classe `foo` usamos `make-instance`. (Como se fosse o `new` em Java).
+
+### Class Precedence List
+
+- Flavors:  Depth-first, from left to right, duplicates removed from the right (standard-object and t appended on the right).
+- Loops Identical but duplicates removed from the left. 
+- CLOS Topological sort of the inheritance graph using the local ordering of superclasses.
+
+#### Example
+
+```
+(defclass a () ())
+(defclass b () ())
+(defclass c () ())
+(defclass d (a b) ())
+(defclass e (a c) ())
+(defclass f (d e) ())
+```
+
+<img src="Images/Class Inheritance Graph.png">
+
+- Flavors (1980) f d a b e c
+- Loops (1986) f d b e a c
+- CLOS (1991) f d e a c b (as long as classes are on the same level in the graph their order doesn't matter)
+- Dylan (1996) f d e a b c (same as before but with an algorithm to have an order)
+- Python 2.1 (2001) f d a b e c
+- Python 2.2 (2001) f d b e a c
+- Python 2.3 (2003) f d e a b c
+
