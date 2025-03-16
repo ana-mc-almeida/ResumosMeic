@@ -358,3 +358,234 @@ Example:
 > (find-class 'foo)
 #<STANDARD-CLASS FOO>
 ```
+
+### `make-instance`
+
+The generic function `make-instance`:
+```
+(defgeneric make-instance (class &rest initargs))
+```
+
+Method specialization for symbols:
+```
+(defmethod make-instance ((class symbol) &rest initargs)
+    (apply #'make-instance (find-class class) initargs)
+)
+```
+
+Method specialization for classes:
+```
+(defmethod make-instance ((class class) &rest initargs)
+    (let ((instance (apply #'allocate-instance class initargs)))
+        (apply #'initialize-instance instance initargs)
+        instance
+    )
+)
+```
+
+Optimizer:
+```
+(define-compiler-macro make-instance (class-expr &rest init-exprs)
+    (if (and (consp class-expr) (eq (first class-expr) 'quote))
+        (make-instance->constructor-call (second class-expr) init-exprs)
+        ...
+    )
+)
+```
+
+### Slots
+
+The expression `(slot-value obj name)` returns the value of `name` in `obj`.
+  - If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'slot-value)`
+  - If the slot exists but is unbound, calls the generic function `slot-unbound`: `(slot-unbound (class-of obj) obj name)`
+
+The expression `(setf (slot-value obj name) new-value)` changes the value of slot `name` in `obj`.
+  - If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'setf new-value)`
+
+Resultados de alguns testes:
+```
+(defclass foo ()
+    ((slot1))
+)
+
+> (setq foo1 (make-instance 'foo))
+#<FOO @ #x716da0a2>
+> (setf (slot-value foo1 'slot1) 1) ;Updating slot1
+1
+> (setf (slot-value foo1 'slot2) 2) ;Error: slot2 does not exist!
+The slot SLOT2 is missing from the object #<FOO @ #x716da0a2> of class #<STANDARD-CLASS FOO> during operation SETF
+    [Condition of type PROGRAM-ERROR]
+
+Restarts:
+0: [TRY-AGAIN] Try accessing the slot again
+1: [USE-VALUE] Return a value
+2: [RETRY] Retry SLIME interactive evaluation request.
+3: [ABORT] Return to SLIME's top level.
+4: [ABORT] Abort entirely from this (lisp) process.
+```
+
+### Dynamic Objects
+
+```
+(defclass dynamic-object ()
+    ((extra-slots
+        :reader extra-slots
+        :initform (make-hash-table :test #'eq)
+        )
+    )
+)
+
+(defmethod slot-missing ((class t)
+        (object dynamic-object)
+        slot-name
+        operation
+        &optional new-value
+    )
+    (case operation
+        (slot-value
+            (gethash slot-name (extra-slots object))
+        )
+        (setf
+            (setf (gethash slot-name (extra-slots object)) 
+                new-value
+            )
+        )
+        (t (call-next-method))
+    )
+)
+```
+
+Results:
+```
+(defclass foo (dynamic-object)          ;Redefining class foo...
+    ((slot1))
+)
+
+> (slot-value foo1 'slot1)              ;...but keeping old instances alive
+1
+> (setf (slot-value foo1 'slot2) 2)     ;Now, the slot exists...
+2
+> (slot-value foo1 'slot2)              ;...and it keeps its value
+2
+> (slot-value foo1 'slot3)
+NIL                                     ;Humm, we should improve this
+```
+
+We should not return a value for "missing" slots that are not present in the set of extra slots.
+
+
+Improving it we get:
+```
+(defmethod slot-missing ((class t)
+        (object dynamic-object)
+        slot-name
+        operation
+        &optional new-value
+    )
+    (case operation
+        (slot-value
+            (multiple-value-bind (value found?)
+                (gethash slot-name (extra-slots object))
+                (if found?
+                    value
+                    (slot-unbound class object slot-name)
+                )
+            )
+        )
+        (setf
+            (setf (gethash slot-name (extra-slots object))
+                new-value
+            )
+        )
+        (slot-boundp
+            (nth-value 1 (gethash slot-name (extra-slots object)))
+        )
+        (slot-makunbound
+            (remhash slot-name (extra-slots object))
+        )
+    )
+)
+```
+
+Results:
+```
+> (slot-value foo1 'slot1)          ;A 'normal' slot
+1
+> (slot-value foo1 'slot2)          ;An 'added' slot
+2
+> (slot-value foo1 'slot3)          ;A slot without an assigned value
+The slot SLOT3 is unbound in the object #<FOO @ #x714a1f0a> of class #<STANDARD-CLASS FOO>.
+    [Condition of type UNBOUND-SLOT]
+
+Restarts:
+0: [TRY-AGAIN] Try accessing the slot again
+1: [USE-VALUE] Return a value
+2: [STORE-VALUE] Store a value and return it
+3: [RETRY] Retry SLIME interactive evaluation request.
+4: [ABORT] Return to SLIME's top level.
+5: [ABORT] Abort entirely from this (lisp) process.
+
+> (setq foo2 (make-instance 'foo))  ;A new instance
+#<FOO @ #x71648d6a>
+> (* (slot-value foo2 'slot1) 2)    ;Error: slot1 is unbound in foo2
+The slot SLOT1 is unbound in the object #<FOO @ #x7161dfaa> of class #<STANDARD-CLASS FOO>.
+    [Condition of type UNBOUND-SLOT]
+
+Restarts:
+0: [TRY-AGAIN] Try accessing the slot again
+1: [USE-VALUE] Return a value
+2: [STORE-VALUE] Store a value and return it
+3: [RETRY] Retry SLIME interactive evaluation request.
+4: [ABORT] Return to SLIME's top level.
+5: [ABORT] Abort entirely from this (lisp) process.
+
+:C 2                                ;Choose option 2: [STORE-VALUE]
+enter expression which will evaluate to a value to use: 25
+50
+CL-USER> (slot-value foo2 'slot1)
+25
+```
+
+`slot-value` and `(setf slot-value)` are functions, but not generic functions.<br>
+In all implementations that include the MOP (all of them, in practice), they call the generic functions `slot-value-using-class` and `(setf slot-value-using-class)`
+
+The (non-generic) function `slot-value`:
+```
+(defun slot-value (object slot-name)
+    (let* ((class (class-of object))
+        (slot-definition (find-slot-definition class slot-name)))
+        (if (null slot-definition)
+            (slot-missing class object slot-name 'slot-value)
+            (slot-value-using-class class object slot-definition)
+        )
+    )
+)
+```
+
+The Generic Function `slot-value-using-class`:
+```
+(defmethod slot-value-using-class ((class standard-class)
+                                    (object standard-object)
+                                    (slotdef standard-effective-slot-definition)
+                                  )
+    (if ...
+        (slot-unbound class object (slot-definition-name slotdef))
+        ...
+    )
+)
+```
+
+The Generic Function `slot-unbound`:
+```
+(defmethod slot-unbound ((class t) instance slot-name)
+    (restart-case
+        (error 'unbound-slot :name slot-name :instance instance)
+        (use-value (value)
+            ...
+        )
+        (store-value (new-value)
+            ...
+        )
+    )
+)
+```
