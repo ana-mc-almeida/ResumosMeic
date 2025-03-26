@@ -990,6 +990,637 @@ fact(5) = 120
 42875
 ```
 
-It is usual to consider that every function body, every let body, and every flet body has an implicit begin form. By wrapping the list of forms in a begin form we automatically transform the list into a single expression. This expression will be evaluated sequentially. To implement the implicit begin, we have to modify the selectors that return the body of a let, the body of a flet and the body of a function.
+It is usual to consider that every function body, every let body, and every flet body has an implicit begin form. By wrapping the list of forms in a begin form we automatically transform the list into a single expression. This expression will be evaluated sequentially. To implement the implicit begin, we have to modify the selectors that return the body of a `let`, the body of a `flet` and the body of a `function`.
 
-Até ao slide 345
+```
+(define (let-body exp)
+    (caddr exp)
+)
+
+(define (let-body exp)
+    (caddr exp)
+)
+
+(define (function-body func)
+    (caddr func)
+)
+
+(define (make-begin expressions)
+    (cons 'begin expressions)
+)
+```
+
+Namespaces:
+- Java has namespaces for types, for constructors, for methods, for fields and variables, for labels, etc.
+- C has a different namespace for structs, but a single namespace for functions and variables.
+- Scheme has a single namespace: each name has just one meaning in each context.
+- A Lisp-2 is a Lisp that has one namespace for functions and another namespace for variables.
+- A Lisp-1 is a Lisp that has a single namespace where a name either represents a function or a variable but not both.
+- Let's modify our evaluator to implement Lisp-2 semantics:
+    - Create a different namespace for functions.
+    - Each function definition is placed in the function namespace.
+    - Each function call accesses the function namespace.
+- Our namespace for functions will be implemented using hidden naming conventions, but we could use more sophisticated (and efficient) approaches.
+
+```
+(define (in-function-namespace name)
+    (string->symbol
+        (string-append
+            "%function-"
+            (symbol->string name)
+        )
+    )
+)
+
+# flet
+(define (flet-names exp)
+    (map car (cadr exp))
+)
+
+(define (flet-names exp)
+    (map in-function-namespace
+        (map car (cadr exp))
+    )
+)
+
+(define (fdef-name exp)
+    (cadr exp)
+)
+
+(define (fdef-name exp)
+    (in-function-namespace (cadr exp))
+)
+
+# function call
+(define (call-operator exp)
+    (car exp)
+)
+
+(define (call-operator exp)
+    (in-function-namespace (car exp))
+)
+
+# initial bindings
+(define initial-bindings
+    (list (cons 'pi 3.14159)
+        ...
+        (cons (in-function-namespace '+) (make-primitive +))
+        (cons (in-function-namespace '*) (make-primitive *))
+        (cons (in-function-namespace '-) (make-primitive -))
+        (cons (in-function-namespace '/) (make-primitive /))
+        (cons (in-function-namespace '=) (make-primitive =))
+        (cons (in-function-namespace '<) (make-primitive <))
+        (cons (in-function-namespace '>) (make-primitive >))
+        (cons (in-function-namespace '<=) (make-primitive <=))
+        (cons (in-function-namespace '>=) (make-primitive >=))
+        ...
+        (cons (in-function-namespace 'read) (make-primitive read))
+    )
+)
+```
+
+Lisp-2 and Higher-Order Functions example:
+```
+>>  (fdef reflexive-operation (f x)
+        (f x x)
+    )
+(function (f x) (f x x))
+>>  (reflexive-operation + 3)
+error in "Unbound name -- EVAL-NAME": +
+```
+
+In a Lisp-2, a name that is not in function call position is always treated as not belonging to the function namespace. We need extra syntax to allow a name to be treated as belonging to the function namespace. We will use the form `(function +)`. If we allow changing the reader, we might even treat `#'foo` as an abbreviation for `(function foo)`.
+
+```
+(define (function-reference? exp)
+    (and (pair? exp) 
+        (eq? (car exp) 'function)
+    )
+)
+
+(define (function-reference-name exp)
+    (cadr exp)
+)
+
+(define (eval-function-reference exp env)
+    (eval (in-function-namespace (function-reference-name exp))
+        env
+    )
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((name? exp)
+        (eval-name exp env))
+        ((function-reference? exp)
+        (eval-function-reference exp env))
+        ...
+        (else
+        (error "Unknown expression type -- EVAL" exp))
+    )
+)
+```
+
+Now:
+```
+>>  (fdef reflexive-operation (f x)
+        (f x x)
+    )
+(function (f x) (f x x))
+>>  (reflexive-operation (function +) 3)
+error in "Unbound name -- EVAL-NAME": %function-f
+```
+
+In a Lisp-2, a name that is in function call position is always treated as belonging to the function namespace. We need extra syntax to allow a name to be treated as not belonging to the function amespace. We will use the form `(funcall f ...)`
+
+```
+(define (funcall? exp)
+    (and (pair? exp) 
+        (eq? (car exp) 'funcall)
+    )
+)
+
+(define (funcall-operator exp)
+    (cadr exp)
+)
+
+(define (funcall-operands exp)
+    (cddr exp)
+)
+
+(define (eval-funcall exp env)
+    (let ((func (eval-name (funcall-operator exp) env))
+            (args (eval-exprs (funcall-operands exp) env))
+        )
+        (if (primitive? func)
+            (apply-primitive-function func args)
+            (let ((extended-environment
+                    (augment-environment (function-parameters func)
+                        args
+                        env
+                    )
+                ))
+                (eval (function-body func) extended-environment)
+            )
+        )
+    )
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((name? exp)
+            (eval-name exp env)
+        )
+        ((function-reference? exp)
+            (eval-function-reference exp env)
+        )
+        ((funcall? exp)
+            (eval-funcall exp env)                      # <- Aqui
+        )
+        ((if? exp)
+            (eval-if exp env)
+        )
+        ((let? exp)
+            (eval-let exp env)
+        )
+        ((flet? exp)
+            (eval-flet exp env)
+        )
+        ...
+        ((call? exp)
+            (eval-call exp env)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+```
+
+## Accumulation
+
+```
+(fdef sum (f a b)
+    (if (> a b)
+        0
+        (+ (funcall f a)
+            (sum f (+ a 1) b)
+        )
+    )
+)
+
+
+(fdef product (f a b)
+    (if (> a b)
+        1
+        (* (funcall f a)
+            (product f (+ a 1) b)
+        )
+    )
+)
+```
+
+Sums and products are so identical that it is possible to abstract them using additional (functional) parameters.
+
+```
+(fdef accumulate (combiner neutral f a b)
+    (if (> a b)
+        neutral
+        (funcall combiner
+            (funcall f a)
+            (accumulate combiner neutral f (+ a 1) b)
+        )
+    )
+)
+```
+
+Functional programming in a Lisp-2 tends to spread `funcall` and `function` all over the code. This makes the code hard to read.
+
+
+Accumulation (in a Lisp-1):
+```
+(fdef accumulate (combiner neutral f a b)
+    (if (> a b)
+        neutral
+        (combiner
+            (f a)
+            (accumulate combiner neutral f (+ a 1) b)
+        )
+    )
+)
+```
+
+Functional programming in a Lisp-1 looks much better (at the price of loosing homonyms). Let's change our evaluator to become a Lisp-1.
+
+Em Lisp-2 tinhamos:
+```
+(define (in-function-namespace name)
+    (string->symbol
+        (string-append
+            "%function-"
+            (symbol->string name)
+        )
+    )
+)
+```
+
+Em Lisp-1:
+```
+(define (in-function-namespace name)
+    name
+)
+```
+
+Para simplificar também podemos:
+- Drop `function` (and `function-reference?`, `function-reference-name`, `eval-function-reference`).
+- Drop `funcall` (and `funcall?`, `funcall-operator`, `funcall-operands`, `eval-funcall`).
+- Drop `in-function-namespace`.
+
+Example:
+```
+>> (fdef next (i)
+(if (< i 0)
+(- i 1)
+(+ i 1)))
+(function (i) ...)
+>>  (fdef next (i)
+        ((if (< i 0) - +) i 1)
+    )
+(function (i) ...)
+>>  (next 3)
+error in "Unbound name -- EVAL-NAME": (if (< i 0) - +)
+```
+
+We were expecting to see a name in the operator position, but we now have an expression there. Let's generalize the treatment of the operator.
+
+Antes:
+```
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((name? exp)
+            (eval-name exp env)
+        )
+        ...
+        ((call? exp)
+            (eval-call exp env)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-call exp env)
+    (let ((func (eval-name (call-operator exp) env))
+            (args (eval-exprs (call-operands exp) env))
+        )
+        (if (primitive? func)
+            (apply-primitive-function func args)
+            (let ((extended-environment
+                    (augment-environment (function-parameters func)
+                        args
+                        env
+                    )
+                ))
+                (eval (function-body func) extended-environment)
+            )
+        )
+    )
+)
+```
+
+Depois:
+```
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((name? exp)
+            (eval-name exp env)
+        )
+        ...
+        ((call? exp)
+            (eval-call exp env)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-call exp env)
+    (let ((func (eval (call-operator exp) env))             # <- Aqui
+            (args (eval-exprs (call-operands exp) env))
+        )
+        (if (primitive? func)
+            (apply-primitive-function func args)
+            (let ((extended-environment
+                    (augment-environment (function-parameters func)
+                        args
+                        env
+                    )
+                ))
+                (eval (function-body func) extended-environment)
+            )
+        )
+    )
+)
+```
+
+## Anonymous functions
+
+Named Functions
+```
+(fdef approx-pi (n)
+    (flet ((term (i) (/ (expt -1.0 i) (+ (* 2 i) 1))))
+        (* 4 
+            (sum term 0 n)
+        )
+    )
+)
+```
+
+Anonymous Functions
+```
+(fdef approx-pi (n)
+    (* 4 
+        (sum (lambda (i) (/ (expt -1.0 i) (+ (* 2 i) 1)))
+            0 
+            n
+        )
+    )
+)
+```
+
+A lambda form evaluates to a function without requiring an explicit name for the function. The function is anonymous.
+
+```
+(define (lambda? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'lambda)
+    )
+)
+
+(define (lambda-parameters exp)
+    (cadr exp)
+)
+
+(define (lambda-body exp)
+    (cddr exp)
+)
+
+(define (eval-lambda exp env)
+    (make-function (lambda-parameters exp)
+        (lambda-body exp)
+    )
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((name? exp)
+            (eval-name exp env)
+        )
+        ((lambda? exp)
+            (eval-lambda exp env)
+        )
+        ((if? exp)
+            (eval-if exp env)
+        )
+        ((let? exp)
+            (eval-let exp env)
+        )
+        ((flet? exp)
+            (eval-flet exp env)
+        )
+        ((def? exp)
+            (eval-def exp env)
+        )
+        ((set? exp)
+            (eval-set exp env)
+        )
+        ((fdef? exp)
+            (eval-fdef exp env)
+        )
+        ...
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+```
+
+- A `def form` associates a name to the evaluation of a form, e.g., `(def foo (* 2 2))`.
+- A `fdef form` associates a name to a function, e.g., `(fdef square (x) (* x x))`.
+- A `lambda form` evaluates to a function, e.g., `(lambda (x) (* x x))`
+
+Thus, we have the following equivalence: `(fdef square (x) (* x x)) = (def square (lambda (x) (* x x)))`. Or, in more abstract terms: $fdef = def + lambda$. The same equivalence occurs with $flet = let + lambda$. and with $let = lambda + function call$
+
+Example $let = lambda + function call$:
+
+From:
+```
+(let ((x (+ 1 2))
+        (y (* 2 3))
+    )
+    (- x y)
+)
+```
+
+To:
+```
+((lambda (x y)
+        (- x y)
+    )
+    (+ 1 2)
+    (* 2 3)
+)
+```
+
+## Second order sum
+
+$$\sum\limits^1_{x=-1} 10x^2 +5x = (10 - 5) + 0 + (10 + 5) = 20$$
+
+```
+>>  (fdef sum (f a b)
+        (if (> a b)
+            0
+            (+ (f a)
+                (sum f (+ a 1) b)
+            )
+        )
+    )
+(function (f a b) ...)
+
+>>  (fdef second-order-sum (a b c i0 i1)
+        (sum (lambda (x)
+                (+ (* a x x) (* b x) c)
+            )
+            i0 i1
+        )
+    )
+(function (a b c i0 i1) ...)
+
+>>  (second-order-sum 10 5 0 -1 +1)
+0                                   # What???
+```
+
+So far, we didn't think carefully about the scope of our binding constructs:
+- A def form creates a binding in the current environment.
+- A function call creates a set of bindings (for the parameters) that extends the current environment.
+- At the end of the call, the extended environment is discarded.
+
+A name is resolved by searching the current environment. This scoping discipline is called dynamic scope. In dynamic scope, the environment grows and shrinks in parallel with the call stack.
+
+## Scopes
+
+### Downwards Funarg Problem
+
+Passing a function with free variables as argument causes the downwards funarg problem where the function is called in an environment where the free variables might be shadowed by other variables of the calling context.
+
+Solution: Functions must know the correct environment for resolving the free variables.<br>
+
+One potential solution might be to use name-mangling techniques to avoid name clashes. Isto é, usar nomes super esquisitos que mais ninguém vá usar. Mas isso traz problemas: 
+- It makes the code hard to read.
+- It doesn't really solve the problem, porque quando metemos funções com parametros com nomes esquisitos a chamar outras funções com parametros com nomes esquisitos vamos voltar a ter colisões.
+
+The correct solution is to associate the downward function to the scope where the function was created. That scope is still active when the passed function is called unless it is possible to store the function somewhere and call it later. Some languages solve this last problem by restricting the language - Pascal forbids storing functions in variables. and C forbids inner functions.
+
+Other languages (e.g., Scheme, Haskel, Common Lisp) implement environments with indefinite extent.
+
+# Upwards Funarg Problem
+
+```
+>>  (fdef compose (f g)
+        (lambda (x)
+            (f (g x))
+        )
+    )
+(function (f g) ...)
+
+>> (fdef foo (x) (+ x 5))
+(function (x) (+ x 5))
+
+>> (fdef bar (x) (* x 3))
+(function (x) (* x 3))
+
+>> (def foobar (compose foo bar))
+(function (x) (f (g x)))
+
+>> (foobar 2)
+error in "Unbound name -- EVAL-NAME": f
+```
+
+Returning a function with free variables as result causes the upwards funarg problem where the function is called in an environment where the free variables are not longer bound (or are bound to different values). 
+
+Some languages avoid the upwards funarg problem by restricting the language - Pascal forbids functional returns, C forbids inner functions, Java forbids non-final free variables in anonymous inner classes and other languages (e.g., Scheme, Haskel, Common Lisp) implement environments with indefinite extent.
+
+```
+(define (make-function parameters body env)     # <- Added evn
+    (cons 'function
+        (cons parameters
+            (cons env                           # <- Added evn
+                body
+            )
+        )
+    )
+)
+
+(define (function? obj)
+    (and (pair? obj)
+        (eq? (car obj) 'function)
+    )
+)
+
+(define (function-parameters func)
+    (cadr func)
+)
+
+(define (function-body func)
+    (make-begin (cdddr func))
+)
+
+(define (function-environment func)             # <- Novo
+    (caddr func)
+)
+
+(define (eval-lambda exp env)                   # <- Added evn
+    (make-function (lambda-parameters exp)
+        (lambda-body exp)
+        env                                     # <- Added evn
+    )
+)
+
+(define (eval-call exp env)
+    (let ((func (eval (call-operator exp) env))
+            (args (eval-exprs (call-operands exp) env))
+        )
+        (if (primitive? func)
+            (apply-primitive-function func args)
+            (let ((extended-environment
+                    (augment-environment (function-parameters func)
+                        args
+                        (function-environment func)                     # Aqui vamos buscar o env da func em vez de usar o global env
+                    )
+                ))
+                (eval (function-body func) extended-environment)
+            )
+        )
+    )
+)
+```
+
+## Recursive functions
+
+```
+>>  (flet ((fact (n)
+            (if (= n 0)
+                1
+                (* n (fact (- n 1)))
+            ))
+        )
+        (fact 3)
+    )
+error in "Unbound name -- EVAL-NAME": fact
+```
+
+Antes funcionanva, mas agora `flet` creates a function and establishes a scope where a name is bound to that function. But the function is created outside that scope. As a result, the function cannot refer itself.
+
+Até ao slide 576
