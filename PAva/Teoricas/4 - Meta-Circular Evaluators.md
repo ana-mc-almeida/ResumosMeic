@@ -1623,4 +1623,333 @@ error in "Unbound name -- EVAL-NAME": fact
 
 Antes funcionanva, mas agora `flet` creates a function and establishes a scope where a name is bound to that function. But the function is created outside that scope. As a result, the function cannot refer itself.
 
-Até ao slide 576
+A solução do Lisp para este problema é: 
+1. Creates the scope for the function name (temporarily binding it to some value). 
+2. Creates the function inside that scope. 
+3. Modifies the binding of the function name to point to the function.
+
+A solução do Scheme é:
+1. Creates an empty scope.
+2. Creates the function inside that scope.
+3. Modifies the scope, adding a new binding from the function name to the function.
+
+## Data Structures
+
+Vamos adicionar Pairs ao nosso Evaluator:
+
+```
+(define initial-bindings
+    (list (cons 'pi 3.14159)
+        ...
+        (cons '> (make-primitive >))
+        (cons '<= (make-primitive <=))
+        (cons '>= (make-primitive >=))
+        (cons 'display (make-primitive display))
+        (cons 'newline (make-primitive newline))
+        (cons 'read (make-primitive read))
+        (cons 'list (make-primitive list))
+        (cons 'cons (make-primitive cons))
+        (cons 'car (make-primitive car))
+        (cons 'cdr (make-primitive cdr))
+        (cons 'pair? (make-primitive pair?))
+        (cons 'null? (make-primitive null?))
+    )
+)
+```
+
+E já agora podemos fazer listas:
+```
+>>  (fdef caar (p) (car (car p)))
+(function (p) ...)
+>>  (fdef cadr (p) (car (cdr p)))
+(function (p) ...)
+>>  (fdef map (f l)
+        (if (null? l)
+            (list)
+            (cons (f (car l))
+                (map f (cdr l))
+            )
+        )
+    )
+(function (f l) ...)
+>>  (map (lambda (x) (* x x x)) (list 1 2 3 4 5 6))
+(1 8 27 64 125 216)
+>>  (fdef append (l0 l1)
+        (if (null? l0)
+            l1
+            (cons (car l0)
+                (append (cdr l0) l1)
+            )
+        )
+    )
+(function (l0 l1) ...)
+>>  (append (list 1 2 3) (list 4 5 6))
+(1 2 3 4 5 6)
+```
+
+## Symbols
+
+Podemos usar simbolos com listas para representar conceitos mais complexos. Vamos usar `eq?` para comparar simbolos.
+
+```
+(define initial-bindings
+    (list (cons 'pi 3.14159)
+        ...
+        (cons 'null? (make-primitive null?))
+        (cons 'eq? (make-primitive eq?))
+    )
+)
+```
+
+Vamos usar o quote para termos simbolos que não é suposto serem avaliados. Vamos abreviar `(quote foo)` para `'foo`.
+
+```
+(define (quote? exp)
+(and (pair? exp)
+(eq? (car exp) 'quote)))
+(define (quoted-form exp)
+(cadr exp))
+(define (eval-quote exp env)
+(quoted-form exp))
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((quote? exp)
+            (eval-quote exp env)
+        )
+        ((name? exp)
+            (eval-name exp env)
+        )
+        ...
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+```
+
+## Macros
+
+Vamos tentar criar o operador and:
+
+```
+>>  (fdef and (b0 b1)
+        (if b0
+            b1
+            #f
+        )
+    )
+(function (b0 b1) ...)
+
+>>  (fdef quotient-or-false (a b)
+        (and (not (= b 0))
+            (/ a b)
+        )
+    )
+(function (a b) ...)
+
+>> (quotient-or-false 6 2)
+3
+
+>> (quotient-or-false 6 0)
+error in /: undefined for 0
+```
+
+Isto acontece porque function calls evaluate all their arguments but `and` requires short-circuit evaluation. Vamos ter de recorrer a macros:
+
+1. Receives syntactical forms as arguments.
+2. Computes a syntactical form as result (the macro expansion).
+3. The computed form is evaluated in place of the macro call.
+
+A function call evaluates the arguments and computes a result that is not evaluated. A macro call does not evaluate the arguments and computes a result that is evaluated:
+```
+>>  (fdef f-foo (x)
+        (display x)
+        (newline)
+        x
+    )
+(function (x) ...)
+
+>>  (mdef m-foo (x)
+        (display x)
+        (newline)
+        x
+    )
+(function (x) ...)
+
+>> (f-foo (+ 1 2))
+3
+3
+
+>> (m-foo (+ 1 2))
+(+ 1 2)
+3
+
+
+>>  (fdef f-bar ()
+        (list '+
+            '1
+            '2
+        )
+    )
+(function () ...)
+
+>>  (mdef m-bar ()
+        (list '+
+            '1
+            '2
+        )
+    )
+(function () ...)
+
+>> (f-bar)
+(+ 1 2)
+
+>> (m-bar)
+3
+```
+
+A macro is a function but is called differently. We will implement macros simply as tagged functions. In a call, we first check whether the function contains the tag.
+
+```
+(define (mdef? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'mdef)
+    )
+)
+
+(define (eval-mdef exp env)
+    (eval `(def ,(cadr exp)
+            (lambda ,(caddr exp) "macro" ,@(cdddr exp))
+        )
+        env
+    )
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ...
+        ((fdef? exp)
+            (eval-fdef exp env)
+        )
+        ((mdef? exp)
+            (eval-mdef exp env)
+        )
+        ((begin? exp)
+            (eval-begin exp env)
+        )
+        ((call? exp)
+            (eval-call exp env)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-call exp env)
+    (let ((func (eval (call-operator exp) env)))
+        (if (macro? func)
+            (let ((expansion (apply-function func (call-operands exp))))
+                (eval expansion env)
+            )
+            (apply-function func (eval-exprs (call-operands exp) env))
+        )
+    )
+)
+
+(define (macro? obj)
+    (and (function? obj)
+        (equal? (cadr (function-body obj)) "macro")
+    )
+)
+```
+
+Macro Calls don't evaluate the operands. Evaluate the returned value (in the current environment).
+
+From:
+```
+(and (not (= b 0))
+    (/ a b)
+)
+```
+
+To:
+```
+(if (not (= b 0))
+    (/ a b)
+    #f
+)
+```
+
+Transformation:
+```
+(mdef and (b0 b1)
+    (list 'if
+        b0
+        b1
+        '#f
+    )
+)
+```
+
+Example:
+```
+>>  (fdef quotient-or-zero (a b)
+        (or (and (not (= b 0))
+            (/ a b))
+            0
+        )
+    )
+(function (a b) ...)
+
+>>  (quotient-or-zero 6 2)
+3
+
+>>  (quotient-or-zero 6 0)
+0
+
+>>  (fdef quotient-or-zero (a b)
+        (or (begin
+                (display "Division:")
+                (and (not (= b 0))
+                    (/ a b)
+                )
+            )
+            0
+        )
+    )
+(function (a b) ...)
+
+>> (quotient-or-zero 6 0)
+Division:0
+
+>> (quotient-or-zero 6 2)
+Division:Division:3                     # What?
+```
+
+Macro Problems:
+- Macro calls do not evaluate their arguments.
+- Macro expansions might have multiple occurrences of the same parameter.
+- Thus, macro expansions might have multiple occurrences of a form that was passed as argument to the macro call.
+
+Solution:
+- Never repeat a parameter in a macro expansion.
+- If necessary, expand into a binding form that binds a local variable to that parameter and reuse the local variable in the expanded code.
+
+Mas isto volta a trazer o problema de que Macro calls accept forms as arguments and those forms might (will) have free variables. When the macro expands into binding forms, the created scope will shadow some of those free variables.
+
+Para resolver isto temos a opção de name mangling que nunca resolve nada na verdade. Também podemos usar `gensyms`. `gensym` returns a symbol that is guaranted to be unique.
+
+```
+(define initial-bindings
+    (list ...
+        (cons 'eq? (make-primitive eq?))
+        (cons 'gensym (make-primitive gensym))
+    )
+)
+```
+
+Gensyms solve the problem of macro-expansions that include binding forms (e.g., lets). But they do nothing to solve the problem of macro-expansions that have free variables. This is the reverse of the problem of higher-order functions in dynamically scoped languages.
+
+Até 766
