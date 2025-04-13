@@ -1952,4 +1952,637 @@ Para resolver isto temos a opção de name mangling que nunca resolve nada na ve
 
 Gensyms solve the problem of macro-expansions that include binding forms (e.g., lets). But they do nothing to solve the problem of macro-expansions that have free variables. This is the reverse of the problem of higher-order functions in dynamically scoped languages.
 
-Até 766
+Mas a melhor solução é usar hygienic macros que in a lexically scoped language, functions capture the surrounding environment. The macro call expands into a function call that protects the "expanded" code from being evaluated in the scope of the macro call. The parameters are wrapped in lambdas that protect the macro arguments from being evaluated in any scope created by the macro expansion.
+
+## Templates
+
+In most cases, the macro expansion can be described by a template of code. To be flexible, a template must allow for some parts of it to be replaced with values computed at expansion time.
+- `(quasiquote foo)` can be abbreviated as `foo.
+- `(unquote foo)` can be abbreviated as `,foo`.
+- `(unquote-splicing foo)` can be abbreviated as `,@foo`.
+- `(x ,x) = (list 'x x)
+- `(x ,x ,@x) = (append (list 'x) (list x) x)
+
+```
+(define (quasiquote? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'quasiquote)
+    )
+)
+
+(define (quasiquoted-form exp)
+    (cadr exp)
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ((quote? exp)
+            (eval-quote exp env)
+        )
+        ((quasiquote? exp)
+            (eval-quasiquote exp env)
+        )
+        ...
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-quasiquote exp env)
+    (eval (expand (quasiquoted-form exp)) env)
+)
+
+(define (expand form)
+    (cond (
+        (not (pair? form))
+            (list 'quote form)
+        )
+        ((eq? (car form) 'unquote)
+            (cadr form)
+        )
+        ((eq? (car form) 'quasiquote)
+            (expand (cadr form))
+        )
+        (else
+            (expand-list form)
+        )
+    )
+)
+
+(define (splicing? form)
+    (and (pair? form)
+        (or (and (pair? (car form))
+                (eq? (caar form) 'unquote-splicing))
+                (splicing? (cdr form))
+        )
+    )
+)
+
+(define (expand-list form)
+    (if (splicing? form)
+        (cons 'append
+            (map (lambda (subform)
+                    (if (and (pair? subform)
+                            (eq? (car subform) 'unquote-splicing)
+                        )
+                        (cadr subform)
+                        (list 'list (expand subform))
+                    )
+                )
+                form
+            )
+        )
+        (cons 'list (map expand form))
+    )
+)
+```
+
+# Meta circularidade
+
+Se criarmos uma macro `define` na nossa linguagem PAva, vamos estar a usar o `def` que está já definido no evaluator de PAva e por sua vez vamos estar a usar o `define` que vem do Scheme. 
+
+Para além disso também se quisermos oferecer capacidades eval, temos de criar um evaluator. A solução mais simples é usar o evaluator como input do evaluator. Mas a melhor solução é usar o evaluator como uma primite operation. Para isto também precisamos de reificar o current environment.
+
+```
+(define (current-environment? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'current-environment)
+    )
+)
+
+(define (eval exp env)
+    (cond ((self-evaluating? exp) exp)
+        ...
+        ((current-environment? exp) env)
+        ((call? exp)
+            (eval-call exp env)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define initial-bindings
+    (list (cons '+ (make-primitive +))
+        ...
+        (cons 'eval (make-primitive eval))
+    )
+)
+```
+
+E assim até podemos criar pairs (`kons`, `kar`, `kdr`) e classes. Até é possível enviar diferentes mensagens para diferentes mensagens, em que a "mensagem" é a execução de um programa.
+
+# Continuations
+
+There are operations whose semantics is difficult to express in the "usual" computational model:
+- `error`
+- `throw`
+- `yield`
+- `suspend`
+
+These operations seem to violate the semantics of function calls because either they don't return to the caller (error, throw) or they allow a function to resume its computation after returning (yield, suspend). We need a different computational model that allows these operations.
+
+```C
+char *ptr = malloc(2000000000UL);
+
+if (ptr == NULL) {
+    /* allocation failed, but what can I do? */
+} else {
+    ...
+}
+```
+
+Some languages (e.g., C) use unusual values as errors (a negative number when a positive number is expected, NULL when a pointer is expected, etc). Each caller in the call chain that caused the error must check the return of the called function. This is not practical.
+
+Some languages (e.g., C++) allow non-local transfers of control. The throw statement transfers control to the most recent try-catch statement that handles it. This is practical.
+
+### Handling Errors
+
+It is generally difficult to handle exceptional situations in the callee. Each callee can be called from many different places. The callee rarely knows how to handle exceptional situations in a
+way that pleases all callers. Non-local transfers of control allow the callee to signal that an exceptional situation ocurred and the control is transfered to the most recent handler established in the call chain.
+
+### Continuations
+
+During a function call, the caller must wait for the callee to finish its computation and return a value. After the return of the callee, the caller proceeds with its computation. This computation is the continuation of the call. The continuation of the call is whatever remains to be done after the return from the call. In most high-level languages, the continuation is implicitly stored in a stack. In languages with first-class (and higher-order) functions, the continuation can be explicitly represented with functions.
+
+Assim podemos transformar:
+
+```
+(define (mystery a b c d e)
+    (+ a (* b (/ (- c d) e)))
+)
+```
+
+em 
+
+```
+(define (mystery a b c d e)
+    (
+        (λ (r0) (
+                (λ (r1) (
+                        (λ (r2) (
+                                (λ (r3) r3)
+                                (+ a r2)
+                            )
+                        )
+                        (* b r1)
+                    )
+                )
+                (/ r0 e)
+            )
+        )
+        (- c d)
+    )
+)
+```
+
+To simplify the program, we will define functions that call the continuation with the value of the numeric operation.
+
+```
+(define (+c x y cont)
+    (cont (+ x y))
+)
+
+(define (-c x y cont)
+    (cont (- x y))
+)
+
+(define (*c x y cont)
+    (cont (* x y))
+)
+
+(define (/c x y cont)
+    (cont (/ x y))
+)
+
+(define (mystery a b c d e)
+    (-c c d
+        (λ (r0) 
+            (/c r0 e
+                (λ (r1) 
+                    (*c b r1
+                        (λ (r2) 
+                            (+c a r2
+                                (λ (r3) r3)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+```
+
+Each function now accepts an explicit continuation. In order to "return", the function calls the continuation. A "normal" function call always returns to its caller because the continuation is implicit. When the continuation is explicit, it is possible to not call it, i.e., it is possible to not return to its caller.
+
+Exemplo:
+```
+(define (mystery a b c d e)
+    (-c c d
+        (λ (r0) 
+            (/c r0 e
+                (λ (r1) 
+                    (*c b r1
+                        (λ (r2) 
+                            (+c a r2
+                                (λ (r3) r3)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+
+(define (/c x y cont)
+    (if (= y 0)
+        (error "Can't divide " (list x y))
+        (cont (/ x y))
+    )
+)
+
+(define (error msg args)
+    (display msg)
+    (display args)
+)
+
+>>  (mystery 5 4 3 2 1)
+9
+
+>>  (mystery 4 3 2 1 0)
+Can't divide (1 0)
+
+>>  (+ 1 (mystery 5 4 3 2 1))
+10
+
+>>  (+ 1 (mystery 4 3 2 1 0))
+ERROR                           # and the evaluator stops!!!!
+```
+
+We converted the primitive operations to use explicit continuations. But we didn't convert the mystery function to use an explicit continuation. When the function `/c` calls error, the returned value of the error function is also returned from mystery. The expression `(+ 1 (mystery ...))` then tries to add 1 to that returned value.
+
+The function must accept a continuation. The function "transfers" control to (i.e., calls) the continuation with the final result. All functions must work like this in order to the continuation style to work.
+
+```
+(define (mystery-c a b c d e cont)
+    (-c c d
+        (λ (r0) 
+            (/c r0 e
+                (λ (r1) 
+                    (*c b r1
+                        (λ (r2) (+c a r2
+                            (λ (r3) (cont r3))) # call continuation instead of identify function
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+```
+
+Implicit continuation => program in direct style.<br>
+Explicitly continuation => program in continuation-passing style.
+
+The continuation is represented as a function. The explicit representation of a continuation is the reification of the continuation. There are no hidden pending computations. Each computed result is  explicitely named. All calls become tail calls. All recursive calls become tail recursive calls. A stack is not required.
+
+The reification of a continuation allows its capture:
+
+```
+>>  (define pending-fact-computations #f)
+#f
+
+>>  (define (fact n c)
+        (if (= n 0)
+            (begin
+                (set! pending-fact-computations c)
+                (c 1)
+            )
+            (fact (- n 1) 
+                (lambda (r) 
+                    (c (* n r))
+                )
+            )
+        )
+    )
+...
+
+>>  (fact 10 (lambda (r) r))
+3628800
+
+>>  (pending-fact-computations 1)
+3628800
+
+>>  (pending-fact-computations 10)
+36288000
+```
+
+Being forced to write programs in continuation-passing style is a huge disadvantage. Can we write an operator that captures the current continuation? Yes, we can! Just convert the evaluator into continuation-passing style and implement the operator as simply "returning" the current continuation.
+
+```
+(define (eval exp env cont)
+    (cond ((self-evaluating? exp)
+        (cont exp))
+        ...
+        ((name? exp)
+            (eval-name exp env cont)
+        )
+        ((current-environment? exp)
+            (cont env)
+        )
+        ((lambda? exp)
+            (eval-lambda exp env cont)
+        )
+        ((if? exp)
+            (eval-if exp env cont)
+        )
+        ((def? exp)
+            (eval-def exp env cont)
+        )
+        ...
+        ((set? exp)
+            (eval-set exp env cont)
+        )
+        ((begin? exp)
+            (eval-begin exp env cont)
+        )
+        ((call? exp)
+            (eval-call exp env cont)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-name name env)
+    (define (lookup-in-frame frame)
+        (cond ((null? frame)
+                (eval-name name (cdr env))
+            )
+            ((eq? name (caar frame))
+                (cdar frame)
+            )
+            (else
+                (lookup-in-frame (cdr frame))
+            )
+        )
+    )
+    (if (null? env)
+        (error "Unbound name -- EVAL-NAME" name)
+        (lookup-in-frame (car env))
+    )
+)
+
+...
+```
+
+The evaluator is now in continuation-passing style. The transformation preserves the semantics of the program. But we now have an explicit representation of the pending computations of the evaluator. Note that this is a procedure in the evaluating language. The pending computations of the evaluator are directly related to the pending computations of the evaluated program. It is possible to make this continuation available to the evaluated program as a procedure in the evaluated language. Just wrap the continuation of the evaluator into a primitive procedure of the evaluated language.
+
+```
+(define (current-continuation? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'current-continuation)
+    )
+)
+
+(define (eval exp env cont)
+    (cond ((self-evaluating? exp)
+        (cont exp))
+        ...
+        ((name? exp)
+            (eval-name exp env cont)
+        )
+        ((current-environment? exp)
+            (cont env)
+        )
+        ((current-continuation? exp)
+            (cont (make-primitive cont))
+        )
+        ((lambda? exp)
+            (eval-lambda exp env cont)
+        )
+        ...
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+>>  (define foo (current-continuation))
+(primitive #<closure 0x975264c0>)
+
+>>  foo
+(primitive #<closure 0x975264c0>)
+
+>>  (foo 1)
+1
+
+>>  foo
+1
+```
+
+When the continuation was captured, we were waiting for a value to assign to foo. When we called the continuation with argument 1, it means that the value we were waiting to assign to foo was the number 1. It means that we now are evaluating `(define foo 1)`.
+
+```
+>>  (current-continuation)
+(primitive #<closure 0x970f48c0>)
+
+>>  ((current-continuation) 1)
+ERROR                               # Why?
+```
+
+When the continuation was captured, we were waiting for a function to call with argument 1. When we called the continuation with argument 1, the current continuation was replaced with the captured continuation as if the function we were waiting to call with argument 1 was the number 1. It means that we now are trying to evaluate `(1 1)`.
+
+```
+>>  (let ((c (current-continuation)))
+        (display "Hi!")
+        (+ 1 (c (lambda (x) 1)))
+    )
+Hi!Hi!2
+```
+
+When the continuation was captured, we were waiting for a value to assign to c and then to display "Hi!" and then to add 1 to the invocation of c with a function that returns 1. We then did all the computations we were waiting to do. At the call to c, we went back to the assignment to c that now becomes bound to the function (lambda (x) 1) and then we did all the computations we were waiting to do until we called c that now is a function that simply returns 1.
+
+In our current implementation, the use of a continuation is usually part of the continuation itself. This means that (in general) the use of the continuation will re-evaluate its use when, presumably, that second use was not intended. It's preferable to separate the part of the program that captures the continuation from the part of the program that uses the continuation. That's the purpose of the function `call/cc` (also known as `call-with-current-continuation`).
+
+```
+(define (call/cc? exp)
+    (and (pair? exp)
+        (eq? (car exp) 'call/cc)
+    )
+)
+
+(define (call/cc-expression exp)
+    (cadr exp)
+)
+
+(define (eval exp env cont)
+    (cond ...
+        ((call/cc? exp)
+            (eval-call/cc exp env cont)
+        )
+        (else
+            (error "Unknown expression type -- EVAL" exp)
+        )
+    )
+)
+
+(define (eval-call/cc exp env cont)
+    (eval `(,(call/cc-expression exp)
+        ',(make-primitive cont))
+        env
+        cont
+    )
+)
+```
+
+Note that call/cc is implemented as special syntax in our evaluator but is a "normal" function in the Scheme language.
+
+```
+(define (current-continuation)
+    (call/cc (lambda (c) c))
+)
+```
+
+`call/cc` is sufficient for implementing `current-continuation`.
+`call/cc` makes it easier to implement other control structures.
+
+## Aborting a computation
+
+```
+>>  (define abort-top-level #f)
+#f
+
+>>  (call/cc (lambda (c) (set! abort-top-level c)))
+(primitive #<closure 0xbca29d20>)
+```
+
+Mistery:
+```
+(define (mystery a b c d e)
+    (+ a (* b (safe-/ (- c d) e)))
+)
+
+(define (safe-/ x y)
+    (if (= y 0)
+        (error "Can't divide " (list x y))
+        (/ x y)
+    )
+)
+
+(define (error msg args)
+    (display msg)
+    (display args)
+    (abort-top-level #f)
+)
+```
+
+# Nondeterministic Programs
+
+Certain expressions in a nondeterministic language can have a different value in each different world. Each world encodes one of many possible sequences of choices, each choice corresponding to one of the possible values of a nondeterministic expression. In practice: The evaluator computes just one of the possible values of a nondeterministic expression. But remembers that there were more choices available. If the choice taken does not satisfy subsequent requirements, a different choice is attempted. This process is repeated until the evaluation succeeds or the evaluation runs out of choices.
+
+```
+(define (a-pythagorean-triple n)
+    (let ((i (an-integer-between 1 n)))
+        (let ((j (an-integer-between i n)))
+            (let ((k (an-integer-between j n)))
+                (require (= (+ (* i i) (* j j)) (* k k)))
+                (list i j k)
+            )
+        )
+    )
+)
+```
+
+The function `a-pythagorean-triple` uses the function `(an-integer-between a b)` that nondeterministically returns one integer between `a` and `b`. The function `require` accepts a boolean expression and requires that the computation must satisfy the expression. Otherwise, the computation fails.
+
+```
+(define (an-integer-between a b)
+    (if (> a b)
+        (fail)
+        (amb a
+            (an-integer-between (+ a 1) b)
+        )
+    )
+)
+```
+
+Exemplo:
+```
+>>  (amb 1 2)
+1
+>>  (fail)
+2
+>>  (fail)
+no-more-choices
+>>  (+ 1 (amb 10 20))
+11
+>>  (fail)
+21
+>>  (cons (amb 1 2) (amb 3 4))
+(1 . 3)
+>>  (fail)
+(1 . 4)
+>>  (fail)
+(2 . 3)
+>>  (fail)
+(2 . 4)
+>>  (fail)
+no-more-choices
+```
+
+The ambiguous operator `amb` evaluates just one expression. Each of the remaining expressions is saved so that, if necessary, the entire computation can be repeated using its evaluation.
+
+```
+(define choices (list))
+
+(define (add-choices! cs)
+    (set! choices (append cs choices))
+)
+
+(define (pop-choice!)
+    (let ((choice (car choices)))
+        (set! choices (cdr choices))
+        choice
+    )
+)
+```
+
+From:
+```
+(amb e0 e1 ... en)
+```
+
+To:
+```
+(call/cc
+    (lambda (c)
+        (add-choices!
+            (list (lambda () (c e1))
+                ...
+                (lambda () (c en))
+            )
+        )
+        e0
+    )
+)
+```
+
+The `amb` Macro
+```
+(mdef amb (e . es)
+    `(call/cc (lambda (c)
+        (add-choices!
+            (list ,@(map (lambda (e) `(lambda () (c ,e)))
+                es)
+            )
+        )
+        ,e)
+    )
+)
+```
