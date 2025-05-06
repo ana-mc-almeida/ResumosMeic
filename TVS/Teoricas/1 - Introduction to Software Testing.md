@@ -78,7 +78,7 @@ Coincidental correctness: Buggy code can produce correct results for some inputs
 
 # Testing Model
 
-- Model the IUT, Interface under test.
+- Model the IUT, Implementation under test.
 - Consider its fault model - A fault model identifies relationships and components of the SUT, System under test, that are more likely to have faults.
 - Generate test cases based on the fault model
 - Apply a test strategy
