@@ -62,7 +62,7 @@ Let:
 - $R^E$ is the subset of these that end with an environment state.
 
 A state transformer (environment changes): Maps a run (ending in an action) to a set of possible environment states
-- $\tau : R^{Ac} \rightarrow \wp(E)$
+- $\tau : R^{Ac} \Longrightarrow \wp(E)$
 - History dependent
 - Non-determinism
 - if $\tau(r) = \varnothing$, there are no possible successor states to $r$ (system has ended its run)
@@ -73,7 +73,7 @@ An environment can now be fully defined as a triple $Env = <E,e_0,\tau>$ where:
 - $\tau$ is a state transformer function
 
 Agent is a function which maps runs to actions: An agent makes a decision (i.e., action to perform) based on the history of system that it has witnessed to date (i.e., $R^E$)
-- $Ag:R^E\rightarrow Ac$
+- $Ag:R^E\Longrightarrow Ac$
 
 $AG$ is the set of all agents, $Ag \in AG$
 
@@ -93,9 +93,9 @@ Deductive reasoning agent (architecture) is one that contains an explicit symbol
 
 Agent decision:
 - $D$ (internal state = set of formulae or database)
-- $see : S \rightarrow Per$ (observe the environment), $Per$ = Percept
-- $next: D \times Pert\rightarrow D$ (update internal state)
-- $action: D \rightarrow Ac$ (decision making with deduction rules)
+- $see : S \Longrightarrow Per$ (observe the environment), $Per$ = Percept
+- $next: D \times Pert\Longrightarrow D$ (update internal state)
+- $action: D \Longrightarrow Ac$ (decision making with deduction rules)
 
 <img src="Imagens/Dedutive agent decision.png">
 
@@ -107,7 +107,7 @@ Let:
 - $Ac$ be the set of actions the agent can perform
 - $DB\vdash_\rho\phi$ means that formula $\phi$ can be proved from database DB using deduction rules $\rho$
 
-Agent's action selection function (i.e., $action: D \rightarrow Ac$) is defined in terms of its deduction rules.
+Agent's action selection function (i.e., $action: D \Longrightarrow Ac$) is defined in terms of its deduction rules.
 
 ```
 function action(DB:D) returns an action Ac
@@ -162,14 +162,14 @@ The B.D.I model: an architecture for intelligent agents based on the mental atti
 ### Deliberation
 
 - Belief revision function: Update beliefs with sensory input and previous belief.
-  - $brf: 2^{Bel} \times Per \rightarrow 2^{Bel}$
+  - $brf: 2^{Bel} \times Per \Longrightarrow 2^{Bel}$
 - Function to generate options: Use beliefs and existing intentions to generate options (= desires).
-  - $options: 2^{Bel} \times 2^{Int} \rightarrow 2^{Des}$
+  - $options: 2^{Bel} \times 2^{Int} \Longrightarrow 2^{Des}$
 - Filtering function: Choose between competing alternatives and commit to their achievement.
-  - $filter: 2^{Bel} \times 2^{Des} \times 2^{Int} \rightarrow 2^{Int}$
+  - $filter: 2^{Bel} \times 2^{Des} \times 2^{Int} \Longrightarrow 2^{Int}$
 
 ### Means-ends reasoning 
-- $plan: 2^{Bel} \times 2^{Int} \times 2^{Ac} \rightarrow Plan$
+- $plan: 2^{Bel} \times 2^{Int} \times 2^{Ac} \Longrightarrow Plan$
 
 Decision-making is a loop:
 1. Observe the world and update beliefs
@@ -197,7 +197,7 @@ In reactive agent systems, intelligence is not a property of a single component.
 
 Purely reactive agents make no reference to their history. They keep no internal state and the decision making depends entirely on the present.
 
-Formally: $Ag: E \rightarrow Ac$
+Formally: $Ag: E \Longrightarrow Ac$
 
 ```
 function decide(perception)
@@ -283,3 +283,61 @@ A key problem in hybrid architectures: what kind of control flow should we consi
 - Interactions between layers are difficult to program and to test.
   - One will need to analyze all the possible interactions between these layers.
   - An integration problem.
+
+## Rational Agents
+
+One of agent's properties was rationality: agent's ability to act in a way that maximizes some utility function.
+
+How can we treat decision making algorithmically?
+
+### Binary Relations
+
+A binary relation $R$ on a set of outcomes $Y$ is a set of ordered pairs $(x,y)$ with $x,y \in Y$. Also written as $xRy$.
+- Let $R_1$ mean "is shorter than". John ($x$) is 1.75m and Harry ($y$) is 1.85m. Then ($xRy$, not $yRx$)
+
+#### Properties:
+- Reflexive: $xRx, \forall x \in Y$
+- Irreflexive: not $xRx, \forall x \in Y$
+  - A person cannot be shorter than himself.
+- Symmetric: $xRy \Longrightarrow yRx, \forall x,y \in Y$
+- Asymmetric: $xRy \Longrightarrow \text{not } yRx, \forall x,y \in Y$
+  - if person 1 is shorter than person 2 then person 2 is not shorter than person 1.
+- Antisymmetric: $(xRy, yRx) \Longrightarrow x = y, \forall x,y \in Y$
+- Transitive: $(xRy,yRz) \Longrightarrow xRz, \forall x,y,z \in Y$
+  -  if person 1 is shorter than person 2 and person 2 is shorter than person 3 then person 1 is shorter than person 3.
+- Negatively transitive: $(\text{not }xRy, \text{not }yRz) \Longrightarrow \text{not }xRz, \forall x,y,z \in Y$
+- Connected or Complete: $xRy \vee yRx, \forall x,y \in Y$
+- Weakly connected: $x \neq y \Longrightarrow (xRy, yRx), \forall x,y \in Y$
+
+### Preferences
+
+Strict preference is a binary relation on the set of outcomes, such that $x \succ y$ denotes the proposition that $x$ is preferred to $y$.
+
+We can also define indifference as the absence of preference $x \sim y \Longleftrightarrow (\text{not }x \prec y, \text{not } x \succ y)$
+
+We can also define preference-indifference as the union of strict preference and indifference:
+- $x \preceq y \Longleftrightarrow (\text{not }x \prec y \vee x \sim y)$ - $x$ is not better than $y$.
+- $x \succeq y \Longleftrightarrow (\text{not }x \succ y \vee x \sim y)$ - $x$ is not worse than $y$.
+
+A rational preference is a binary relation if it is complete and transitive. The preference-indifference is complete and transitive. Hence it is a rational preference. 
+
+### Utility
+
+When preferences are rational, we can sort all outcomes consistently.
+
+Theorem:
+> Let $X$ be a set of possible oytcomes, and $\succeq$ a rational preference on $X$. Hence, there is a function $u: X \rightarrow \mathbb{R}$ such that $u(x) \geq u(y)$ if and only if $x \succeq y, \forall x,y \in X$.
+
+We call $u$ the utility function.
+
+Agents can use utility to make decisions:
+- Let $A$ be a set of actions.
+- Given $a \in A$, let $O(a)$ be an outcome when an agent selects action $a$.
+- Hence, the value of action $a$ is $Q(a) = u(O(a))$
+- The decision an agent selects is $\argmax\limits_{a \in A}Q(a) = \argmax\limits_{a \in A}u(O(a))$
+
+Under uncertainty:
+- Let $O$ denote a finite set of outcomes.
+- Given $o \in O$, let $P(o|a)$ denote the probability of outcome $o$ when an agent selects action $a$.
+- Hence, the expected value of an action is $Q(a) = \mathbb{E}[u(o|a)] = \sum\limits_{o \in O} u(o)P(o|a)$
+- The decision an agent selects is $\argmax\limits_{a \in A}Q(a) = \argmax\limits_{a \in A}\sum\limits_{o \in O} u(o)P(o|a)$
