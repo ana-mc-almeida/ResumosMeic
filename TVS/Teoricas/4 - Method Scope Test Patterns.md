@@ -193,3 +193,140 @@ Reveals:
 ### Strategy Procedure Example:
 
 [Pratica 3, Exercicio 2](../Praticas/Pratica%203/Pratica%203.md)
+
+### Entry and Exit Criteria
+
+Entry criteria: Small Pop
+
+Exit Criteria:
+- Produce every action at least once.
+- Force each exception due to incorrect input (if any) at least once.
+- Branch coverage for MUT.
+- If polymorphic binding is used instead of a case statement to select an action, be sure that each possible binding is executed at least once.
+
+### Consequences
+
+- Design of the decision table often reveals design errors and omissions.
+- Detects faults that are incorrect response actions to test messages.
+- Faults resulting from the order of messages to other methods or faults corrupting object variables hidden by the MUT interface may not be shown.
+
+### Known Uses
+
+- This technique is embedded in several commercial testing tools.
+
+## Recursive Function Test
+
+The intent of Recursive Function Test is to test recursive methods. Recursion bugs can easily hide from low-coverage testing.
+
+```java
+int factorial(int n) {
+  assert(n >= 0); // pre-condition
+  if (n == 0) {
+    return 1; // base case
+  }
+  else {
+    int fact = n * factorial(n-1); // recursive case
+    assert (fact > 0); // post-condition
+    return fact;
+  }
+}
+```
+
+### Fault Model
+
+- Execution continues when the precondition is violated for some illegal starting point or during the descendent phase.
+- Base case is omitted or is miscoded.
+- `>=` instead of `==`.
+- Value returned by base case is incorrect.
+- Recursive case expression implements an incorrect algorithm.
+- Incorrect arguments appear in the recursive case message.
+- Execution continues when the postcondition is violated during the ascendant phase.
+- Fails to handle exceptions.
+- Recursion to traverse data structures.
+  - Incorrectly initializes or corrupts the data structure.
+  - Does not correctly traverse the data structure when it is instantiated with a boundary case.
+- Space and time faults.
+  - Allows a recursion depth that exceeds available runtime memory.
+  - Has a non-linear runtime, causing real-time deadline to be missed.
+
+### Strategy: Test procedure
+
+The test model should define:
+- Base case
+- Recursive case
+- Pre-conditions for the initial call
+- Post-condition
+- All descent-phase calls
+- All ascent-phase bindings
+
+Test suite should contain:
+- Attempt to violate the precondition in the initial call and at least once in the descent phase.
+- Attempt to violate the postcondition at least once in the ascent phase.
+- Test boundary cases on depth: zero, one and maximum.
+- Attempt to force all exceptions in the server objects or the environment on which the method depends.
+- Use domain analysis to choose arguments for methods with multiple arguments (can also use Category Partition).
+- Use data structure states for recursive methods that traverse complex data structures.
+  - Apply Category-partition to determine the interesting states.
+
+### Entry and exit criteria
+
+Entry criteria: Small Pop
+
+Exit criteria:
+- Null, Singleton and Maximal cases.
+- Attempted violation of pre-condition in initial call and during the descent-phase.
+- Attempted violation of post-condition during the ascendent-phase.
+- Invariant Boundaries defined for values of multiple arguments and/or the states of data structures traversed.
+- Worst-case runtime given system load and maximum depth.
+
+### Consequences
+
+- Requires no more than two dozen test cases
+- Reveals faults that result in incorrect method evaluation for a given test message and state.
+- Doesn't reveal faults that occur only under certain sequence of messages to other methods or that corrupt instance variables hidden by the MUT's interface.
+
+### Known Uses
+
+- Some of these strategies are part of the oral tradition of LISP programming.
+
+## Polymorphic Message Test
+
+The intent is to design a test suite for a client of a polymorphic server that exercise all  client bindings to the server. A polymorphic method can be binded to several implementations 
+
+### Fault Model
+
+- Client fails to meet all preconditions for all possible bindings.
+  - Class MoneyMarketAccount imposes a minimum withdrawal of $500. However, superclass Account allows any positive value. A buggy client of Account would attempt to send a withdrawal message for less than $500 to a MoneyMarketAccount object.
+- The implementation of a server class is changed or extended.
+- To find faults must exercise all possible bindings.
+- Focus on bugs from the point of view of the client.
+
+### Strategy: Test Procedure
+
+Test model: Develop extended flow graph of MUT.
+
+<img src="Imagens/4 - Polymorphic Message Test, Test Model.png">
+
+Test procedure:
+1. Determine the number of candidate bindings for each message sent to a polymorphic server object.
+2. Expand segment with multiway branch sub-graph for each segment that has a polymorphic message.
+- Add two nodes for each binding: a branch node and sequential node.
+- Add a final, catch-all node to represent runtime binding error.
+3. Draw the test cases based on this model that exercise all branches.
+
+<img src="Imagens/4 - Polymorphic Message Test, Test Procedure.png">
+
+### Entry and Exit Criteria
+
+Entry criteria
+- Small Pop
+- Server class should be stable
+
+Exit criteria: Achieve branch coverage of extended message flow graph.
+
+### Consequences
+
+- Breaks the black-box strategy.
+- Reveals many bugs in the client usage of the server class.
+- Should be used together with a responsibility-based pattern.
+- Requires analysis of server class hierarchy to determine all possible bindings.
