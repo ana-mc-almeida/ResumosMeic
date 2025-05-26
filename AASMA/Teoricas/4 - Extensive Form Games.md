@@ -121,3 +121,54 @@ The general idea is to search the tree using DFS. At each node, the returned val
 <img src="Imagens/4 - Backward Induction example part 5.png">
 <img src="Imagens/4 - Backward Induction example part 6.png">
 <img src="Imagens/4 - Backward Induction example part 7.png">
+
+# Imperfect-information extensive-form games
+
+In some situation, we might want to model our agents to act with partial or no knowledge of the actions taken by other agents or even agents with limited memory of their own past actions.
+
+<img src="Imagens/4 - imperfect information extensive for game.png">
+
+## Strategies and Equilibria
+
+### Pure Strategy
+
+A pure strategy for an agent in an imperfect-information game is one of the available actions in each information set of that agent.
+
+<img src="Imagens/4 - Pure Strategies.png">
+
+$S_1 = \{(L,l), (L,r), (R, l), (R, r)\}$
+
+$S_2 = \{A, B\}$
+
+### Nash Equilibria
+
+To find the Nash equilibria we convert an imperfect-information game to an equivalent normal-form game and then compute the Nash equilibria.
+
+<img src="Imagens/4 - Nash Equilibria.png">
+
+| Agent 1 \ Agent 2 | A | B |
+| - | - | - |
+| $(L,l)$ | 0, 0 | <u>2</u>, <u>4</u> |
+| $(L,r)$ | <u>2</u>, <u>4</u> | 0, 0 |
+| $(R,l)$ | 1, <u>1</u> | 1, <u>1</u> |
+| $(R,r)$ | 1, <u>1</u> | 1, <u>1</u> |
+
+Nash equilibria in this game $\{(L,l), B\}$ and $\{(L,r), A\}$
+
+### Mixed Strategy
+
+Randomize over pure strategies
+
+### Behavioral Strategy
+
+Randomize every time an information set is encountered.
+
+### Example
+
+<img src="Imagens/4 - mixed and behavioral example.png">
+
+In this example a mixed strategy would be $[0.6 : (A,G), 0.4 : (B,H)]$ and a behavioral strategy would be $([0.6 : A, 0.4 : B], [0.6 : G, 0.4 : H])$
+
+### Theorem [Kuhn, 1953]
+
+In a game of perfect recall, any mixed strategy of a given agent can be replaced by an equivalent behavioural strategy, and any behavioural strategy can be replaced by an equivalent  mixed strategy.
