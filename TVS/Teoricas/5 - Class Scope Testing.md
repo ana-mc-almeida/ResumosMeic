@@ -155,7 +155,7 @@ The best is to mix define-use with random.
 
 ### Example
 
-TODO meter aqui um ganda exemplo da pratica ou assim espero eu :)
+[Pratica 4, Exercicio 2](../Praticas/Pratica%204/Pratica%204.md#2)
 
 ### Entry and Exit Criteria
 
