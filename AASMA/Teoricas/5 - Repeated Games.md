@@ -10,18 +10,19 @@ Proposition: If the stage game $G$ has a unique Nash equilibrium then, for any f
 
 ### Prisoner's Dilemma in a two-stage game
 
-| | Cooperate | Defect |
-| - | ------ | - |
-| **Cooperate** | $-1,-1$ | $-4, 0$ |
-| **Deflect** | $0, -4$ | $-3, -3$ |
+|               | Cooperate | Defect   |
+| ------------- | --------- | -------- |
+| **Cooperate** | $-1,-1$   | $-4, 0$  |
+| **Deflect**   | $0, -4$   | $-3, -3$ |
 
 Representing it in a tree:
 
 <img src="Imagens/5 - Prisoners Dilemma example.png">
 
 Pure Strategies:
-- Agent 1: $\{(C_1, C_{1,1}), (C_1, D_{1,1}), (C_1, C_{1,2}), (C_1, D_{1,2}), (C_1, C_{1,3}), (C_1, D_{1,3}), (C_1, C_{1,4}), (C_1, D_{1,4}),$ $ (D_1, C_{1,1}), (D_1, D_{1,1}), (D_1, C_{1,2}), (D_1, D_{1,2}), (D_1, C_{1,3}), (D_1, D_{1,3}), (D_1, C_{1,4}), (D_1, D_{1,4})\}$
-- Agent 2: $\{(C_1, C_{2,1}), (C_1, D_{2,1}), (C_1, C_{2,2}), (C_1, D_{2,2}), (C_1, C_{2,3}), (C_1, D_{2,3}), (C_1, C_{2,4}), (C_1, D_{2,4}),$ $ (D_1, C_{2,1}), (D_1, D_{2,1}), (D_1, C_{2,2}), (D_1, D_{2,2}), (D_1, C_{2,3}), (D_1, D_{2,3}), (D_1, C_{2,4}), (D_1, D_{2,4})\}$
+
+- Agent 1: $\{(C_1, C_{1,1}), (C_1, D_{1,1}), (C_1, C_{1,2}), (C_1, D_{1,2}), (C_1, C_{1,3}), (C_1, D_{1,3}), (C_1, C_{1,4}), (C_1, D_{1,4}),$ $ (D*1, C*{1,1}), (D*1, D*{1,1}), (D*1, C*{1,2}), (D*1, D*{1,2}), (D*1, C*{1,3}), (D*1, D*{1,3}), (D*1, C*{1,4}), (D*1, D*{1,4})\}$
+- Agent 2: $\{(C_1, C_{2,1}), (C_1, D_{2,1}), (C_1, C_{2,2}), (C_1, D_{2,2}), (C_1, C_{2,3}), (C_1, D_{2,3}), (C_1, C_{2,4}), (C_1, D_{2,4}),$ $ (D*1, C*{2,1}), (D*1, D*{2,1}), (D*1, C*{2,2}), (D*1, D*{2,2}), (D*1, C*{2,3}), (D*1, D*{2,3}), (D*1, C*{2,4}), (D*1, D*{2,4})\}$
 
 In this example the strategy profile $(D_1, D_{1,4}), (D_1, D_{2,4})$ is a nash equilibrium.
 
@@ -53,8 +54,8 @@ Deviation is not beneficial if $M - m\dfrac{\beta_i}{1 - \beta_i} \leq 0 <=> \be
 
 ### Example - Prisoner's Dilemma
 
-| | C | D |
-| - | - | -| 
+|       | C     | D     |
+| ----- | ----- | ----- |
 | **C** | $3,3$ | $0,5$ |
 | **D** | $5,0$ | $1,1$ |
 
@@ -72,10 +73,10 @@ Interpretation: if we want to sustain cooperation, the agent needs to care about
 
 ### Example - Prisoner's Dilemma modified
 
-| | C | D |
-| - | - | -| 
-| **C** | $3,3$ | $0,10$ |
-| **D** | $10,0$ | $1,1$ |
+|       | C      | D      |
+| ----- | ------ | ------ |
+| **C** | $3,3$  | $0,10$ |
+| **D** | $10,0$ | $1,1$  |
 
 Always cooperate: $3 + \beta 3 + \beta^2 3 + \dots = 3 + \beta \dfrac{3}{1 - \beta}$
 
@@ -87,7 +88,7 @@ If we want the "always cooperate" to have a higher payoff we need that $-7 + \be
 
 ---
 
-### Notes about hidden part of class 
+### Notes about hidden part of class
 
 $u(A) = 0 * \theta + 1 * (1 - \theta) = 1 - \theta$
 
@@ -107,4 +108,4 @@ $u(Hare) = 8 \times \theta + 5 \times (1 - 0) = 3 \times \theta + 5$
 
 $u* = u(Stag) \times \theta + u(Hare) \times (1 - \theta) = 6 \times \theta^2 - \theta + 5$
 
-$\dfrac{\partial}{\partial \theta}(u(Stag) - u*) = 0 <=> \theta = 0 \vee \theta = \dfrac{2}{3} $
+$\dfrac{\partial}{\partial \theta}(u(Stag) - u\*) = 0 <=> \theta = 0 \vee \theta = \dfrac{2}{3} $

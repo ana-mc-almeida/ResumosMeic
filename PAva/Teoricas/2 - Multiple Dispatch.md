@@ -120,7 +120,8 @@ class Circle extends Shape {
 }
 ```
 
-Devantagens: 
+Devantagens:
+
 - Mesmo que seja fácil adicionar novas classes que extendam `Shape`, para adicionar uma nova classe que extenda `Device` é preciso adicionar metodos a todos os filhos que extendem `Shape`.
 - Se fosse preciso ter triple, quadruple dispatch, ou mais, o número de combinações de metodos aumenta de forma explosiva.
 
@@ -158,6 +159,7 @@ class Device {
 ```
 
 Desvantagens:
+
 - `getMethod` can only access public methods.
 - `bestMethod` can only access public methods with a single parameter.
 - We are only dealing with double dispatch.
@@ -168,7 +170,6 @@ Desvantagens:
 ## C#
 
 Em C# nem sequer há dynamic dispatch para o receiver por default. Se quisermos que o receiver tenha dynamic dispatch temos de adicionar o modifier `virtual` ao metodo da superclass e `override` aos metodos da subclasse.
-
 
 ```
 class Device {
@@ -227,4 +228,5 @@ foreach (Device device in devices) {
 ```
 
 Desvantagem:
+
 - dynamic cast is five times slower than cascaded ifs or Double Dispatch

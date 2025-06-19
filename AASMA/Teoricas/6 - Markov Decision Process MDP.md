@@ -2,6 +2,7 @@
 
 A framework for sequential decision making of a single agent.
 Let:
+
 - $t = 0, 1, 2, \dots$ - be discrete time
 - $s \in S$ - be a discrete set of states.
 - $a \in A$ - be a discrete set of actions.
@@ -45,10 +46,10 @@ Q-Learning is an algorithm that can be used to perform reinforcement learning.
 1. We start with some estimate $Q$.
 2. Initialize current state $s$.
 3. Loop for each step:
-    1. Choose some action $a$.
-    2. Take action $a$ and observe next state $s'$ and reward $r$.
-    3. Update $Q$ estimate according to the reward.
-    4. Update current state to $s'$.
+   1. Choose some action $a$.
+   2. Take action $a$ and observe next state $s'$ and reward $r$.
+   3. Update $Q$ estimate according to the reward.
+   4. Update current state to $s'$.
 
 Update formula: $Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma\max\limits_{a'} Q(s', a') - Q(s,a)]$
 

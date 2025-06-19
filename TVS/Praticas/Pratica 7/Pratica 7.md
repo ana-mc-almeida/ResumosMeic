@@ -8,12 +8,12 @@ Using category partition
 
 In: book, service
 
-| Parameter | Category | Choice | 
-| --------- | -------- | ------ |
-| service | valid | aBook |
-| | invalid | null |
-| service | available | avai | 
-| | unavailable | unavai |
+| Parameter | Category    | Choice |
+| --------- | ----------- | ------ |
+| service   | valid       | aBook  |
+|           | invalid     | null   |
+| service   | available   | avai   |
+|           | unavailable | unavai |
 
 Concretizei alguns testes na class [BookstoreTest.java](BookstoreTest.java)
 
@@ -23,16 +23,16 @@ Using category partition
 
 In: author, title, price
 
-| Parameter | Category | Choice |
-| --------- | -------- | ------ |
-| author | valid | |
-| title | valid | |
-| price | null | |
-| | greater | |
-| | smaller | |
-| | in between | |
-| books | empty | |
-| | holding | |
+| Parameter | Category   | Choice |
+| --------- | ---------- | ------ |
+| author    | valid      |        |
+| title     | valid      |        |
+| price     | null       |        |
+|           | greater    |        |
+|           | smaller    |        |
+|           | in between |        |
+| books     | empty      |        |
+|           | holding    |        |
 
 It having an empty books list will give the same result for any category of price
 

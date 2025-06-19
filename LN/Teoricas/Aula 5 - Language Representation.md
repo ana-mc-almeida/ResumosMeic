@@ -12,6 +12,7 @@ tnassiorc for breakfast -> Food
 ## Documents as vectors
 
 Quando temos uma coleção de documents, é possível criar uma term-document matriz:<br>
+
 - Cada linha representa um termo no vocabulário.
 - Cada coluna representa um documento.
 - Cada célula pode ser:
@@ -21,7 +22,7 @@ Quando temos uma coleção de documents, é possível criar uma term-document ma
 
 ### TF-IDF
 
-TF-IDF(t, d, D) = TF(t, d) * IDF(t, D)
+TF-IDF(t, d, D) = TF(t, d) \* IDF(t, D)
 
 t -> termo<br>
 d -> documento<br>
@@ -39,6 +40,7 @@ D -> conjunto de documentos
 ## Words as vectors
 
 Esta matriz tem:
+
 - Cada coluna é uma palavra do vocaulário.
 - Cada linha é uma palavra do vocabulário.
 - As células são o número de vezes que as palavras da linha e coluna se encontram próximas, isto é, no mesmo contexto. Este "próximas" pode variar.

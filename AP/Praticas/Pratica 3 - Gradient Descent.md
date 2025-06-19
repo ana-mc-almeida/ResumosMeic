@@ -1,6 +1,6 @@
 # Question 1
 
-## 1.1 
+## 1.1
 
 $X = \begin{bmatrix} 1 & -2 \\ 1 & -1 \\ 1 & 0 \\ 1 & 2\end{bmatrix}, y = \begin{bmatrix} 2 \\ 3 \\ 1 \\ -1 \end{bmatrix}$
 
@@ -23,13 +23,12 @@ $1.0286 - 0.8857 x_1$
 
 # 1.4
 
-Formula: 
+Formula:
 $$\dfrac{\sum\limits^N_{i=1} (y^{(i)} - w^T \cdot x^{(i)})^2}{N}$$
 no nosso caso N = 4.
 
 Fazendo as contas ficamos com
 $$\dfrac{0.64 + 1.1788 + 0.0008 + 0.0661}{4} = 0.4714$$
-
 
 # Question 2
 
@@ -69,5 +68,7 @@ $$w = w + \eta x(y - \sigma(w \cdot x))$$
 
 Para o primeiro input:
 
-$$w = w + \eta x_1(y_1 - \sigma(w \cdot x_1)) = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} + 1 \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}
-\Biggl( 0 -\sigma \Biggl( \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}  \Biggl) \Biggl) = \begin{bmatrix} -0.5 \\ 0.5 \\ 0 \end{bmatrix}$$
+$$
+w = w + \eta x_1(y_1 - \sigma(w \cdot x_1)) = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} + 1 \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}
+\Biggl( 0 -\sigma \Biggl( \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}  \Biggl) \Biggl) = \begin{bmatrix} -0.5 \\ 0.5 \\ 0 \end{bmatrix}
+$$

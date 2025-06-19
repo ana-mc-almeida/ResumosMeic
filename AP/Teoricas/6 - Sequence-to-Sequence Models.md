@@ -3,6 +3,7 @@ Exposure bias is the tendency of sequence-to-sequence models to be exposed only 
 Within the same batch, all sequences must have the same length, and for this reason they must be padded with padding symbols for making them as long as the longest sentence in the batch. Since in NLP sentences can have very different lengths, if we don't sort sentences by length, we can end up with very unbalanced batches, where some sentences are very short and others are very long, which makes it necessary to add a lot of padding symbols. This process is inefficient and can make training more time consuming. For this reason, sentences are usually sorted by length, which makes each batch more balanced.
 
 # Statistical Machine Translation
+
 - Given a source sentence $x$, find the most likely target sentence $y$. $\hat{y} = \text{arg} \max\limits_y p(y|x) $
 - Use Bayes' rule to invert the conditional probability $p(y|x)$.
 - Translation model: models how words and phrases are translated from one language to another - learn from parallel data.
@@ -30,17 +31,20 @@ Within the same batch, all sequences must have the same length, and for this rea
 - For $k = 1$, beam search is greedy search.
 
 Problem: sentences are of variable length, but vectors are of the same size. Solution: use matrices instead of vectors:
+
 - Fixed number of rows, but variable number of columns.
 - Before generating each word in the decoder, use an attention mechanism to focus on the relevant parts of the source sentence.
 
 # Encoder-Decoder with Attention
 
 Strategies to encode a sentence as a matrix:
+
 - CNNs.
 - Bidirectional LSTMs.
 - Transformer networks.
 
 We now have a matrix F representing the input. How to generate from it?
+
 - Attention mechanism - focus on the relevant parts of the source sentence.
 
 ### Attention Mechanism
@@ -55,7 +59,8 @@ Algorithm:
 
 Let $s_1, s_2, \dots, s_T$ be the hidden states of the encoder RNN.
 When predicting the $t$-th word:
-1. Compute similarity with each of the source words: $z_{t,i} = v^Tg(Wh_i+Us_{t-1}+b), \forall i \in \{1, \dots, T\} $
+
+1. Compute similarity with each of the source words: $z*{t,i} = v^Tg(Wh_i+Us*{t-1}+b), \forall i \in \{1, \dots, T\} $
 2. From $z_t = (z_{t,1}, \dots, z_{t,L})$, compute the attention distribution: $a_t =
 \text{softmax}(z_t)$.
 3. Use attention to compute input conditioning state $c_t = F_{a_t}$

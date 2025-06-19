@@ -25,6 +25,7 @@ $h^+(s)$ = custo minimo de todas as relaxed solutions para um certo problema.
 ### Exemplo
 
 Considerando a imagem acima, para o estado $s_0$ há duas ações possíveis:
+
 - move(r1, d3, d1)
 - move(r1, d3, d2)
 
@@ -34,7 +35,7 @@ A imagem já mostra que pela ação move(r1, d3, d1) vão ser precisas apenas ma
 
 # Fast-Forward Heuristic
 
-Não é admissible !!! 
+Não é admissible !!!
 
 ### Algoritmo (demasiado complexo para se perceber sem exemplo)
 
@@ -47,23 +48,26 @@ Vou considerar o seguinte exemplo:
 
 <img src="Imagens/Aula10 Fast Forward Heuristic Example.png">
 
-E vou calcular o $h^{FF}(s_1)$ e o $h^{FF}(s_2)$ 
+E vou calcular o $h^{FF}(s_1)$ e o $h^{FF}(s_2)$
 
 #### Exemplo para $h^{FF}(s_1)$
 
 Nota: $\hat{s}_0 = s_1$
 
 Os Atoms que temos em $\hat{s}_0$ são:
+
 - loc(r1) = d1
 - loc1(c1) = d1
 - cargo(r1) = nil
 
 E tendo em conta estes atoms, temos as seguintes ações válidas:
+
 - move(r1, d1, d2)
 - move(r1, d1, d3)
 - load(r1, c1, d1)
 
 Ou seja, acabamos a iteração no estado $\hat{s}_1$ com os atoms:
+
 - loc(r1) = d2
 - loc(r1) = d3
 - loc(c1) = r1
@@ -73,6 +77,7 @@ Ou seja, acabamos a iteração no estado $\hat{s}_1$ com os atoms:
 - cargo(r1) = nil -> que veio de $\hat{s}_0$
 
 Em $\hat{s}_1$ encontramos um subset que é o goal state:
+
 - loc(r1) = d3
 - loc(c1) = r1
 
@@ -111,14 +116,17 @@ Considerando o exemplo da image, vamos tentar obter os landmarks.
 <img src="Imagens/Aula10 Landmark Heuristic Example1.png">
 
 Como a landmark loc(r1) = d3 já está present no estado inicial, não o adicionamos à queue. Então a queue fica:
+
 - queue = { loc(c1) = r1 }
 
-Começando o while loop ficamos com: 
+Começando o while loop ficamos com:
+
 - queue = { }
 - Landmarks = { loc(c1) = r1 }
 - R = { take(r1, d1, c1), take(r1, d2, c1), take(r1, d3, c1) }
 
 As precondições seriam, respetivamente:
+
 - loc(r1) = d1, loc(c1) = d1, cargo(r1) = nil
 - loc(r1) = d2, loc(c1) = d2, cargo(r1) = nil
 - loc(r1) = d3, loc(c1) = d3, cargo(r1) = nil
@@ -147,6 +155,7 @@ Landmarks = { loc(c1) = r1, loc(r1) = d1 }
 R = { move(r1, d2, d1), move(r1, d3, d1) }
 
 As precondições de move(r1, d3, d1) são:
+
 - loc(r1) = d3
 
 E assim $s_0$ satisfaz pre(move(r1, d3, d1)), e retornam-se os Landmarks:

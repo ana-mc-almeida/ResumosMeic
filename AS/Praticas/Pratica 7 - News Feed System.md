@@ -3,24 +3,28 @@
 ### Functionalities
 
 Publish Post:
+
 - Actors: An authentitcated user.
 - Input: Post containing text.
 - Output: Post is persistently stored and all friends are notified.
 
 Retrieve new feed:
+
 - Actors: An authentitcated user.
 - Output: Most recent posts published by friens in reverse chronological order.
 
 ### Qualities
 
 Availability:
+
 - Stimulus: News feed system fails
 - Artifact: News feed system
 - Environment: Normal operation
 - Response: Keep providing service
-- Response measure: 99.99% availability 
+- Response measure: 99.99% availability
 
 Security:
+
 - #1
   - Source of stimulus: Any user, authenticated or not.
   - Stimulus: Denial-of-Service Attack - Submit large number of posts in a small period of time.
@@ -44,6 +48,7 @@ Security:
   - Response measure: No confidentiality compromise.
 
 Performance:
+
 - #1
   - Source of stimulus: Authenticated users.
   - Stimulus: Retrieve news feed periodically 10^4 / second.
@@ -70,16 +75,18 @@ Performance:
 
 ### Round 1
 
-- Purpose: Fully functional system and 
+- Purpose: Fully functional system and
 - Arquitectural significant requirements: F1, F2, Security1, Security2 (related with authentication), constraint about web and mobile clients.
 
 Iteration 1:
+
 - Goal: Support functionalities
   - Decompose news feed system in 2 submodules: Post and Retrival
   - Data model for User: Has posts, has friends that are users and has a feed.
   - Add a componenet&connector that connects a web server to a web client and a mobile app. Connect the web server to the database.
 
 Iteration 2:
+
 - Goal: Support authentication
   - Add a new authentication model as a submodel of news feed system module.
   - Authentication server:
@@ -92,5 +99,6 @@ Iteration 2:
 - Arquitectural significant requirements: Performance1, Performance2.
 
 Iteration 1:
+
 - Goal: Support retrieval
   - Change the database to multiple key-store value tables. To make things fast, they should be in caches.

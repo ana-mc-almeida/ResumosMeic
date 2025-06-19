@@ -5,6 +5,7 @@
 Classes have contracts that are invariants, pre-conditions for method arguments and post-conditions for method return.
 
 Liskov substitution principle (LSP) have some rules to keep the contract of a subclass compatible with the contract of the superclass:
+
 - Subclass may keep or weaken the precondition in the overridden methods.
 - Subclass may keep or strengthen the postcondition in the overridden methods.
 - Subclass may keep or strengthen the class invariant.
@@ -59,13 +60,13 @@ public class C extends B {
   - Flattened scope:
     - a1, b4, C.a2, C.b5, c7
 
-| | Extension | Overriding | Specialization |
-| ----------------------- | --------- | ---------- | -------------- |
-| Prudent extent of retesting of this method in subclass | Minimal $^{1,2}$ | Full | Full |
-| Reuse superclass method tests | Yes | Probably $^3$ | N/A |
-| Develop new subclass method tests | Maybe $^2$ | Yes | Yes |
-| Should this method be included in the class scope testing? | No | Yes $^4$ | Yes $^4$ |
-| Should this method be included in the flattened class scope testing? | Yes $^4$ | Yes $^4$ | Yes $^4$ | 
+|                                                                      | Extension        | Overriding    | Specialization |
+| -------------------------------------------------------------------- | ---------------- | ------------- | -------------- |
+| Prudent extent of retesting of this method in subclass               | Minimal $^{1,2}$ | Full          | Full           |
+| Reuse superclass method tests                                        | Yes              | Probably $^3$ | N/A            |
+| Develop new subclass method tests                                    | Maybe $^2$       | Yes           | Yes            |
+| Should this method be included in the class scope testing?           | No               | Yes $^4$      | Yes $^4$       |
+| Should this method be included in the flattened class scope testing? | Yes $^4$         | Yes $^4$      | Yes $^4$       |
 
 1. Method scope tests do not need to be repeated.
 2. New tests are needed when inherited features use locally defined features
@@ -103,9 +104,9 @@ Contract of Account: deposit(val) -> pre: 0 < val <= 100
 
 ```java
 public class TestAccount {
-    
+
     protected Account a;
-    
+
     @BeforeMethod
     protected void setUp() {
         a = new Account();
@@ -121,20 +122,21 @@ public class TestAccount {
 ```
 
 Contract of SavingsAccount:
+
 - setInterest(interest) pre: 0 < interest <= 0.1
-- applyInterest() -> post: bal = bal*(1 + interest)
+- applyInterest() -> post: bal = bal\*(1 + interest)
 
 ```java
 public class TestSavingAccount extends TestAccount {
 
     protected SavingsAccount sa;
-    
+
     @BeforeMethod
     protected void setUp() {
         sa = new SavingsAccount();
         a = sa;
     }
-    
+
     @Test
     public final void testMaxInterest() {
         sa.deposit(100);
@@ -149,6 +151,7 @@ public class TestSavingAccount extends TestAccount {
 ### Entry and Exit Criteria
 
 Entry Criteria:
+
 - An alpha-omega cycle is developed from the subclass up.
 - All superclasses pass their test suites.
 
@@ -166,7 +169,8 @@ The intent is to design a flattened class scope test suite for a hierarchy of mo
 
 ### Strategy
 
-Test model is the same as that employed for Modal Class Test. However, the state machine must reflect the states and events of the flattened class. 
+Test model is the same as that employed for Modal Class Test. However, the state machine must reflect the states and events of the flattened class.
+
 - If subclass is LSP-compliant with superclass then run superclass test suite as regression test.
 - If not LSP-compliant, then the value of executing the superclass test suite is not clear.
 

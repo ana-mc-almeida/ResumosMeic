@@ -37,6 +37,7 @@ Refinar pode ser a decomposição de elementos abrangentes em elementos mais sim
 Escolher o design concept é provavelmente a decisão mais dificil de todo o processo porque é preciso identificar vários conceitos de design que podem ser usados para atingir o objetivo da iteração. Há muitos tipos de design concepts disponíveis, como tactics, patterns, reference achitectures, e componentes desenvolvidos exteriormente. Para cada tipo existem várias opções, logo há imensas alternativas que têm de ser tidas em conta antes de se fazer a decisão final.
 
 Mesmo quando os design concepts já estão mais claros é preciso identificar outras alternativas. Há várias maneiras para isso:
+
 - Leverage existing best practices: Tem-se em conta soluções que já existem e que estão documentadas para o nosso problema.
   - A vantagen é que usa soluções que já foram experimentadas e que devem funcionar.
   - A desvantagem é que encontrar estas soluções e entende-las demora tempo.
@@ -48,12 +49,13 @@ Mesmo quando os design concepts já estão mais claros é preciso identificar ou
 Depois de ter uma lista de alternativas temos de escolher a que mais se adequa ao nosso problema. Para isso recorre-se a uma tabela de pros e contras ou metodos como SWOT (strengths, weaknesses, opportunities, threats). É preciso ter em conta que as decisões tomadas em iterações anteriores podem restringir os design concepts que poemos escolher agora por causa de incompatibilidades.
 
 Caso não consigamos escolher um design concept com as técnicas mencionadas acima, podemos usar protótipos para medir a sua performance. Quando se criam protótipos não nos preocupamos com maintanability ou com reuse. Como estes protótipos podem ser caros, só os consideramos quando temos a maioria destas questões presentes:
+
 - O projeto incorpore tecnologias emersivas.
 - A tecnologia é nova para a empresa.
 - A satisfação de certos quality attributes está em risco com esta tecnologia.
 - Há uma falta de certeza que a tecnologia ia satisfazer os drivers.
 - Há configurações que precisam de ser testadas.
-- Não é certo que vai ser fácil integrar a tecnologia. 
+- Não é certo que vai ser fácil integrar a tecnologia.
 
 ## Step 5: Instatiate architectural elements, allocate responsibilities, and define interfaces
 
@@ -64,6 +66,7 @@ Depois de instanciar os elementos é preciso dar responsabilidades a cada um del
 Para além disso é preciso definir o tipo de relações entre os elementos e a troca de informação deve ser feita por uma interface.
 
 Tipos de instanciação:
+
 - Reference architectures: Vai ser preciso adicionar ou remover elementos que fazem parte da estrutura da reference architecture à nossa arquitetura.
   - Por exemplo, se estivermos a desenhar uma aplicação que comunica com uma aplicação externa para tratar de pagamentos, vamos precisar de adicionar um componente de integração.
 - Patterns: Os padrões são estruturas genéricas, ou seja, é preciso adaptar para o nosso problema. A sua instanciação consiste eem tornar um padrão genérico, em algo especifico.
@@ -87,6 +90,7 @@ Enquanto fazemos sketches da architetura e identificamos um elemento, devemos lo
 Revisão geral daquilo que se passou durante a iteração. Pode ser feita até por pessoas diferentes para se ter uma perspetiva diferente. Esta diversidade ajuda a encontrar bugs tanto no código como na arquitetura. É nesta fase que se verifica se todos os drivers associados a esta ronda foram satisfeitos e se o objetivo foi atingido.
 
 No fim de cada iteração devemos responder às seguintes perguntas:
+
 - Quanto design é que ainda é preciso?
 - Quanto design é que já foi feito?
 - Acabamos?
@@ -95,4 +99,4 @@ Para ajudar nisto convem usarmos backlogs (to-do list) ou Kanban boars (to-do li
 
 ## Iterate if necessary
 
-Devem ser feitos iterações adicionais e repetir os passos 2-7. O critério para availiar se são precisas mais iterações pode ser  o risco. Pelo menos os drivers mais importantes devem estar satisfeitos, ou pelo menos o design deve ser bom suficiente para os satisfazer.
+Devem ser feitos iterações adicionais e repetir os passos 2-7. O critério para availiar se são precisas mais iterações pode ser o risco. Pelo menos os drivers mais importantes devem estar satisfeitos, ou pelo menos o design deve ser bom suficiente para os satisfazer.

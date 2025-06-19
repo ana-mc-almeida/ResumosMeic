@@ -1,5 +1,7 @@
 # 2.1
-- How many lines and words? 
+
+- How many lines and words?
+
   - Command `wc friends.txt`
   - Result `60363  756783 4117566 friends.txt`
 
@@ -10,6 +12,7 @@
 # 2.2
 
 Top 10 most used words:
+
 - Command: `tr -sc 'A-Za-z' '\n' < friends.txt | sort | uniq -ci | sort | tail -10`
 - Solution: `tr -sc 'A-Za-z' '\n' < friends.txt | sort -f | uniq -ci | sort -n | tail -10`
 - Result:
@@ -27,14 +30,17 @@ Top 10 most used words:
 # 2.3.1
 
 - Extract all lines with the word "Monica"
+
   - Command: `grep "Monica" < friends.txt`
   - Nem todos os resultados são as falas da Monica, também há linhas em que o nome dela apenas é mencionado na fala de outra personagem.
 
 - How many lines with the word "Monica" can be found?
+
   - Command: `grep "Monica" < friends.txt | wc`
   - Result: 9295 lines, 126433 words, 695692 bytes
 
 - Extract all Monica's dialogue lines
+
   - Command: `grep "^Monica" < friends.txt`
 
 - Who, between the 6 main characters of the series (Monica, Rachel, Ross, Phoebe, Joey or Chandler) has more dialogue lines?

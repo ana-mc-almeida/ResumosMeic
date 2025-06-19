@@ -1,14 +1,14 @@
 # 1
 
-| SS | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | 0.14 | max(0.0056, 0.006) = 0.006 | 0.00048 |
-| Verb | 0.075 | max(0,004125, 0.0056) = 0.0056 | 0.00077 |  
+| SS   | will  | cook                           | will    |
+| ---- | ----- | ------------------------------ | ------- |
+| Noun | 0.14  | max(0.0056, 0.006) = 0.006     | 0.00048 |
+| Verb | 0.075 | max(0,004125, 0.0056) = 0.0056 | 0.00077 |
 
-| BP | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | 0 | 2 | 2 |
-| Verb | 0 | 1 | 2 |  
+| BP   | will | cook | will |
+| ---- | ---- | ---- | ---- |
+| Noun | 0    | 2    | 2    |
+| Verb | 0    | 1    | 2    |
 
 A sequência mais provavel é Noun Verb Verb
 
@@ -31,9 +31,11 @@ None -> cat
 ## Contagem
 
 Texto A:
+
 - Adjetivos: 32
 - Adverbios: 4
 
 Texto B:
+
 - Adjetivos: 4
 - Adverbios: 21

@@ -7,7 +7,7 @@ Vamos usar tecnicas de CSPs para termos soluções mais flexiveis do que planos 
 
 ### Flaw: Open Goals
 
-p é um open goal se não tiver nenhum causal link ligado a ele. Pode resolver-se com a criação de um  causal link.
+p é um open goal se não tiver nenhum causal link ligado a ele. Pode resolver-se com a criação de um causal link.
 
 ### Flaw: Threat
 
@@ -30,4 +30,3 @@ Para resolver, podemos mudar a ordem, colocando $c$ antes de $a$ ou depois de $b
 <img src="Imagens/Aula10 PSP Example7.png">
 <img src="Imagens/Aula10 PSP Example9.png">
 <img src="Imagens/Aula10 PSP Example10.png">
-

@@ -20,11 +20,11 @@ A
 
 ## a)
 
-(hello|bye)*(byebye)
+(hello|bye)\*(byebye)
 
 ## b)
 
-(bye|hellobye|hellohellobyebye)*(hello)?
+(bye|hellobye|hellohellobyebye)\*(hello)?
 
 <br>
 

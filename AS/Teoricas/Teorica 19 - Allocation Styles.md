@@ -8,13 +8,13 @@ Allocation styles describe the mapping between the software architecture and its
 
 - Software element and environmental element. A software element has properties that are required of the environment. An environmental element has properties that are provided to the software.
 
-### Relations 
+### Relations
 
 - Allocated-to. A software element is mapped (allocated to) an environmental element. Properties are dependent on the particular style.
 
 ## Deployment Style
 
-### Overview 
+### Overview
 
 The deployment style describes the mapping of components and connectors in the software architecture to the hardware of the computing platform.
 
@@ -34,11 +34,11 @@ The deployment style describes the mapping of components and connectors in the s
 
 ## Install Style
 
-### Overview 
+### Overview
 
 The install style describes the mapping of components in the software architecture to a file system in the production environment.
 
-### Elements 
+### Elements
 
 - Software element: a C&C component. Required properties of a software element, if any, usually include requirements on the production environments, such as a requirement to support Java or a database, or specific permissions on the file system.
 - Environmental element: a configuration item, such as a file or a folder. Provided properties of an environmental element include indications of the characteristics provided by the production environments.
@@ -49,6 +49,7 @@ The install style describes the mapping of components in the software architectu
 - Containment. One configuration item is contained in another.
 
 ### Constraints
+
 - Files and folders are organized in a tree structure, following an is-contained-in relation.
 
 ## Work Assignment Style
@@ -66,6 +67,6 @@ The work assignment style describes the mapping of the software architecture to 
 
 - Allocated-to. A software element is allocated to an organizational unit.
 
-### Constraints 
+### Constraints
 
 - In general, the allocation is unrestricted; in practice, it is usually restricted so that one module is allocated to one organizational unit.

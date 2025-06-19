@@ -1,8 +1,9 @@
 Convolutional neural networks (CNNs) are a class of deep neural networks that are specialized for processing data that has a grid-like topology, such as images.
+
 - In a fully-connected layer, each neuron is connected to every neuron in the previous layer - all activations depend on all inputs;
 - In a convolutional layer, each neuron is connected to only a local region of the previous layer - local connectivity;
 - Filters are always extended along the full depth of the input volume - convolve the filter with the image (slide over the image and compute dot products);
-- Convolving a filter with an image produces an activation map. 
+- Convolving a filter with an image produces an activation map.
 
 ## Image Size, Filter Size, Stride, Channels
 
@@ -21,6 +22,7 @@ Convolutional neural networks (CNNs) are a class of deep neural networks that ar
 - CNNs alternate between convolutional layers and pooling layers (provide invariance);
 
 Notes:
+
 - Equivariance is a property of a function that preserves some property of the input in the output.
 - Invariance is a property of a function that does not preserve some property of the input in the output.
 
@@ -33,6 +35,7 @@ Notes:
 ## Residual Networks (ResNets)
 
 Residual networks work by learning the residual function $F(x) = H(x) - x$ instead of directly learning the target function $H(x)$. This reformulation changes the learning task to finding the "difference" between the input $x$ and the desired output $H(x)$.
+
 - They use skip connections - passing the input of the function to the output.
 - Improves gradient flow, avoiding vanishing gradient problem.
 
@@ -62,7 +65,7 @@ Apply padding:
 
 $$x_{padded} = \begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 \end{bmatrix}$$
 
-Compute convolution with $\boldsymbol{K}$ (each cell is the sum of cellwise multiplication of $\boldsymbol{K}$ and the selected $3\times 3$ square in $x_{padded} $)
+Compute convolution with $\boldsymbol{K}$ (each cell is the sum of cellwise multiplication of $\boldsymbol{K}$ and the selected $3\times 3$ square in $x\_{padded} $)
 
 $$z = \begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 \end{bmatrix} * \begin{bmatrix} 1 & 0 & -1 \\ 2 & 0 & -2 \\ 1 & 0 & -1 \end{bmatrix} = \begin{bmatrix} -1 & -2 & 1 & 2 \\ -3 & -1 & 3 & 1 \\ -4 & 0 & 4 & 0 \\ -3 & 0 & 3 & 0 \end{bmatrix}$$
 

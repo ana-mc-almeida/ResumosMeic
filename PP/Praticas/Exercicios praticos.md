@@ -1,26 +1,32 @@
 ## 1.1.1
+
 a) Variaveis: cada um dos quadrados da grid.<br>
 Dominio: Para cada uma delas o dominio é de 1 a n<br>
 Constraints:
+
 - todas as linhas precisam de que os seus elementos sejam diferentes.
 - todas as colunas precisam de que os seus elementos sejam diferentes.
 
 ### Solução do stor:<br>
-Variaveis de celula -> X = { x_{ij} | i <= i <= n, 1 <= j <= n }<br>
+
+Variaveis de celula -> X = { x\_{ij} | i <= i <= n, 1 <= j <= n }<br>
 Dominio: D_x = {k | 1 <= k <= n }<br>
 
 Constraints:
+
 - $V_i$ alldiff($x_{i1}$, $x_{i2}$, ..., $x_{in}$)
 - $V_j$ alldiff($x_{j1}$, $x_{j2}$, ..., $x_{jn}$)
 
-b) 
+b)
 Variaveis: cada um dos quadrados em cada um dos squares.<br>
 Dominio: 1 a n<br>
 Constraints: <br>
+
 - Separadamente os Latin squares têm de cumprir as constraints de a).
 - Todos os pares presentes no orthogonal square precisam de ser diferentes.
 
 ### Solução do stor:
+
 Variaveis:<br>
 A = { $a_{ij}$ | 1 <= i <= n; 1 <= j <= n }<br>
 B = { $b_{ij}$ | 1 <= i <= n; 1 <= j <= n }<br>
@@ -30,6 +36,7 @@ $D_A$ = $D_B$ = { k | 1 <= k <= n }<br>
 $D_X$ = { (l, m) | 1 <= l <= n, 1 <= m <= n }<br>
 
 Constraints:<br>
+
 - alldiff(X)
 
 ## 1.1.2
@@ -37,16 +44,19 @@ Constraints:<br>
 Variaveis: Valores da matriz<br>
 Dominio: -9 a 9<br>
 Constraints:
+
 - (x,y) = 0 && x == y
 - (x,y) = -(y,x) && x != y
 
 ### Solução do stor:
+
 Variaveis: A = { $x_{ij}$ | 1 <= i <= 3 , 1 <= j <= 3 }<br>
 
 Domain: $D_A$ = [-9, 9]<br>
 
 Constraints:
-- $x_{ij} = -x_{ji}
+
+- $x*{ij} = -x*{ji}
 - D($x_{11}$) = D($x_{22}$) = D($x_{33}$) = {0}
 
 # 1.1.3
@@ -54,6 +64,7 @@ Constraints:
 Variaveis: cada uma das cells<br>
 Dominio: 1..(3n^2 - 3n + 1)<br>
 Constraints:
+
 - alldifferent para todas a variaveis
 - a soma de todas as linhas é igual a M
 - a soma de todas as diagonais é igual a M
@@ -65,6 +76,7 @@ Variaveis: [a, s]<br>
 Domain: { K | 1 <= k <= 19 }
 
 Constraints:
+
 - alldiff(X)
 - a + b + c = d + e + f + g = ... = 38
 - a + d + h = b + c + i + m = ... = 38
@@ -72,16 +84,16 @@ Constraints:
 
 # 1.2.1
 
-| Edges | Domain Change | New edges |
-| ----- | ------------- | --------- |
+| Edges      | Domain Change   | New edges                        |
+| ---------- | --------------- | -------------------------------- |
 | $x_0, x_1$ | $x_0$ = {3,4,7} | Não atualiza por tar em processo |
-| $x_1, x_0$ | $x_1$ = {2,4,6} | ($x_0, x_1$)
-| $x_0, x_2$ | ---------- | --------- |
-| $x_2, x_0$ | $x_2$ = {3,4,7} | ($x_0, x_1$) |
-| $x_0, x_3$ | -------- | ------- |
-| $x_3, x_0$ | -------- | ------- |
-| $x_0, x_1$ | -------- | ------- |
-| $x_0, x_2$ | -------- | ------- |
+| $x_1, x_0$ | $x_1$ = {2,4,6} | ($x_0, x_1$)                     |
+| $x_0, x_2$ | ----------      | ---------                        |
+| $x_2, x_0$ | $x_2$ = {3,4,7} | ($x_0, x_1$)                     |
+| $x_0, x_3$ | --------        | -------                          |
+| $x_3, x_0$ | --------        | -------                          |
+| $x_0, x_1$ | --------        | -------                          |
+| $x_0, x_2$ | --------        | -------                          |
 
 $D_{x_0}$ = {3,4,7}<br>
 $D_{x_1}$ = {2,4,6}<br>
@@ -92,22 +104,23 @@ $D_{x_3}$ = {6,7,8}<br>
 
 # 1.2.2
 
-| Edges | Domain Change | New edges | Explanation |
-| ----- | ------------- | --------- | ----------- |
-| $x,z$ | ----- | ----- | Há sempre um valor de $z$ que satisfaz $R_{zx}$ para qualquer valor de $x$. |
-| $z,x$ | ----- | ----- | O mesmo que em cima. |
-| $y,z$ | ----- | ----- | Para qualquer valor de $y$, há sempre um valor de $z$ que satisfaz $R_{zy}$, esse valor é o 2.
-| $z,y$ | $D_z$ = {2} | $(x,z), (y,z)$ | O valor 5 da variável $z$ não tem suporte de nenhum valor de $y$. Logo 5 pode ser removido do domínio de $y$ porque não satisfaz $R_{zy}$. Então temos de adicionar os edges que têm uma constraint com $z$ à queue. |
-| $x,z$ | $D_x$ = {2} | $(z,x)$ | Como agora o $D_z$ = {2}, já não há nenhum valor de $z$ que satisfaça o valor 5 de $x$ para a constraint $R_{zx}$. Então reduzimos o dominio. |
-| $y,z$ | ----- | ----- | Continua a haver um valor de $z$ que satisfaz todos os valores de $y$ |
-| $z,x$ | ----- | ----- | $R_{zx}$ é satisfeita para todos os valores de $z$.
+| Edges | Domain Change | New edges      | Explanation                                                                                                                                                                                                          |
+| ----- | ------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $x,z$ | -----         | -----          | Há sempre um valor de $z$ que satisfaz $R_{zx}$ para qualquer valor de $x$.                                                                                                                                          |
+| $z,x$ | -----         | -----          | O mesmo que em cima.                                                                                                                                                                                                 |
+| $y,z$ | -----         | -----          | Para qualquer valor de $y$, há sempre um valor de $z$ que satisfaz $R_{zy}$, esse valor é o 2.                                                                                                                       |
+| $z,y$ | $D_z$ = {2}   | $(x,z), (y,z)$ | O valor 5 da variável $z$ não tem suporte de nenhum valor de $y$. Logo 5 pode ser removido do domínio de $y$ porque não satisfaz $R_{zy}$. Então temos de adicionar os edges que têm uma constraint com $z$ à queue. |
+| $x,z$ | $D_x$ = {2}   | $(z,x)$        | Como agora o $D_z$ = {2}, já não há nenhum valor de $z$ que satisfaça o valor 5 de $x$ para a constraint $R_{zx}$. Então reduzimos o dominio.                                                                        |
+| $y,z$ | -----         | -----          | Continua a haver um valor de $z$ que satisfaz todos os valores de $y$                                                                                                                                                |
+| $z,x$ | -----         | -----          | $R_{zx}$ é satisfeita para todos os valores de $z$.                                                                                                                                                                  |
 
 $D_x$ = {2}<br>
 $D_y$ = {2,4}<br>
 $D_z$ = {2}<br>
 
 Pontos chave:
-- Quando analisamos um edge $(a,b)$ só vamos alterar o domínio da variável $a$. 
+
+- Quando analisamos um edge $(a,b)$ só vamos alterar o domínio da variável $a$.
 - Se houverem alterações ao dominío os edges que vamos adicionar à queue vão ter sempre o $a$ em segundo lugar.
   - Por exemplo $(b,a)$ ou $(c,a)$
 - Só adicionamos à queue edges que não lá estejam ainda.
@@ -118,39 +131,39 @@ Pontos chave:
 
 Primeiro aplica-se arc-consistency:
 
-| Edges | Domain Changes | New Edges |
-| ----- | -------------- | --------- |
-| $X_1,X_3$ | $D_1$ = {3,4,7} | ---
-| $X_3,X_1$ | $D_3$ = {3,4,7} | $(X_1,X_3)$
-| $X_1,X_4$ | ---- | ---- |
-| $X_4,X_1$ | ---- | ---- |
-| $X_2,X_4$ | $D_2$ = {2,4,6} | ---- |
-| $X_4,X_2$ | ---- | ---- |
-| $X_1,X_3$ | ---- | ---- |
+| Edges     | Domain Changes  | New Edges   |
+| --------- | --------------- | ----------- |
+| $X_1,X_3$ | $D_1$ = {3,4,7} | ---         |
+| $X_3,X_1$ | $D_3$ = {3,4,7} | $(X_1,X_3)$ |
+| $X_1,X_4$ | ----            | ----        |
+| $X_4,X_1$ | ----            | ----        |
+| $X_2,X_4$ | $D_2$ = {2,4,6} | ----        |
+| $X_4,X_2$ | ----            | ----        |
+| $X_1,X_3$ | ----            | ----        |
 
 $D_1$ = {3,4,7}<br>
 $D_2$ = {2,4,6}<br>
 $D_3$ = {3,4,7}<br>
 $D_4$ = {6,7,8}<br>
 
-| Trios | Constraint Change | New Trios |
-| ----- | ----------------- | --------- |
-| $X_1,X_3,X_2$ | ---- | ---- |
-| $X_1,X_4,X_2$ | ---- | ---- |
-| $X_1,X_2,X_3$ | ---- | ---- |
-| $X_1,X_4,X_3$ | ---- | ---- |
-| $X_1,X_2,X_4$ | ---- | ---- |
-| $X_1,X_3,X_4$ | ---- | ---- |
-| $X_2,X_1,X_3$ | ---- | ---- |
-| $X_2,X_4,X_3$ | ---- | ---- |
-| $X_2,X_1,X_4$ | ---- | ---- |
-| $X_2,X_3,X_4$ | ---- | ---- |
+| Trios         | Constraint Change     | New Trios                                                 |
+| ------------- | --------------------- | --------------------------------------------------------- |
+| $X_1,X_3,X_2$ | ----                  | ----                                                      |
+| $X_1,X_4,X_2$ | ----                  | ----                                                      |
+| $X_1,X_2,X_3$ | ----                  | ----                                                      |
+| $X_1,X_4,X_3$ | ----                  | ----                                                      |
+| $X_1,X_2,X_4$ | ----                  | ----                                                      |
+| $X_1,X_3,X_4$ | ----                  | ----                                                      |
+| $X_2,X_1,X_3$ | ----                  | ----                                                      |
+| $X_2,X_4,X_3$ | ----                  | ----                                                      |
+| $X_2,X_1,X_4$ | ----                  | ----                                                      |
+| $X_2,X_3,X_4$ | ----                  | ----                                                      |
 | $X_3,X_1,X_4$ | $R_{3,4} = X_4 > X_3$ | $(X_1,X_3,X_4),(X_2,X_3,X_4),(X_1,X_4,X_3),(X_2,X_4,X_3)$ |
-| $X_3,X_2,X_4$ | ---- | ---- |
-| $X_1,X_3,X_4$ | ---- | ---- |
-| $X_2,X_3,X_4$ | ---- | ---- |
-| $X_1,X_4,X_3$ | ---- | ---- |
-| $X_2,X_4,X_3$ | ---- | ---- |
+| $X_3,X_2,X_4$ | ----                  | ----                                                      |
+| $X_1,X_3,X_4$ | ----                  | ----                                                      |
+| $X_2,X_3,X_4$ | ----                  | ----                                                      |
+| $X_1,X_4,X_3$ | ----                  | ----                                                      |
+| $X_2,X_4,X_3$ | ----                  | ----                                                      |
 
 Uma nova constraint é adicionada: $R_{3,4} = X_4 > X_3$
 
@@ -188,7 +201,7 @@ width graph = 2
 
 # 1.2.6
 
-## a) 
+## a)
 
 <img src="Imagens/1.2.6a.png">
 
@@ -242,11 +255,11 @@ width graph = 1
 a), b), c) :
 | Nodes | Changes |
 | ----- | ------- |
-| A     | -       |
-| B     | -       |
-| C     | -       |
+| A | - |
+| B | - |
+| C | - |
 
-Nada vai mudar para nenhum dos casos 
+Nada vai mudar para nenhum dos casos
 
 ## e)
 
@@ -276,32 +289,32 @@ Isto faz com que a arvore da ordem a), vá também ter cortes mais cedo.
 
 | Nodes | Domian Changes |
 | ----- | -------------- |
-| E | $D_D$ = {g,b} |
-| D | - |
-| C | $D_B$ = {r,g} |
-| B | - |
-| A | - |
+| E     | $D_D$ = {g,b}  |
+| D     | -              |
+| C     | $D_B$ = {r,g}  |
+| B     | -              |
+| A     | -              |
 
 ## b)
 
-| Nodes | Domain Changes | Constraints | Edge |
-| ----- | -------------- | ----------- | ---- |
-| E | $D_D$ = {g,b} | - | - |
-| D | - | $R_{BC}$ = {(r, b)} | - |
-| C | $D_B$ = {r} | - | - |
-| B | - | - | - |
-| A | - | - | - |
+| Nodes | Domain Changes | Constraints         | Edge |
+| ----- | -------------- | ------------------- | ---- |
+| E     | $D_D$ = {g,b}  | -                   | -    |
+| D     | -              | $R_{BC}$ = {(r, b)} | -    |
+| C     | $D_B$ = {r}    | -                   | -    |
+| B     | -              | -                   | -    |
+| A     | -              | -                   | -    |
 
 <br>
 
 # 1.2.9
 
-| Nodes | Domain Changes |
-| ----- | -------------- |
+| Nodes | Domain Changes        |
+| ----- | --------------------- |
 | $x_4$ | $D_3$ = {white, blue} |
-| $x_3$ | $D_1$ = {white} |
-| $x_2$ | --- |
-| $x_1$ | --- |
+| $x_3$ | $D_1$ = {white}       |
+| $x_2$ | ---                   |
+| $x_1$ | ---                   |
 
 It is backtrack-free because whichever value selected for $x_1$ will allow us to reach a decision without backtracking.<br>
 It is not full arc consistent because, for example, three are values in $x_2$ that don't respect $R_{1,2}$, for example, green.
@@ -335,6 +348,7 @@ Ao escolher $x$ = 4 e $z$ = 5 cumpria o constraint $x < z$ e ao escolher $y$ = 1
 Backtracking:
 
 $X_A$ = r
+
 - $X_B$ = g
   - $X_C$ = b
     - $X_D$ = r
@@ -366,6 +380,7 @@ E = y True
 Gashnig's Backjumping
 
 A = r latest = {}
+
 - B = g latest = {}
   - C = b latest = {}
     - D = r latest = {}
@@ -383,6 +398,7 @@ A = r latest = {}
 - B = {} backtrack
 
 A = b latest = {}
+
 - B = g latest = {}
   - C = b latest = {}
     - D = r latest = {}
@@ -392,7 +408,7 @@ A = b latest = {}
     - D = g latest = {}
       - E = g latest = {}
         - F = b latest = {}
-          - G = r COMPLETED 
+          - G = r COMPLETED
 
 ---
 
@@ -401,6 +417,7 @@ Graph-based backjumping
 Primeiro aplica-se os induced parents.
 
 A = r Induced = {}
+
 - B = g Induced = {}
   - C = b Induced = {}
     - D = r Induced = {}
@@ -423,6 +440,7 @@ A = r Induced = {}
   - C Que também não tem e vai para A
 
 A = b Induced = {}
+
 - B = g Induced = {}
   - C = b Induced = {}
     - D = r Induced = {}
@@ -440,9 +458,10 @@ A = b Induced = {}
 
 ---
 
-Conflict-based 
+Conflict-based
 
 A = r JUMP = {}
+
 - B = g JUMP = {}
   - C = b JUMP = {}
     - D = r JUMP = {}
@@ -452,6 +471,7 @@ A = r JUMP = {}
   - C Não tem valores possíveis JUMP = {A}
 
 A = b JUMP = {}
+
 - B = g JUMP = {}
   - C = b JUMP = {}
     - D = r JUMP = {}
@@ -468,7 +488,7 @@ A = b JUMP = {}
 G
 
 ## f)
-        
+
 C
 
 ## g)
@@ -550,6 +570,7 @@ It would fail at $x_4$ and wouldn't keep going.
 # 1.3.4
 
 $x_1$ = 1
+
 - $x_2$ = 1
   - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 1, $x_2$ = 1)
 - $x_2$ = 2
@@ -558,6 +579,7 @@ $x_1$ = 1
   - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 1, $x_2$ = 3)
 
 $x_1$ = 2
+
 - $x_2$ = 1
   - $x_3$ = ~~1~~, ~~2~~ -> No-good: ($x_1$ = 2, $x_2$ = 1)
 - $x_2$ = 2
@@ -570,6 +592,7 @@ $x_1$ = 2
   - $x_3$ = 2 -> Não continua porque temos o no-good ($x_1$ = 2, $x_2$ = 3)
 
 $x_1$ = 3
+
 - Iriamos repetir a coisa toda // TODO TENTA FAZER ESTA BOMBA EM CASA
 
 <br>
@@ -621,6 +644,7 @@ Choose: A = True
 Variables = {$X_1,X_2,X_3,X_4,X_5,X_6$}<br>
 Domain $X_i | i \in \{1, ..., 6\}$ = {0,1,2}<br>
 Constraints:
+
 - $X_1 != X_4$
 - $X_1 != X_3$
 - $X_2 != X_3$
@@ -634,6 +658,7 @@ Constraints:
 ## b)
 
 $X_1$ = 0
+
 - $X_2$ = 0
   - $X_3$ = ~~0~~, 1
     - $X_4$ = ~~0~~, ~~1~~, ~~2~~
@@ -647,6 +672,7 @@ $X_1$ = 0
 ## c)
 
 $X_1$ = 0 -> $D_3$ = {1,2}, $D_4$ = {1,2}
+
 - $X_2$ = 0 -> $D_3$ = {1,2}, $D_5$ = {1,2}, $D_6$ = {1,2}
   - $X_3$ = 1 -> $D_4$ = {~~0~~}, it becomes empty because of the other constraint that $X_4$ < $X_3$
   - $X_3$ = 2 -> $D_4$ = {1}, $D_5$ = {1}, $D_6$ = {1}
@@ -661,16 +687,16 @@ $X_1$ = 0 -> $D_3$ = {1,2}, $D_4$ = {1,2}
 
 a = {$(X_1, X_3), (X_3, X_1), (X_1, X_4), (X_4, X_1), (X_2, X_3), (X_3, X_2), (X_2, X_5), (X_5, X_2), ...$}
 
-| Id | Edge | New Domain | Back to Queue |
-| -- | ---- | ---------- | ------------- |
-| 1  | $(X_1, X_3)$ | --- | --- |
-| 2  | $(X_3, X_1)$ | --- | --- |
-| 3  | $(X_1, X_4)$ | $D_1$ = {0, 1} | $(X_3, X_1)$ |
-| 4  | $(X_4, X_1)$ | $D_4$ = {1, 2} | $(X_1, X_4)$ |
-| 5  | $(X_2, X_3)$ | - | - |
-| 6  | $(X_3, X_2)$ | - | - |
-| .. | | |
-| 10 | | |
+| Id  | Edge         | New Domain     | Back to Queue |
+| --- | ------------ | -------------- | ------------- |
+| 1   | $(X_1, X_3)$ | ---            | ---           |
+| 2   | $(X_3, X_1)$ | ---            | ---           |
+| 3   | $(X_1, X_4)$ | $D_1$ = {0, 1} | $(X_3, X_1)$  |
+| 4   | $(X_4, X_1)$ | $D_4$ = {1, 2} | $(X_1, X_4)$  |
+| 5   | $(X_2, X_3)$ | -              | -             |
+| 6   | $(X_3, X_2)$ | -              | -             |
+| ..  |              |                |
+| 10  |              |                |
 
 Final:<br>
 $D_1$ = {0, 1}<br>
@@ -688,6 +714,7 @@ $D_5$ = {0, 1, 2}<br>
 $D_6$ = {0, 1, 2}<br>
 
 $X_1$ = 0
+
 - $X_2$ = 0
   - $X_3$ = 2
     - $X_4$ = 1
@@ -753,8 +780,7 @@ Também tem de se fazer o induced graph, mas é igual ao de cima.
       - $X_4$ = ~~0~~, 1
         - $X_5$ = 0
           - $X_6$ = 0
-        
-      
+
 <br>
 
 # 1.5.4
@@ -763,15 +789,17 @@ Também tem de se fazer o induced graph, mas é igual ao de cima.
 
 Variables = {S, E, N, D, M, O, R, Y, $X_1$, $X_2$, $X_3$, $X_4$}<br>
 Domains:
+
 - $D_i | i \in $ {S, .. Y} = 0..9<br>
 - $D_j | i \in $ {$X_1$, .., $X_4$}<br>
 
 Constraints:
+
 - AllDiff(S, ..., Y) <- Não percebo porque é que tem de se fazer isto mas yah.
-- D + E = Y + 10 * $X_1$
-- N + R + $X_1$ = E + 10 * $X_2$
-- E + O + $X_2$ = N + 10 * $X_3$
-- S + M + $X_3$ = O + 10 * $X_4$
+- D + E = Y + 10 \* $X_1$
+- N + R + $X_1$ = E + 10 \* $X_2$
+- E + O + $X_2$ = N + 10 \* $X_3$
+- S + M + $X_3$ = O + 10 \* $X_4$
 - M = $X_4$
 
 <br>
@@ -781,61 +809,73 @@ Constraints:
 ## f)
 
 $X_A$ = 1 $latest_A$ = {}
+
 - $X_B$ = ~~1~~, .., ~~8~~ $latest_B$ = A -> JUMP
 
 $X_A$ = 2 $latest_A$ = {}
+
 - $X_B$ = 1 $latest_B$ = {}
   - $X_C$ = ~~1~~,..,~~8~~ $latest_C$ = B -> JUMP
 - $X_B$ = ~~2~~,..,~~8~~ backtrack
 
 $X_A$ = 3 $latest_A$ = {}
+
 - $X_B$ = 1 $latest_B$ = {}
   - $X_C$ = ~~1~~,..,~~8~~ $latest_C$ = B -> JUMP
 - $X_B$ = ~~2~~,..,~~8~~ backtrack
 
 $X_A$ = 4 $latest_A$ = {}
+
 - $X_B$ = ~~1~~, 2 $latest_B$ = {}
   - $X_C$ = 1 COMPLETED
 
 ## g)
 
 A = 1 Induced = {}
+
 - B= ~~1~~, .., ~~8~~ Induced = {A}
 
 A = 2 Induced = {}
+
 - B = 1 Induced = {}
   - C = ~~1~~, ..~~8~~ Induced = {B}
 - B= ~~2~~, .. ~~8~~ Induced = {A}
 
 A = 3 Induced = {}
+
 - B = 1 Induced = {}
   - C = ~~1~~, .., ~~8~~ Induced = {B}
 - B = ~~2~~, .., ~~8~~ Induced = {}
 
 A = 4 Induced = {}
+
 - B = ~~1~~, 2 Induced = {}
   - C = 1 Completed
 
 # h)
 
 A = 1 Jump = {}
+
 - B = ~~1~~, .., ~~8~~ Jump = {A}
 
 A = 2 Jump = {}
+
 - B = 1 Jump = {}
   - C = ~~1~~, .., ~~8~~ Jump = {B}
 - B = ~~2~~, .., ~~8~~ Jump = {A}
 
 A = 3 Jump = {}
+
 - B = 1 Jump = {}
   - C = ~~1~~, .., ~~8~~ Jump = {B}
 - B = ~~2~~, .., ~~8~~ Jump = {A}
 
 A = 4 Jump = {}
+
 - B = ~~1~~, 2 Jump = {}
   - C = 1
 
-## i) 
+## i)
 
 Na maioria dos casos o conflict based permite saltar para mais longe na arvore.
 
@@ -845,14 +885,14 @@ Na maioria dos casos o conflict based permite saltar para mais longe na arvore.
 
 pairs = {$(x, z), (z, x), (z, y), (y, z)$}
 
-| Id | Edge | New Domain | Back to Queue |
-| -- | -- | -- | -- |
-| 1  | $(x, z)$ | -- | -- |
-| 2 | $(z, x)$ | -- | -- |
-| 3 | $(z, y)$ | $D_z$ = {2} | $(x, z)$
-| 4 | $(y, z)$ | -- | -- |
-| 5 | $(x, z)$ | $D_x$ = {2} | $(z, y)$ |
-| 6 | $(y, z)$ | -- | -- |
+| Id  | Edge     | New Domain  | Back to Queue |
+| --- | -------- | ----------- | ------------- |
+| 1   | $(x, z)$ | --          | --            |
+| 2   | $(z, x)$ | --          | --            |
+| 3   | $(z, y)$ | $D_z$ = {2} | $(x, z)$      |
+| 4   | $(y, z)$ | --          | --            |
+| 5   | $(x, z)$ | $D_x$ = {2} | $(z, y)$      |
+| 6   | $(y, z)$ | --          | --            |
 
 In this case we don't need to put $(z, x)$ back in queue in id 5. Because in this algorithm k != i and k != j. In the slides algorithm that is different, and we would need to put $(z, x)$ back in queue for id 5.
 
@@ -877,6 +917,7 @@ Choose: R = True -> Satisfaz todas
 ## 1)
 
 incr-01-to-10(d2, d1):
+
 - pre-requisitos: { d1 = 1, d2 = 0 }
 - effects: { d1 = 0, d2 = 1 }
 
@@ -892,12 +933,12 @@ incr-01-to-10(d2, d1):
 
 O caminho mais rápido tem 4 iterações
 
-| Step | Action | State Change |
-| ---- | ------ | ----- |
-| 1 | take(r1, loc1, c1) | pos(c1) = r1, cargo(r1) = c1 
-| 2 | move(r1, loc1, loc2) | pos(r1) = loc2
-| 3 | put(r1, loc2, c1) | pos(c1) = loc2, cargo(r1) = nil
-| 4 | VERIFICA SE CONSEGUE | | 
+| Step | Action               | State Change                    |
+| ---- | -------------------- | ------------------------------- |
+| 1    | take(r1, loc1, c1)   | pos(c1) = r1, cargo(r1) = c1    |
+| 2    | move(r1, loc1, loc2) | pos(r1) = loc2                  |
+| 3    | put(r1, loc2, c1)    | pos(c1) = loc2, cargo(r1) = nil |
+| 4    | VERIFICA SE CONSEGUE |                                 |
 
 NO EXAME é preciso escrever o estado todo ao escolher cada ação e não apenas o que mudou, para além disso é preciso mostrar todas as ações possíveis e não apenas aquela que se vai escolher quando se faz o algoritmo Forward-Search. Por fim é preciso mostrar também $\pi$, o plano que se escolheu.
 
@@ -906,6 +947,7 @@ NO EXAME é preciso escrever o estado todo ao escolher cada ação e não apenas
 g = { pos(c1) = loc2, pos(c2) = loc2 }
 
 $A^{-1}$
+
 - put(r1, loc2, c1) g1
 - put(r1, loc2, c2) g2
 - put(r2, loc2, c1) g3
@@ -914,6 +956,7 @@ $A^{-1}$
 g1 = { pos(c1) = r1, pos(r1) = loc2, pos(r2) = loc2, cargo(r1) = c1 }
 
 $A^{-2}$
+
 - put(r2, loc2, c2) g5
 - move(r1, loc1, loc2) g6
 - take(r1, loc2, c1) g7
@@ -921,6 +964,7 @@ $A^{-2}$
 g6 = { pos(c1) = r1, pos(r1) = loc1, pos(r2) = loc2, cargo(r1) = c1 }
 
 $A^{-3}$
+
 - put(r2, loc2, c2) g8
 - take(r1, loc1, c1) g9
 
@@ -931,6 +975,7 @@ $S_0$ contains g9 por isso tá completo
 ## c)
 
 Atoms in $\hat{s}_0$ = $s_0$
+
 - loc(r1) = loc1
 - loc(r2) = loc2
 - cargo(r1) = nil
@@ -939,12 +984,14 @@ Atoms in $\hat{s}_0$ = $s_0$
 - pos(c2) = loc2
 
 A1
+
 - move(r1, loc1, loc2)
 - move(r2, lo1, loc2)
 - take(r1, loc1, c1)
 - take(r2, loc2, r2)
 
 Atoms in $\hat{s}_1$
+
 - loc(r1) = loc2
 - loc(r2) = loc1
 - cargo(r1) = c1
@@ -954,6 +1001,7 @@ Atoms in $\hat{s}_1$
 - $\hat{s}_0$
 
 A2
+
 - move(r1, loc2, loc1)
 - move(r2, loc2, loc1)
 - put(r1, loc2, c1)
@@ -965,6 +1013,7 @@ A2
 - A1
 
 Atoms in $\hat{s}_2$
+
 - pos(c1) = loc2
 - pos(c2) = loc1
 - cargo(r1) = c2
@@ -975,7 +1024,7 @@ Atoms in $\hat{s}_2$
 
 <img src="Imagens/2.2.2.c.png">
 
-*Comecei a fazer apenas as precondições e efeitos relevantes a partir de $\hat{s}_1$, para o desenho ser legivel.*
+_Comecei a fazer apenas as precondições e efeitos relevantes a partir de $\hat{s}_1$, para o desenho ser legivel._
 
 Para voltar atrás só precisamos de ver por quantas ações passamos até atingirmos o nosso goal desde $\hat{s}_0$. E assim chegamos a que $h^{FF}(s_0) = 3$
 
@@ -990,6 +1039,7 @@ R = { put(r1, loc2, c1), put(r2, loc2, c1) } // $s_0$ não satisfaz as precondi�
 N = ?
 
 $\hat{s}_0$
+
 - loc(r1) = loc1
 - loc(r2) = loc2
 - cargo(r1) = nil
@@ -998,12 +1048,14 @@ $\hat{s}_0$
 - pos(c2) = loc2
 
 $A_1$ \ R
+
 - move(r1, loc1, loc2)
 - move(r2, loc2, loc1)
 - take(r1, loc1, c1)
 - take(r2, loc2, c2)
 
 $\hat{s}_1$
+
 - loc(r1) = loc2
 - loc(r2) = loc1
 - cargo(r1) = c1
@@ -1013,6 +1065,7 @@ $\hat{s}_1$
 - $\hat{s}_0$
 
 $A_2$ \ R
+
 - move(r1, loc2, loc1)
 - move(r2, loc2, loc1)
 - put(r2, loc1, c2)
@@ -1023,6 +1076,7 @@ $A_2$ \ R
 - $A_1$ \ R
 
 $\hat{s}_2$
+
 - pos(c1) = loc2
 - pos(c2) = loc1
 - cargo(r1) = c2
@@ -1032,9 +1086,11 @@ $\hat{s}_2$
 - $\hat{s}_1$
 
 $A_3$ \ R
+
 - $A_2$ \ R
 
 $\hat{s}_3$
+
 - $\hat{s}_2$
 
 Como $\hat{s}_2$ = $\hat{s}_3$, podemos parar e N = R = { put(r1, loc2, c1), put(r2, loc2, c1) }
@@ -1082,6 +1138,7 @@ A thread é que se $a_2$ vier antes de $a_1$ isso iria mudar o value(bar) para 1
 ## b)
 
 Sim, uma execução possível seria:
+
 - Criar $a_1$ para satisfazer o open goal value(foo) = 5, em finish.
 - Criar $a_2$ para satisfazer o open goal value(bar) = 1, em finish.
 - Criar um causal link com o efeito value(bar) = 5, em start, para o open goal value(bar) = 5, em $a_1$.
@@ -1094,7 +1151,7 @@ Em teoria dá para ir infinitamente se ficarmos a stackar ações de forma a ter
 
 Only one, the smaller.
 
-## f) 
+## f)
 
 <img src="Imagens/2.2.5.f.png">
 
@@ -1185,13 +1242,13 @@ Neste caso $C$ é consistent, mas ($T,C$) não é porque há dois valores para l
 
 # 2.3.2
 
-| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
-| - | - | - | -------- | -------- | -------- | -------------------- | ------------------------------------ |
-| 1 | 2 | 3 | [4, 7] | [-5, -1] | [$-\infin, \infin]$ | [$-\infin, \infin]$ | [4, 7] |
-| 1 | 2 | 4 | [5, 8] | [-5, -1] | [2, 6] | [-3, 5] | [5, 5] |
-| 1 | 3 | 4 | ... | | | 
+| k   | i   | j   | $r_{ij}$ | $r_{ik}$ | $r_{kj}$            | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
+| --- | --- | --- | -------- | -------- | ------------------- | --------------------- | ----------------------------------- |
+| 1   | 2   | 3   | [4, 7]   | [-5, -1] | [$-\infin, \infin]$ | [$-\infin, \infin]$   | [4, 7]                              |
+| 1   | 2   | 4   | [5, 8]   | [-5, -1] | [2, 6]              | [-3, 5]               | [5, 5]                              |
+| 1   | 3   | 4   | ...      |          |                     |
 | ... |
-| 2 | 3 | 4 | [4, 6] | [-7, -4] | [5, 5] | [-2, 1] | {} |
+| 2   | 3   | 4   | [4, 6]   | [-7, -4] | [5, 5]              | [-2, 1]               | {}                                  |
 
 Como encontramos uma inconsistencia (interseção vazia) o algoritmo acaba e sabemos que a STN é inconsistente.
 
@@ -1199,40 +1256,39 @@ Como encontramos uma inconsistencia (interseção vazia) o algoritmo acaba e sab
 
 # 2.3.5
 
-
-| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
-| - | - | - | -------- | -------- | -------- | --------------------- | -------------------------------- |
-| 1 | 2 | 3 | [$-\infin,\infin$] | [-2,-1] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] |
-| 1 | 2 | 4 | [3,4] | [-2,-1] | [$-\infin,\infin$] | [$-\infin,\infin$] | [3,4] |
-| 1 | 2 | 5 | [$-\infin,\infin$] | [-2,-1] | [6,7] | [4,6] | [4,6] |
-| 1 | 3 | 4 | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] | [1,2] |
-| 1 | 3 | 5 | [4,5] | [$-\infin,\infin$] | [6,7] | [$-\infin,\infin$] | [4,5]
-| 1 | 4 | 5 | [$-\infin,\infin$] | [$-\infin,\infin$] | [6,7] | [$-\infin,\infin$] | [$-\infin,\infin$] |
-| 2 | 1 | 3 | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] |
-| 2 | 1 | 4 | [$-\infin,\infin$] | [1,2] | [3,4] | [4,6] | [4,6] |
-| 2 | 1 | 5 | [6,7] | [1,2] | [4,6] | [5,7] | [6,7] |
-| 2 | 3 | 4 | [1,2] | [$-\infin,\infin$] | [3,4] | [$-\infin,\infin$] | [$-\infin,\infin$] |
-| 2 | 3 | 5 | [4,5] | [$-\infin,\infin$] | [4,6] | [$-\infin,\infin$] | [4,5] |
-| 2 | 4 | 5 | [$-\infin,\infin$] | [-4,-3] | [4,6] | [0,3] | [0,3] |
-| 3 | 1 | 2 | [1,2] | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$] | [1,2] |
-| 3 | 1 | 4 | [4,6] | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [4,6] |
-| 3 | 1 | 5 | [6,7] | [$-\infin,\infin$] | [4,5] | [$-\infin,\infin$] | [6,7] |
-| 3 | 2 | 4 | [3,4] | [$-\infin,\infin$] | [1,2] | [$-\infin,\infin$] | [3,4] |
-| 3 | 2 | 5 | [4,6] | [$-\infin,\infin$] | [4,5] | [$-\infin,\infin$] | [4,6] |
-| 3 | 4 | 5 | [0,3] | [-2,-1] | [4,5] | [2,4] | [2,3] |
-| 4 | 1 | 2 | [1,2] | [4,6] | [-4,-3] | [0,3] | [1,2] |
-| 4 | 1 | 3 | [$-\infin,\infin$] | [4,6] | [-2,-1] | [2,5] | [2,5] |
-| 4 | 1 | 5 | [6,7] | [4,6] | [2,3] | [6,9] | [6,7] |
-| 4 | 2 | 3 | [$-\infin,\infin$] | [3,4] | [-2,-1] | [1,3] |
-| 4 | 2 | 5 | [4,6] | [3,4] | [2,3] | [5,7] | [5,6] |
-| 4 | 3 | 5 | [4,5] | [1,2] | [2,3] | [3,5] | [4,5] |
-| 5 | 1 | 2 | [1,2] | [6,7] | [-6,-5] | [0,2] | [1,2] |
-| 5 | 1 | 3 | [2,5] | [6,7] | [-5,-4] | [1,3] | [2,3] |
-| 5 | 1 | 4 | [4,6] | [6,7] | [-3,-2] | [3,5] | [4,5] |
-| 5 | 2 | 3 | [1,3] | [5,6] | [-5,-4] | [0,2] | [1,2] |
-| 5 | 2 | 4 | [3,4] | [5,6] | [-3,-2] | [2,4] | [3,4] |
-| 5 | 3 | 4 | [1,2] | [4,5] | [-3,-2] | [1,3] | [1,2] |
-| k | i | j | $r_{ij}$ | $r_{ik}$ | $r_{kj}$ | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
+| k   | i   | j   | $r_{ij}$           | $r_{ik}$           | $r_{kj}$           | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
+| --- | --- | --- | ------------------ | ------------------ | ------------------ | --------------------- | ----------------------------------- |
+| 1   | 2   | 3   | [$-\infin,\infin$] | [-2,-1]            | [$-\infin,\infin$] | [$-\infin,\infin$]    | [$-\infin,\infin$]                  |
+| 1   | 2   | 4   | [3,4]              | [-2,-1]            | [$-\infin,\infin$] | [$-\infin,\infin$]    | [3,4]                               |
+| 1   | 2   | 5   | [$-\infin,\infin$] | [-2,-1]            | [6,7]              | [4,6]                 | [4,6]                               |
+| 1   | 3   | 4   | [1,2]              | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$]    | [1,2]                               |
+| 1   | 3   | 5   | [4,5]              | [$-\infin,\infin$] | [6,7]              | [$-\infin,\infin$]    | [4,5]                               |
+| 1   | 4   | 5   | [$-\infin,\infin$] | [$-\infin,\infin$] | [6,7]              | [$-\infin,\infin$]    | [$-\infin,\infin$]                  |
+| 2   | 1   | 3   | [$-\infin,\infin$] | [1,2]              | [$-\infin,\infin$] | [$-\infin,\infin$]    | [$-\infin,\infin$]                  |
+| 2   | 1   | 4   | [$-\infin,\infin$] | [1,2]              | [3,4]              | [4,6]                 | [4,6]                               |
+| 2   | 1   | 5   | [6,7]              | [1,2]              | [4,6]              | [5,7]                 | [6,7]                               |
+| 2   | 3   | 4   | [1,2]              | [$-\infin,\infin$] | [3,4]              | [$-\infin,\infin$]    | [$-\infin,\infin$]                  |
+| 2   | 3   | 5   | [4,5]              | [$-\infin,\infin$] | [4,6]              | [$-\infin,\infin$]    | [4,5]                               |
+| 2   | 4   | 5   | [$-\infin,\infin$] | [-4,-3]            | [4,6]              | [0,3]                 | [0,3]                               |
+| 3   | 1   | 2   | [1,2]              | [$-\infin,\infin$] | [$-\infin,\infin$] | [$-\infin,\infin$]    | [1,2]                               |
+| 3   | 1   | 4   | [4,6]              | [$-\infin,\infin$] | [1,2]              | [$-\infin,\infin$]    | [4,6]                               |
+| 3   | 1   | 5   | [6,7]              | [$-\infin,\infin$] | [4,5]              | [$-\infin,\infin$]    | [6,7]                               |
+| 3   | 2   | 4   | [3,4]              | [$-\infin,\infin$] | [1,2]              | [$-\infin,\infin$]    | [3,4]                               |
+| 3   | 2   | 5   | [4,6]              | [$-\infin,\infin$] | [4,5]              | [$-\infin,\infin$]    | [4,6]                               |
+| 3   | 4   | 5   | [0,3]              | [-2,-1]            | [4,5]              | [2,4]                 | [2,3]                               |
+| 4   | 1   | 2   | [1,2]              | [4,6]              | [-4,-3]            | [0,3]                 | [1,2]                               |
+| 4   | 1   | 3   | [$-\infin,\infin$] | [4,6]              | [-2,-1]            | [2,5]                 | [2,5]                               |
+| 4   | 1   | 5   | [6,7]              | [4,6]              | [2,3]              | [6,9]                 | [6,7]                               |
+| 4   | 2   | 3   | [$-\infin,\infin$] | [3,4]              | [-2,-1]            | [1,3]                 |
+| 4   | 2   | 5   | [4,6]              | [3,4]              | [2,3]              | [5,7]                 | [5,6]                               |
+| 4   | 3   | 5   | [4,5]              | [1,2]              | [2,3]              | [3,5]                 | [4,5]                               |
+| 5   | 1   | 2   | [1,2]              | [6,7]              | [-6,-5]            | [0,2]                 | [1,2]                               |
+| 5   | 1   | 3   | [2,5]              | [6,7]              | [-5,-4]            | [1,3]                 | [2,3]                               |
+| 5   | 1   | 4   | [4,6]              | [6,7]              | [-3,-2]            | [3,5]                 | [4,5]                               |
+| 5   | 2   | 3   | [1,3]              | [5,6]              | [-5,-4]            | [0,2]                 | [1,2]                               |
+| 5   | 2   | 4   | [3,4]              | [5,6]              | [-3,-2]            | [2,4]                 | [3,4]                               |
+| 5   | 3   | 4   | [1,2]              | [4,5]              | [-3,-2]            | [1,3]                 | [1,2]                               |
+| k   | i   | j   | $r_{ij}$           | $r_{ik}$           | $r_{kj}$           | $r_{ik} \cdot r_{kj}$ | $r_{ij} \cap [r_{ik} \cdot r_{kj}]$ |
 
 1 -> 2 [1,2]<br>
 1 -> 3 [2,3]<br>

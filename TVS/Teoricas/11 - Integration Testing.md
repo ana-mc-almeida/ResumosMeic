@@ -12,6 +12,7 @@ Harder to locate bugs because each test case may involve several components, it 
 ### Object-oriented development
 
 Integration in object-oriented development takes place at all scopes:
+
 - Within a class.
 - Within a class hierarchy.
 - Between a client and its server.
@@ -43,6 +44,7 @@ Integration in object-oriented development takes place at all scopes:
 ### Drive definition
 
 A program that calls the interface procedures of the module being tested and verifies the results.
+
 - A driver simulates a client that calls the SUT.
 - Corresponds to the execution of a test suite.
 
@@ -66,7 +68,7 @@ The intent is to demonstrate stability by attempting to exercise an entire syste
 - Under favorable circumstances it can result in quick completion of integration testing.
 - Few (if any) integration drivers or stubs are developed.
 
-## Incremental integration 
+## Incremental integration
 
 Incremental integration is the most effective technique. Add components a few at a time and then test their interoperability.
 
@@ -81,18 +83,20 @@ The intent is to demonstrates stability by adding components to the SUT in uses-
 We need to have the dependency tree and the responsability for each component.
 
 1. for (n = leaf level; n < root level; n++)
-    1. Code all components of level n
-    2. Develop responsibility test suite for each component in level n
-    3. Exercise test suites of level n
+   1. Code all components of level n
+   2. Develop responsibility test suite for each component in level n
+   3. Exercise test suites of level n
 
 ### Consequences
 
 Disadvantages:
+
 - Driver development is the most significant cost.
 - The driver does not directly exercise intercomponent interfaces.
 - Postpones checking critical control interfaces and collaborations until the end of the development cycle.
 
 Advantages:
+
 - May begin as soon as any leaf-level component is ready.
 - Work may proceed in parallel.
 - Although this pattern reduces stubbing, stubs may still be needed to break a cycle or simulate exceptions.
@@ -113,12 +117,13 @@ We need a diagram to be able to have the hierarchy control.
 1. Model the control hierarchy as a dependency tree.
 2. Develop a staged plan for implementation and testing
 3. Design a responsibility-based test suite at system scope.
-    1. Develop and test the component(s) at the highest level of control first.
-    2. Continue in breadth-first swath at each level, replacing the server stubs with a full implementation.
+   1. Develop and test the component(s) at the highest level of control first.
+   2. Continue in breadth-first swath at each level, replacing the server stubs with a full implementation.
 
 ### Consequences
 
 Disadvantages:
+
 - Setting up a test requires that many stubs be coded to provide the desired response.
 - An unforeseen requirement in a lower-level component may necessitate last-minute changes to many top components, breaking part of the test suite, or the design may not be optimal. (The exactly oposite of the problem we were trying to solve from Bottom-up)
 - The stubs are necessarily implementation-specific and likely to be brittle.
@@ -126,6 +131,7 @@ Disadvantages:
 - Can have a small bang when integrating the components of a layer.
 
 Advantages:
+
 - Control components are developed and integrated early.
 - Testing and integration may begin early.
 - The cost of driver development is reduced.
@@ -142,7 +148,6 @@ By combining both we can avoid their disadvantages.
 1. Select a layer in the dependency tree designated as the target layer that is usually near the middle.
 2. Integrate the components incrementally. The layers above the target are integrated using the top-down approach. The layers bellow the target are integrated using the bottom-up approach. Testing converges at the target layer.
 
-
 ### Consequences
 
 - Integration can be faster.
@@ -157,9 +162,9 @@ The intent is to use an incremental approach to verify stability in a layered ar
 ### Strategy
 
 1. Develop each layer in isolation.
-    - Since each layer can have multiple components, we may also need to use an integration technique to test them.
+   - Since each layer can have multiple components, we may also need to use an integration technique to test them.
 2. Do Layer integration.
-    - Top-down or bottom-up.
+   - Top-down or bottom-up.
 
 ### Consequences
 
@@ -181,11 +186,13 @@ We need to identify clients and servers and to exercise all combinations of clie
 ### Consequences
 
 Disadvantages:
+
 - Cost of driver and stub development for clients and servers-
 - Cannot exercise end-to-end use cases until midway or late in the testing cycle.
 - The number of potential clients can be huge. In this case we need to consider group of clients as representative client.
 
 Advantages:
+
 - Avoids big bang integration problems.
 - Order can be sequenced according to priority or risk.
 - Client and server integration order has few constraints.

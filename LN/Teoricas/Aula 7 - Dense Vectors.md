@@ -27,12 +27,13 @@ d2: Delivery of silver arrived in a silver truck.<br>
 d3: Shipment of gold arrived in a truck.<br>
 
 Suppose that we use the term frequency as term weights and query weights. The following document indexing rules are also used:
+
 - stop words were not ignored
 - text was tokenized and lowercased
 - no stemming was used
-- terms were sorted alphabetically 
+- terms were sorted alphabetically
 
-**Problem**: Use Latent Semantic Indexing (LSI) to rank these documents for the query gold silver truck. 
+**Problem**: Use Latent Semantic Indexing (LSI) to rank these documents for the query gold silver truck.
 
 **Step 1**: Criar a term-document matriz A.
 
@@ -97,6 +98,7 @@ Este modelo de word embedding já tem em conta o contexto. É treinado em duas t
 ### Task1 - Masked Language Model
 
 BERT altera 15% das palavras do input adicionando uma mascara. Esta mascara é composta por:
+
 - 80% Token MASK - para ver se o BERT consegue perceber que palavra devia estar ali.
 - 10% Palavra incorreta - para ver se o BERT consegue corrigir uma frase que não faz sentido.
 - 10% Palavra correta - para garantir que o BERT não muda sempre a palavra e considera a hipotese de a palavra até fazer sentido no contexto.
@@ -139,10 +141,12 @@ Os metodos mais straigthforward para ter sentence embeddings são a soma e a mé
 # Evaluating Word Embeddings
 
 Podemos usar avaliações extrinsecas:
+
 - Question Answer
 - Spell Checking
 - ...
 
 Ou avaliações intrinsecas:
+
 - Correlação entre o algoritmo e humanos usando word similarity ratings, por exemplo, o cosseno.
 - TOEFL -> testes de vocabulário de escolha multipla.

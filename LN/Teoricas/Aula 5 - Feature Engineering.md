@@ -18,12 +18,14 @@ Feature Engineering is a machine learning approach in which domain knowledge is 
 ### Algorithms
 
 Classification tasks:
+
 - Decision trees
 - Support Vector Machines
 - Naive Bayes
 - ...
 
 Sequence prediction tasks:
+
 - CRFs
 - ...
 
@@ -35,7 +37,7 @@ Evidencias ou Features: $x = \{ E_1, ..., E_m \}$
 
 Então Naive Bayes diz que:<br>
 
-$P(c_i | X) \approx P(E_1 | c_i) * ... * P(E_m | c_i) * P(c_i) $
+$P(c_i | X) \approx P(E_1 | c_i) _ ... _ P(E_m | c_i) \* P(c_i) $
 
 ### Desvantagens
 

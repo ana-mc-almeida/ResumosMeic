@@ -11,7 +11,6 @@ Nota: Em inglês "Phrase" refere-se a uma parte da frase e não à frase inteira
 - Interjeição (INTJ)
 - ...
 
-
 ## TreeBank
 
 Corpus onde todas as frases estão anotadas sintaticamente.

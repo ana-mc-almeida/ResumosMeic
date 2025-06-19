@@ -5,6 +5,7 @@ Turned-based game. Player 2 will know what player 1 has played. One player takes
 ### Example - Sharing game
 
 A brother and sister have to decide how to share two indivisible and identical presents from their parents in the following way:
+
 - First the brother (player 1) suggests a split, which can be one of three: he keeps both, she keeps both, or they each keep one.
 - Then the sister (player 2) chooses whether to accept or reject the split.
 
@@ -15,6 +16,7 @@ A brother and sister have to decide how to share two indivisible and identical p
 A pure strategy for an agent in a perfect-information game is a complete specification of which deterministic action to take at every node belonging to that agent.
 
 For the sharing games the pure strategies would be:
+
 - $S_1 =$ { 2-0, 1-1, 0-2 }
 - $S_2 = $ { (yes,yes,yes), (yes,yes,no), (yes,no,yes), (yes,no,no), (no,yes,yes), (no, yes, no), (no, no, yes), (no, no, no) }
 
@@ -29,28 +31,29 @@ Since agents take turns, and everyone gets to see everything that happened thus 
 <img src="Imagens/4 - second game.png">
 
 Here the pure strategies are:
+
 - $S_1 =$ { (A,G), (A,H), (B,G), (B,H) }
 - $S_2 =$ { (C,E), (C,F), (D,E), (D,F) }
 
 To calculate the nash equilibria we convert a perfect-information game to an equivalent normalform game:
 
-| | (C,E) | (C,F) | (D,E) | (D,F) |
-|-|----- | ----- | ----- | ----- |
-| **(A,G)** | 3, 8 | 3, 8 | 8, 3 | 8, 3 |
-| **(A,H)** | 3, 8 | 3, 8 | 8, 3 | 8, 3 |
-| **(B,G)** | 5, 5 | 2, 10 | 5, 5 | 2, 10 |
-| **(B,H)** | 5, 5 | 1, 0 | 5, 5 | 1, 0 |
+|           | (C,E) | (C,F) | (D,E) | (D,F) |
+| --------- | ----- | ----- | ----- | ----- |
+| **(A,G)** | 3, 8  | 3, 8  | 8, 3  | 8, 3  |
+| **(A,H)** | 3, 8  | 3, 8  | 8, 3  | 8, 3  |
+| **(B,G)** | 5, 5  | 2, 10 | 5, 5  | 2, 10 |
+| **(B,H)** | 5, 5  | 1, 0  | 5, 5  | 1, 0  |
 
 <img src="Imagens/4 - nash equilibria filling.png">
 
 We fill each cell with the result of the combination of actions that reach a leaf node.
 
-| | (C,E) | (C,F) | (D,E) | (D,F) |
-|-|----- | ----- | ----- | ----- |
-| **(A,G)** | 3, <u>8</u> | <u>3</u>, <u>8</u> | <u>8</u>, 3 | <u>8</u>, 3 |
-| **(A,H)** | 3, <u>8</u> | <u>3</u>, <u>8</u> | <u>8</u>, 3 | <u>8</u>, 3 |
-| **(B,G)** | <u>5</u>, 5 | 2, <u>10</u> | 5, 5 | 2, <u>10</u> |
-| **(B,H)** | <u>5</u>, <u>5</u> | 1, 0 | 5, <u>5</u> | 1, 0 |
+|           | (C,E)              | (C,F)              | (D,E)       | (D,F)        |
+| --------- | ------------------ | ------------------ | ----------- | ------------ |
+| **(A,G)** | 3, <u>8</u>        | <u>3</u>, <u>8</u> | <u>8</u>, 3 | <u>8</u>, 3  |
+| **(A,H)** | 3, <u>8</u>        | <u>3</u>, <u>8</u> | <u>8</u>, 3 | <u>8</u>, 3  |
+| **(B,G)** | <u>5</u>, 5        | 2, <u>10</u>       | 5, 5        | 2, <u>10</u> |
+| **(B,H)** | <u>5</u>, <u>5</u> | 1, 0               | 5, <u>5</u> | 1, 0         |
 
 Nash equilibria in this game: { (A, G), (C, F) }, { (A, H), (C, F) } and { (B, H), (C, E) }
 
@@ -68,9 +71,9 @@ On the other hand, if we look at nash equilibria (B, H), (C, E).
 
 Agent 2 chooses action E because he knows that agent 1 would choose H afterwards. What if agent 2 does not consider agent 1's threat to be credible? If agent 2 played F, agent 1 would have an incentive to change from H to G.
 
-The nash equilibrium (B,H), (C,E) is intuitively wrong. 
+The nash equilibrium (B,H), (C,E) is intuitively wrong.
 
-### Definition (Subgame of $G$ rooted at $h$) 
+### Definition (Subgame of $G$ rooted at $h$)
 
 Given a perfect-information extensive-form game $G$, the subgame of $G$ rooted at node $h$ is the restriction of $G$ to the descendants of $h$.
 
@@ -146,12 +149,12 @@ To find the Nash equilibria we convert an imperfect-information game to an equiv
 
 <img src="Imagens/4 - Nash Equilibria.png">
 
-| Agent 1 \ Agent 2 | A | B |
-| - | - | - |
-| $(L,l)$ | 0, 0 | <u>2</u>, <u>4</u> |
-| $(L,r)$ | <u>2</u>, <u>4</u> | 0, 0 |
-| $(R,l)$ | 1, <u>1</u> | 1, <u>1</u> |
-| $(R,r)$ | 1, <u>1</u> | 1, <u>1</u> |
+| Agent 1 \ Agent 2 | A                  | B                  |
+| ----------------- | ------------------ | ------------------ |
+| $(L,l)$           | 0, 0               | <u>2</u>, <u>4</u> |
+| $(L,r)$           | <u>2</u>, <u>4</u> | 0, 0               |
+| $(R,l)$           | 1, <u>1</u>        | 1, <u>1</u>        |
+| $(R,r)$           | 1, <u>1</u>        | 1, <u>1</u>        |
 
 Nash equilibria in this game $\{(L,l), B\}$ and $\{(L,r), A\}$
 
@@ -171,4 +174,4 @@ In this example a mixed strategy would be $[0.6 : (A,G), 0.4 : (B,H)]$ and a beh
 
 ### Theorem [Kuhn, 1953]
 
-In a game of perfect recall, any mixed strategy of a given agent can be replaced by an equivalent behavioural strategy, and any behavioural strategy can be replaced by an equivalent  mixed strategy.
+In a game of perfect recall, any mixed strategy of a given agent can be replaced by an equivalent behavioural strategy, and any behavioural strategy can be replaced by an equivalent mixed strategy.

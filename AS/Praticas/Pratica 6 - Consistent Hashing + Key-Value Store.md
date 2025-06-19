@@ -9,6 +9,7 @@ Ainda há alguns problemas, por exemplo, quando um servidor morre é preciso gar
 # Key-Value Store
 
 CAP Theorem, Não é possível ter ao mesmo tempo:
+
 - Consistency
 - Availability
 - Partition Tolerance
@@ -18,11 +19,13 @@ Mas é impossível sobreviver sem Partition Tolerance. Então temos de usar Part
 Utilizamos então mecanismos de consistent hashing com virtual servers. E quando temos um valor para guardar, em vez de guardarmos só no primeiro server, guardamos também nos próximos N para manter algumas réplicas. Como estamos a replicar informação precisamos que os servidores sejam consistentes.
 
 Para garantir consistencia entre as réplicas recorremos ao Quorum consensus. Sabendo que:
+
 - N = Numero de réplicas
 - W = Número de operações write completas até retornar.
 - R = Número de operações read completas até retornar.
 
 Podemos considerar os seguintes cenários:
+
 - Se tivermos W + R > N, temos strong consistency.
 - Se tivermos R = 1 e W = N temos strong consistency, escritas lentas e leituras rápidas.
 - Se tivermos W = 1 e R = N temos strong consistency, escritas rápidas e leituras lentas.

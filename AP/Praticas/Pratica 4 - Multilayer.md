@@ -30,7 +30,7 @@ Gradient output layer:
 
 $$\dfrac{\partial L(y, \hat{y})}{\partial z^{[L]}} = \dfrac{\partial \dfrac{1}{2}||z^{[L]} - y||^2}{\partial z^{[L]}} = z^{[L]} - y = \hat{y} - y$$
 
-Gradient hidden layer parameters (*não tou a conseguir provar isto, vou só assumir que é uma regra*):
+Gradient hidden layer parameters (_não tou a conseguir provar isto, vou só assumir que é uma regra_):
 
 $$\dfrac{\partial L(y, \hat{y})}{\partial W^{[l]}} = \dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}} h^{[l-1]^T}$$
 
@@ -82,11 +82,11 @@ $W^{[1]} - \eta \dfrac{\partial L(y, \hat{y})}{\partial W^{[1]}} = \begin{bmatri
 
 $b^{[1]} = b^{[1]} - \eta \dfrac{\partial L(y, \hat{y})}{\partial b^{[1]}} = \begin{bmatrix} 0.101332 \\ 0.101332 \\ 0.101332 \\ 0.101332 \end{bmatrix}$
 
-*E fazer igual para* $W^{[2]}$, $b^{[2]}$, $W^{[3]}$, $b^{[3]}$
+_E fazer igual para_ $W^{[2]}$, $b^{[2]}$, $W^{[3]}$, $b^{[3]}$
 
 ## 1.2
 
-É para fazer literalemente tudo igual ao que fizemos em cima e fazer uma dupla atualização a $W^{[i]}$ e $b^{[i]}$ tendo em conta os dois inputs. *Obviamente não vou repetir isto tudo '-'.*
+É para fazer literalemente tudo igual ao que fizemos em cima e fazer uma dupla atualização a $W^{[i]}$ e $b^{[i]}$ tendo em conta os dois inputs. _Obviamente não vou repetir isto tudo '-'._
 
 # Question 2
 
@@ -94,7 +94,7 @@ $b^{[1]} = b^{[1]} - \eta \dfrac{\partial L(y, \hat{y})}{\partial b^{[1]}} = \be
 
 softmax $\big(\begin{bmatrix} z_1 & z_2 & ... & z_d \end{bmatrix}^T\big) = \begin{bmatrix} p_1 & p_2 & ... & p_d \end{bmatrix}^T$
 
-Onde $p_i = \dfrac{e^{z_i}}{\sum\limits^d_{k=1} e^{z_k}} $
+Onde $p*i = \dfrac{e^{z_i}}{\sum\limits^d*{k=1} e^{z_k}} $
 
 Cross-Entropy: $L(y,p) = - \sum\limits^d_{k=1} y_k \log(p_k) = -y^Tz + \log \sum\limits_j e^{z_j}$
 
@@ -102,7 +102,7 @@ Logo $\dfrac{\partial L(y,p)}{\partial z} = -y+$ softmax($z$) $= -y + p$
 
 ---
 
-Forward propagation: *Igual à do primeiro exercício.*
+Forward propagation: _Igual à do primeiro exercício._
 
 $p = $ softmax($\begin{bmatrix} 0.16396 \\ 0.16396 \\ 0.16396 \end{bmatrix}$) $= \begin{bmatrix} 0.3333 \\ 0.3333 \\ 0.3333 \end{bmatrix}$
 
@@ -112,10 +112,10 @@ Calculando o erro: $L(y,p) = - \sum\limits^d_{k=1} y_k \log(p_k) = 1.0986$
 
 Gradient output layer: $\dfrac{\partial L(y,p)}{\partial z^{[L]}} = -y + p$
 
-*Os outros gradients são iguais aos do primeiro exercicio.*
+_Os outros gradients são iguais aos do primeiro exercicio._
 
 A partir daqui é só contas e fazer o update.
 
 ## 2.2
 
-*Igual ao* [1.2](#12)
+_Igual ao_ [1.2](#12)

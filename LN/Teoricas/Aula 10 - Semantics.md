@@ -10,11 +10,12 @@ Um agente percebe frases completas. Por exemplo, "Quem construiu o palácio" e c
 
 ## Regular Expressions
 
-Um agente percebe regular expressions. Por exemplo, "Quem construiu .* palácio" e consegue responder.
+Um agente percebe regular expressions. Por exemplo, "Quem construiu .\* palácio" e consegue responder.
 
 ## First Order Logic
 
 Definem-se consntantes e relações com simbolos de lógica. Por exemplo:
+
 - O Pedro é um estudante: student(PEDRO)
 - Todos os estudantes são grandes: $\forall x$ student($x$) $\implies$ great($x$)
 - Há pelo menos um grande estuante: $\exists x$ student($x$) $\wedge$ great($x$)
@@ -28,6 +29,7 @@ Por exemplo, para o input: "How much is the cheapest flight from Boston to New Y
 Type = Airfare
 
 Slots:
+
 - Custo: cheapest
 - Cidade de partida: Boston
 - Cidade de chegada: New York
@@ -39,6 +41,7 @@ Outro exemplo é a compra de bilhetes no cinema.
 O Type é uma compra de bilhetes.
 
 Os slots podem ser:
+
 - Filme
 - Número de tickets
 - Lugares na sala
@@ -68,6 +71,7 @@ A stora não aprofundou, mas convem saber que existe ig
 ## Notação 2
 
 Funções de lambda:
+
 - $\lambda y.\lambda x.f(x, y)@a$ = $\lambda x.f(x,a)$
 
 Funções de lambda básicas com prioridade da esquerda para a direita. O valor substituto vem depois do "@"
@@ -83,6 +87,7 @@ Para começar o semantic parsing da frase "A dog likes Alex" precisamos de fazer
 <img src="Imagens/Aula10 Compositional Semantic Parsing Example3.png">
 
 Semanticas:
+
 - a -> $\lambda P,\lambda Q. \exists xP(x) \wedge Q(x)$
 - dog -> DOG
 - likes -> $\lambda P,\lambda x.P(\lambda y.LIKES(x,y))$
@@ -102,6 +107,7 @@ Semanticas:
 ### BIO Tagging
 
 Serve para reconhecer um conjunto de chunks
+
 - B é para a palavra que se encontra no beginning da chunk.
 - I para palavras que se encontram inside da chunk.
 - O para palavras outside da chunk.
@@ -110,19 +116,19 @@ Serve para reconhecer um conjunto de chunks
 
 Para a frase "how much is the cheapest flight from Boston to New York?" vamos tentar identificar chunks para criar uma representação sintática frame.
 
-| Palavra | BIO |
-| ------- | --- |
-| How | O |
-| much | O |
-| is | O | 
-| the | O |
-| cheapest | B - Custo |
-| flight | O |
-| from | O |
-| Boston | B - Cidade de partida |
-| to | O |
-| New | B - Cidade de chegada |
-| York? | I - Cidade de chegada |
+| Palavra  | BIO                   |
+| -------- | --------------------- |
+| How      | O                     |
+| much     | O                     |
+| is       | O                     |
+| the      | O                     |
+| cheapest | B - Custo             |
+| flight   | O                     |
+| from     | O                     |
+| Boston   | B - Cidade de partida |
+| to       | O                     |
+| New      | B - Cidade de chegada |
+| York?    | I - Cidade de chegada |
 
 <br>
 

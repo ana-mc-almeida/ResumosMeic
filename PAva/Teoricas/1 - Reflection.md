@@ -1,6 +1,7 @@
 ### Computational System
 
 A system that reasons about and acts upon a given domain. The domain is represented by the internal structures of the system:
+
 - Data representing entities and relations.
 - Program prescribing data manipulation.
 
@@ -13,6 +14,7 @@ A running program is a computational system.<br>
 A computational system that has as domain another computational system (called the Object System). A computational meta-system operates on data that represents the computational object-system.
 
 Examples:
+
 - A debugger is a computational meta-system.
 - A profiler is a computational meta-system.
 - A (classic) compiler is not a computational meta-system (its domain is a program and not a computational system)
@@ -28,33 +30,37 @@ A meta-system that has itself as object-system. A reflective system is a system 
 ### Introspection
 
 Introspection is the ability of a program to examine its own structure and behavior.
+
 - How many parameters has the function `foo`?
 
 ### Intercession
 
 Intercession is the ability of a program to modify its own structure and behavior.
+
 - Change the class of this instance to `Bar`?
 
 ## Reification
 
 Structural Reification: the ability of a system to reify its own structure.
+
 - Which are the instance variables of this class?
 
 Behavioral (or computational) Reification: the ability of a system to reify its own execution.
+
 - Which are the active error handlers at this moment?
 
 # Emacs Lisp Intercession
 
-## traced-lambda example 
+## traced-lambda example
 
 O objetivo é criar uma função `traced-lambda` que recebe como argumentos o nome outra função `x` e a própria função `x` e retorna uma funcão nova que tem o mesmo comportamento, mas que mostra os argumentos e quando é chamada. Iriamos obter:
 
 ```
 (defun traced-lambda (name lambda-form)
-    (cons 'lambda 
+    (cons 'lambda
         (cons (cdar lambda-form)
-            (cons 
-                (list 'princ 
+            (cons
+                (list 'princ
                     (cons 'list
                         (cons (list 'quote name)
                             (cadr lambda-form)
@@ -71,6 +77,7 @@ O objetivo é criar uma função `traced-lambda` que recebe como argumentos o no
 ```
 
 Para não termos de usar expressões tão confusas, existem os operadores:
+
 - `_expr_ -> returns _expr_ unevaluated except for subexpressions preceded by comma.
 - ,_subexpr_ -> evaluates _subexpr_ and inserts the value in the containing expression.
 - ,@_subexpr_ -> evaluates _subexpr_ and splices the value (a list) in the containing expression.
@@ -94,14 +101,15 @@ Então fazendo o código acima, mas usando estas novas expressões:
 ```
 
 Regras relativas a nexted backquotes:
+
 - \`\`_expr_ -> returns \`_expr_ unevaluated except for subexpressions preceded by comma.
 - ,_subexpr_ -> evaluates _subexpr_ when the inner backquote is evaluated and inserts the value in the containing expression.
-,,_subexpr_ -> evaluates _subexpr_ twice and inserts the value in the containing expression.
-,',_subexpr_ -> evaluates _subexpr_ when the outer backquote is evaluated and inserts the value in the containing expression.
+  ,,_subexpr_ -> evaluates _subexpr_ twice and inserts the value in the containing expression.
+  ,',_subexpr_ -> evaluates _subexpr_ when the outer backquote is evaluated and inserts the value in the containing expression.
 
 ## memoize example
 
-Por exemplo, a sequência de fibonacci, se for implementada recursivamente, tem time complexity O($2^n$). 
+Por exemplo, a sequência de fibonacci, se for implementada recursivamente, tem time complexity O($2^n$).
 
 ```
 (defun fib (n)
@@ -109,7 +117,7 @@ Por exemplo, a sequência de fibonacci, se for implementada recursivamente, tem 
         n
         (+ (fib (- n 1))
             (fib (- n 2))
-        )        
+        )
     )
 )
 ```
@@ -166,7 +174,7 @@ Depois de `(fib 0)`:
 (lambda (n)
     (if (eql n '0)
         '0
-        (let 
+        (let
             ((result
                 (if (< n 2)
                     n
@@ -196,7 +204,7 @@ Depois de `(fib 1)`:
         '1
         (if (eql n '0)
             '0
-            (let 
+            (let
                 ((result
                     (if (< n 2)
                         n
@@ -232,7 +240,7 @@ Depois de `(fib 40)`:
                         '1
                         (if (eql n '0)
                             '0
-                            (let 
+                            (let
                                 ((result
                                     (if (< n 2)
                                         n
@@ -277,6 +285,7 @@ Java não nos permite ter intercession diretamente porque as entidades dentro da
 - $w is the wrapper type (useful for casts of primitive types).
 
 Disadvantages:
+
 - Templates based on String concatenation are error prone.
 - Javassist's compiler is fragile and does not deal with all features of Java (e.g., inner classes, anonymous classes, enums, and generics).
 - It is possible to violate Java semantics (wrong return type, lack of type casts, wrong dispatch, etc).
@@ -296,7 +305,7 @@ public class Fib {
             return fib(n - 1) + fib(n - 2);
         }
     }
-    
+
     public static void main(String[] args) {
         System.out.println(fib(Long.parseLong(args[0])));
     }
@@ -310,7 +319,7 @@ public class Fib {
     public static Long fib$original(Long n) {
         if (n < 2) {
             return n;
-        } 
+        }
         else {
             return fib(n - 1) + fib(n - 2);
         }
@@ -341,7 +350,7 @@ public class Memoize {
         if (args.length != 2) {
             System.err.println("Usage: java Memoize <class> <method>");
             System.exit(1);
-        } 
+        }
         else {
             ClassPool pool = ClassPool.getDefault();
             CtClass ctClass = pool.get(args[0]);
@@ -386,7 +395,7 @@ public class MemoizeAndRun extends Memoize {
     public static void main(String[] args) throws ... {
         if (args.length < 2) {
             ...
-        } 
+        }
         else {
             ClassPool pool = ClassPool.getDefault();
             CtClass ctClass = pool.get(args[0]);
@@ -446,6 +455,7 @@ public class C1 {
 As annotations usadas para definir novas annotations chamam-se meta-annotations:
 
 Pre-defined annotations - Meta-annotations - @Target
+
 - ElementType.TYPE
 - ElementType.FIELD
 - ElementType.METHOD
@@ -455,6 +465,7 @@ Pre-defined annotations - Meta-annotations - @Target
 - ElementType.ANNOTATION_TYPE
 
 Pre-defined annotations - Meta-annotations - @Retention
+
 - RetentionPolicy.SOURCE (Mantêm-se durante compilação)
 - RetentionPolicy.CLASS (Mantêm-se durante load time)
 - RetentionPolicy.RUNTIME (Mantêm-se durante runtime)
@@ -522,6 +533,7 @@ public class Memoize {
 ```
 
 Problemas:
+
 - Só dá para memoizar uma classe.
 - Temos de especificar qual é a classe.
 - O memoizer não consegue memoizar classes automaticamente.
@@ -551,10 +563,12 @@ public class Main {
 ```
 
 É possível associar _Listeners_ ao Class Loader do Javassist. Os Listeners são notificados:
+
 - quando são adicionados ao Class Loader (method `start`)
 - quando a classe está prestes a ser loaded (method `onLoad`)
 
 Listeners implement interface javassist.Translator:
+
 ```
 public interface Translator {
     public void start(ClassPool pool) throws NotFoundException, CannotCompileException;
@@ -577,7 +591,7 @@ public class MyTranslator implements Translator {
             memoizeMethods(ctClass);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }   
+        }
         // That's all. The class will now be automatically
         // loaded from the modified byte code
     }
@@ -599,7 +613,7 @@ public class MemoizeAndRun {
     public static void main(String[] args) throws ... {
         if (args.length < 1) {
             ...
-        } 
+        }
         else {
             Translator translator = new MemoizeTranslator();
             ClassPool pool = ClassPool.getDefault();

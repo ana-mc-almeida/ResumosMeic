@@ -30,7 +30,7 @@ $\hat{y}^{(2)} = sign(\begin{bmatrix} -1 & 1 & 0 \end{bmatrix} \cdot \begin{bmat
 
 $W^{(2)} = W^{(1)} + 1 \cdot \begin{bmatrix} 1 \\ 0 \\ 0.25 \end{bmatrix} = \begin{bmatrix} -1 \\ 1 \\ 0 \end{bmatrix} + \begin{bmatrix} 1 \\ 0 \\ 0.25 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0.25 \end{bmatrix}$
 
-*...Acelerando as partes das contas...*
+_...Acelerando as partes das contas..._
 
 $\hat{y}^{(3)}$ = sign(1.25) = 1 == $y^{(3)}$ -> Certo
 
@@ -64,7 +64,7 @@ $\hat{y} =$ sign($\begin{bmatrix} 0 & 1 & 1.75 \end{bmatrix} \cdot \begin{bmatri
 
 ## 1.4
 
-*Segundo o chatgpt,* sim, o algoritmo do perceptron converge sempre que os dados são linearmente separáveis.
+_Segundo o chatgpt,_ sim, o algoritmo do perceptron converge sempre que os dados são linearmente separáveis.
 
 # Question 2
 
@@ -89,6 +89,5 @@ Exemplo: $W = \begin{bmatrix} 0.5 & 1 & -1 \end{bmatrix}$
 ## 2.4
 
 <img src="Imagens/L2 2.4.png">
-
 
 Os dados não são linearmente separáveis.

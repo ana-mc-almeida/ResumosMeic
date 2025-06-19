@@ -1,4 +1,4 @@
-# Representations 
+# Representations
 
 - Can make models more expressive and accurate.
 - They may allow transferring representations from one task to another.
@@ -10,11 +10,11 @@
 - Layer closer to inputs learn simple concepts - edges, corners, etc..
 - Layer closer to outputs learn more abstract representations - shapes, forms, objects, etc.
 
-
 ## Distributed Representations
 
 - Local representations (one-hot) - one dimension per object.
 - Distributed representations - one dimension per property.
+
   - No single neuron encodes everything - groups of neurons work together.
   - More compact and powerful.
   - Hidden units should capture diverse properties of objects - not all capturing the same property - ensured by random initialization.
@@ -54,25 +54,26 @@ SVD is a matrix factorization method that decomposes a matrix $A \in \mathbb{R}^
 ## Linear Auto-Encoder
 
 - Let $X \in \mathbb{R}^{N \times D}$ be a data matrix with $N$ samples and $D$ features, where $N > D$.
--  Assume $W \in \mathbb{R}^{K \times D}$, where $K < D$.
+- Assume $W \in \mathbb{R}^{K \times D}$, where $K < D$.
 - We aim to minimize the reconstruction error: $\sum_{i=1}^N \| x_i - \hat{x}_i \|_2^2 = \| X - X W^T W \|_F^2$, where:
 
   - $\| \cdot \|_F$ denotes the Frobenius norm.
   - $W^T W$ has rank $K$.
+
 - According to the Eckart-Young theorem, the solution to this optimization problem is the truncated Singular Value Decomposition (SVD) of $X^T$. Specifically:
   - $\hat{X}^T = U_K \Sigma_K V_K^T$, where:
     - $U_K$ contains the top $K$ left singular vectors of $X^T$.
     - $\Sigma_K$ is the diagonal matrix of the top $K$ singular values.
     - $V_K$ contains the top $K$ right singular vectors.
 - The weight matrix is given by $W = U_K^T$.
--  This process corresponds to Principal Component Analysis (PCA), which fits a linear manifold to the data.
+- This process corresponds to Principal Component Analysis (PCA), which fits a linear manifold to the data.
 - By introducing non-linear activations in the encoder or decoder, the auto-encoder can learn more complex representations (non-linear manifolds).
 
 ### Sparse Auto-Encoders
 
--  Add a sparsity penalty $\ell_1$ to the loss function to encourage sparse representations in the hidden layer.
+- Add a sparsity penalty $\ell_1$ to the loss function to encourage sparse representations in the hidden layer.
 - Typically, the number of hidden units is larger than the number of input features.
--  The sparsity penalty acts as a regularization term that limits the number of active neurons.
+- The sparsity penalty acts as a regularization term that limits the number of active neurons.
 
 ### Stochastic Auto-Encoders
 
@@ -149,10 +150,10 @@ VAEs are widely used for tasks like data generation, anomaly detection, and lear
 ### Skip-Gram
 
 - Objective: maximize the log probability of any context word given the central word:
-$$J(\theta) = \dfrac{1}{T} \sum\limits^T_{t=1} \sum\limits_{-m \leq j \leq m, j\neq 0} \log p_\theta(x_{t+j}|x_t)$$
-
+  $$J(\theta) = \dfrac{1}{T} \sum\limits^T_{t=1} \sum\limits_{-m \leq j \leq m, j\neq 0} \log p_\theta(x_{t+j}|x_t)$$
 
 - There are 2 sets of parameters (2 embedding matrices - $\theta = (u,v) $):
+
   - Embeddings for each word o appearing as the center word - $u_o$.
   - Embeddings for each word c appearing in the context of another word - $v_c$.
 
@@ -166,7 +167,6 @@ $$J(\theta) = \dfrac{1}{T} \sum\limits^T_{t=1} \sum\limits_{-m \leq j \leq m, j\
   - Stochastic sampling.
   - Noise contrastive estimation.
   - Negative sampling.
-
 
 ### Negative Sampling
 

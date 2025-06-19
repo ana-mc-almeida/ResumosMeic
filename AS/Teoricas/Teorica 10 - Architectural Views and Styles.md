@@ -7,6 +7,7 @@ Para documentar uma arquitetura é preciso documentar as views relevantes e depo
 Views diferentes representam diferentes quality attributes do sistema. Cada view foca-se em aspetos especificos do sistema enquanto ignora outros aspetos.
 
 A documentação de uma view contém:
+
 - Representação gráfica dos elementos e das relações da view.
 - Uma descrição elementos e das suas propriedades.
 - Especificação das interfaces e comportamentos dos elementos.
@@ -14,6 +15,7 @@ A documentação de uma view contém:
 - Informação sobre o design.
 
 A documentação que se aplica a todas as views inclui:
+
 - Descrição de todas as packages.
 - Informação de como as views se relacionam.
 - Constraints sobre a arquitetura.
@@ -21,14 +23,16 @@ A documentação que se aplica a todas as views inclui:
 
 # Architecture Styles
 
-*Não percebi a diferença entre styles e views mas pronto*.
+_Não percebi a diferença entre styles e views mas pronto_.
 
 Há 3 tipos de estilos:
+
 - Module Styles
 - Componenet-and-connector Styles
 - Allocation Styles
 
 Style guide:
+
 1. Overview: Explica porque é que o style é útil e para que tipo de sistemas serve.
 2. Element types, relation types, properties: define os elementos que vão ser usados pelo style, como eles funcionam juntos e as suas propriedades.
 3. Constraints: Regras para usar elementos e relações entre eles para formar uma instância do style válida.
@@ -45,6 +49,7 @@ Style guide:
 - Implementação / Especicação
 
 Relações entre modules:
+
 - Depends on
 - Is part of
 - Is a

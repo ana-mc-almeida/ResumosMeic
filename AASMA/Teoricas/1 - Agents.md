@@ -45,15 +45,17 @@ Effectors: define the actuators for the agent perform in the world
 
 ## Abstract Architectures
 
-Environment states: (finite) set of (discrete) states 
+Environment states: (finite) set of (discrete) states
+
 - $E = \{e_0, e_1, ...\}$
 
-Actions: set of actions which transform the environment's state 
+Actions: set of actions which transform the environment's state
+
 - $Ac = \{\alpha_0, \alpha_1, ...\}$
 
 Run: finite sequence of interleaved states and actions
 
-- $r: e_0 \xrightarrow{\alpha_0} e_1 \xrightarrow{\alpha_1} e_2 \xrightarrow{\alpha_2} ... \xrightarrow{\alpha_{n - 1}} e_n $
+- $r: e*0 \xrightarrow{\alpha_0} e_1 \xrightarrow{\alpha_1} e_2 \xrightarrow{\alpha_2} ... \xrightarrow{\alpha*{n - 1}} e_n $
 
 Let:
 
@@ -62,17 +64,20 @@ Let:
 - $R^E$ is the subset of these that end with an environment state.
 
 A state transformer (environment changes): Maps a run (ending in an action) to a set of possible environment states
+
 - $\tau : R^{Ac} \Longrightarrow \wp(E)$
 - History dependent
 - Non-determinism
 - if $\tau(r) = \varnothing$, there are no possible successor states to $r$ (system has ended its run)
 
 An environment can now be fully defined as a triple $Env = <E,e_0,\tau>$ where:
+
 - $E$ is a set of environment states
 - $e_0 \in E$ is the initial state
 - $\tau$ is a state transformer function
 
 Agent is a function which maps runs to actions: An agent makes a decision (i.e., action to perform) based on the history of system that it has witnessed to date (i.e., $R^E$)
+
 - $Ag:R^E\Longrightarrow Ac$
 
 $AG$ is the set of all agents, $Ag \in AG$
@@ -84,14 +89,17 @@ We denote the set of runs of agent $Ag$ in Environment $Env$ by $R(Ag, Env)$
 Agent as a knowledge-based system. This paradigm is known as symbolic AI.
 
 Two key problems to be solved:
-1. Transduction problem: translating real-world environment into an accurate, adequate symbolic description. 
+
+1. Transduction problem: translating real-world environment into an accurate, adequate symbolic description.
 2. Representation/reasoning problem: symbolically representing information, how to get agents to reason with this information
 
 Deductive reasoning agent (architecture) is one that contains an explicit symbolic representation of the world and an internal state given by formulae (predicate logic).
+
 - internal state may include incorrect/outdated info
 - makes decisions via symbolic reasoning - proving theorems without breaking axioms on what is possible
 
 Agent decision:
+
 - $D$ (internal state = set of formulae or database)
 - $see : S \Longrightarrow Per$ (observe the environment), $Per$ = Percept
 - $next: D \times Pert\Longrightarrow D$ (update internal state)
@@ -102,6 +110,7 @@ Agent decision:
 An agent can decide what to do using theorem proving by using logic to encode a theory stating the best action to perform in a given situation.
 
 Let:
+
 - $\rho$ be this theory (typically deduction rules)
 - $DB$ be the logical data (database) describing current state of the world
 - $Ac$ be the set of actions the agent can perform
@@ -114,14 +123,14 @@ function action(DB:D) returns an action Ac
   begin
   /* for each action, attempts to prove Do(a) from its database using deduction rules */
   for each a : Ac do
-    if Do(a) then 
+    if Do(a) then
       return a
     end if
   end for
 
   /* attempts to find an action such that !Do(a) cannot be derived (i.e., not explicitly forbidden) */
   for each a : Ac do
-    if !Do(a) == false then 
+    if !Do(a) == false then
       return a
     end if
   end for
@@ -146,15 +155,18 @@ end function
 ## Agents as Intentional Systems
 
 Intentional stance: Develop agent behaviors in terms of mental states (beliefs, desires, wishes, hopes, ...)
+
 - "Michael took his umbrella because he believed it was going to rain."
 - "John worked hard because he wanted to obtain a PhD."
 
 Practical Reasoning = Deliberation + Means-Ends Reasoning
+
 - Deliberation: deciding what state of affairs an agent wants to achieve from (possibly conflicting) desires.
 - Means-Ends Reasoning: deciding how an agent wants to achieve these states of
-affairs.
+  affairs.
 
 The B.D.I model: an architecture for intelligent agents based on the mental attitudes of beliefs, desires and intentions.
+
 - Beliefs: Information about the environment, other agents, and itself
 - Desires: Desires/goals are state of affairs to achieve.
 - Intentions: Commitments to achieving particular goals.
@@ -168,10 +180,12 @@ The B.D.I model: an architecture for intelligent agents based on the mental atti
 - Filtering function: Choose between competing alternatives and commit to their achievement.
   - $filter: 2^{Bel} \times 2^{Des} \times 2^{Int} \Longrightarrow 2^{Int}$
 
-### Means-ends reasoning 
+### Means-ends reasoning
+
 - $plan: 2^{Bel} \times 2^{Int} \times 2^{Ac} \Longrightarrow Plan$
 
 Decision-making is a loop:
+
 1. Observe the world and update beliefs
 2. Deliberate to decide the intention(s) -> determine available options -> filter
 3. Use means-ends reasoning to find a plan for the intention(s)
@@ -212,6 +226,7 @@ Simple behaviors of each individual agent generates complex behaviors when combi
 ### Brooks: subsumption architecture
 
 Decision-making:
+
 - A set of task-accomplishing behaviors.
 - Each behavior module can be seen as an action selection function.
   - Perceptual inputs are mapped into actions.
@@ -231,12 +246,14 @@ However, many behaviors can fire simultaneously. In a subsumption hierarchy beha
 2. Add more modules. The priorities for the behaviors need to be re-adjusted every time one module is added.
 
 Requirements:
+
 - Deal with multiple goals.
 - Deal with multiple sensors that may provide conflicting data.
 - Be robust in dealing with changes in the environment.
 - Deal with time constraints.
 
 Advantages:
+
 - Simplicity.
 - Economy.
 - Computational tractability.
@@ -245,6 +262,7 @@ Advantages:
 - Extensibility.
 
 Limitations:
+
 - Decisions are only based on local information: agents have a short-term view.
 - Agents need sufficient local information to make decisions.
 - No learning: how to guarantee reactive rules evolve?
@@ -255,12 +273,14 @@ Limitations:
 
 Many researchers argue that neither a completely deliberative nor completely reactive approach is suitable. A Hybrid system should be used instead.
 
-Requirements: 
+Requirements:
+
 - Agent must have both reactive and deliberative behaviors.
 - Often, the reactive subsystem is given some kind of precedence over the deliberative subsystem.
 - This kind of structuring leads naturally to the idea of a layered architecture.
 
 A key problem in hybrid architectures: what kind of control flow should we consider between the agent's subsystems?
+
 - Horizontal layering: Layers are directly connected to the sensory input and action output. Each layer itself acts like an agent, producing suggestions on what action to perform.
   - Advantages: simple, distributed, fault-tolerant.
   - Disadvantages: global behavior may not be coherent, difficult to avoid conflict between layers.
@@ -293,9 +313,11 @@ How can we treat decision making algorithmically?
 ### Binary Relations
 
 A binary relation $R$ on a set of outcomes $Y$ is a set of ordered pairs $(x,y)$ with $x,y \in Y$. Also written as $xRy$.
+
 - Let $R_1$ mean "is shorter than". John ($x$) is 1.75m and Harry ($y$) is 1.85m. Then ($xRy$, not $yRx$)
 
 #### Properties:
+
 - Reflexive: $xRx, \forall x \in Y$
 - Irreflexive: not $xRx, \forall x \in Y$
   - A person cannot be shorter than himself.
@@ -304,7 +326,7 @@ A binary relation $R$ on a set of outcomes $Y$ is a set of ordered pairs $(x,y)$
   - if person 1 is shorter than person 2 then person 2 is not shorter than person 1.
 - Antisymmetric: $(xRy, yRx) \Longrightarrow x = y, \forall x,y \in Y$
 - Transitive: $(xRy,yRz) \Longrightarrow xRz, \forall x,y,z \in Y$
-  -  if person 1 is shorter than person 2 and person 2 is shorter than person 3 then person 1 is shorter than person 3.
+  - if person 1 is shorter than person 2 and person 2 is shorter than person 3 then person 1 is shorter than person 3.
 - Negatively transitive: $(\text{not }xRy, \text{not }yRz) \Longrightarrow \text{not }xRz, \forall x,y,z \in Y$
 - Connected or Complete: $xRy \vee yRx, \forall x,y \in Y$
 - Weakly connected: $x \neq y \Longrightarrow (xRy, yRx), \forall x,y \in Y$
@@ -316,27 +338,31 @@ Strict preference is a binary relation on the set of outcomes, such that $x \suc
 We can also define indifference as the absence of preference $x \sim y \Longleftrightarrow (\text{not }x \prec y, \text{not } x \succ y)$
 
 We can also define preference-indifference as the union of strict preference and indifference:
+
 - $x \preceq y \Longleftrightarrow (\text{not }x \prec y \vee x \sim y)$ - $x$ is not better than $y$.
 - $x \succeq y \Longleftrightarrow (\text{not }x \succ y \vee x \sim y)$ - $x$ is not worse than $y$.
 
-A rational preference is a binary relation if it is complete and transitive. The preference-indifference is complete and transitive. Hence it is a rational preference. 
+A rational preference is a binary relation if it is complete and transitive. The preference-indifference is complete and transitive. Hence it is a rational preference.
 
 ### Utility
 
 When preferences are rational, we can sort all outcomes consistently.
 
 Theorem:
+
 > Let $X$ be a set of possible oytcomes, and $\succeq$ a rational preference on $X$. Hence, there is a function $u: X \rightarrow \mathbb{R}$ such that $u(x) \geq u(y)$ if and only if $x \succeq y, \forall x,y \in X$.
 
 We call $u$ the utility function.
 
 Agents can use utility to make decisions:
+
 - Let $A$ be a set of actions.
 - Given $a \in A$, let $O(a)$ be an outcome when an agent selects action $a$.
 - Hence, the value of action $a$ is $Q(a) = u(O(a))$
 - The decision an agent selects is $\argmax\limits_{a \in A}Q(a) = \argmax\limits_{a \in A}u(O(a))$
 
 Under uncertainty:
+
 - Let $O$ denote a finite set of outcomes.
 - Given $o \in O$, let $P(o|a)$ denote the probability of outcome $o$ when an agent selects action $a$.
 - Hence, the expected value of an action is $Q(a) = \mathbb{E}[u(o|a)] = \sum\limits_{o \in O} u(o)P(o|a)$

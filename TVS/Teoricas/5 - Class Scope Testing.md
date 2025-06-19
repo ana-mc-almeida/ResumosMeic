@@ -49,6 +49,7 @@ The intent is to select test-efficient test value combinations for classes, inte
 ### Strategy
 
 Test model:
+
 1. Define the class invariant, responsibility-based assertions.
 2. Develop on points and off points for each condition in the invariant using the 1x1 selection criteria of domain model.
 3. Complete the test suite by developing in points for the variables not referenced in a condition.
@@ -68,21 +69,22 @@ class ClientProfile {
 Money is a scalar type with two precision digits.
 
 Account abstract states:
+
 - open: balance >= 0, inactive <= 499, !isClosed
 - debit: balance < 0, inactive <= 499, !isClosed
 - close: isClosed, balance = 0
 - idle: inactive >= 500, !isClosed
 
-Class Invariant: assert((trCounter >= 0) && (trCounter <= 500) &&  (creditLimit <= trCounter * 10 + 10) && !account.isClosed());
+Class Invariant: assert((trCounter >= 0) && (trCounter <= 500) && (creditLimit <= trCounter \* 10 + 10) && !account.isClosed());
 
-| Condition | On Point | Off Point |
-| --------- | -------- | --------- |
-| trCounter >= 0  | 0  | -1  |
-| trCounter <= 500    | 500      | 501               |
-| creditLimit <= trCounter * 10 + 10 | 2510           | 2510.01         |
-| !account.isClosed() (isOpen()) | close (0, 499, closed)  | close (0, i <= 499, closed) |
-| !account.isClosed() (isIdle()) | close (0, i <= 499, closed) | idle (0, 500, open) |
-| !account.isClosed() (isDebit()) | open (0, i <= 499, open) | debit (-0.01, i <= 499, open) |
+| Condition                           | On Point                    | Off Point                     |
+| ----------------------------------- | --------------------------- | ----------------------------- |
+| trCounter >= 0                      | 0                           | -1                            |
+| trCounter <= 500                    | 500                         | 501                           |
+| creditLimit <= trCounter \* 10 + 10 | 2510                        | 2510.01                       |
+| !account.isClosed() (isOpen())      | close (0, 499, closed)      | close (0, i <= 499, closed)   |
+| !account.isClosed() (isIdle())      | close (0, i <= 499, closed) | idle (0, 500, open)           |
+| !account.isClosed() (isDebit())     | open (0, i <= 499, open)    | debit (-0.01, i <= 499, open) |
 
 On and Off points for creditLimit consider trCounter = 250 and a two-digit precision.
 The minimal number of (On, Off) pair points for condition account.isClosed() is 1.
@@ -94,10 +96,12 @@ Test cases 9 and 10 are not mandatory
 ### Entry and Exit Criteria
 
 Entry Criteria:
+
 - A validated invariant exists or can be developed for the IUT.
 - If this pattern is used with another pattern, the entry criteria for that pattern will also apply.
 
 Exit Criteria:
+
 - A complete set of domain tests has been developed.
 - The coverage considerations of the other pattern will apply.
 
@@ -126,26 +130,28 @@ Test model: Class invariant
 
 Nonmodal bugs found with this test pattern:
 
-| Test | Behavior Tested | Pass | No Pass |
-| ---- | --------------- | ---- | ------- |
-| Define-operation | Define operation accepts valid input | On point is accepted (assuming On satisfies invariant) | On point is rejected |
-| Define-exception | Define operation rejects invalid input | Off point is rejected (assuming Off invalidates invariant) | Off point is accepted |
-| Define-exception-corruption | Define exception changes state | No change in state after an exception | State is corrupted after an exception |
-| Use-exception | Use operation does not throw an exception | Operation returns normally | An exception is thrown |
-| Use-correct-return | Use operation returns same value as input to the define operation | Use and define values are the same | Use and define values are not the same |
-| Use-corruption | Use operation does not corrupt the state of OUT | OUT's state unchanged after a use operation | OUT's state is changed after a use operation |
+| Test                        | Behavior Tested                                                   | Pass                                                       | No Pass                                      |
+| --------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------- |
+| Define-operation            | Define operation accepts valid input                              | On point is accepted (assuming On satisfies invariant)     | On point is rejected                         |
+| Define-exception            | Define operation rejects invalid input                            | Off point is rejected (assuming Off invalidates invariant) | Off point is accepted                        |
+| Define-exception-corruption | Define exception changes state                                    | No change in state after an exception                      | State is corrupted after an exception        |
+| Use-exception               | Use operation does not throw an exception                         | Operation returns normally                                 | An exception is thrown                       |
+| Use-correct-return          | Use operation returns same value as input to the define operation | Use and define values are the same                         | Use and define values are not the same       |
+| Use-corruption              | Use operation does not corrupt the state of OUT                   | OUT's state unchanged after a use operation                | OUT's state is changed after a use operation |
 
 Test procedure:
+
 1. Find class invariant
 2. Develop set of test cases using Invariant Boundaries.
 3. Select a message sequence strategy.
-    - E.g., define-use or suspect.
+   - E.g., define-use or suspect.
 4. Set the OUT to a test case from the domain matrix.
-    - Use a modifier/define method.
+   - Use a modifier/define method.
 5. Send all accessor messages and verify that the returned values are consistent with the defining value.
 6. Repeat steps 3 and 4 until all cases of the domain matrix have been exercised.
 
 Sequences may be selected in several ways:
+
 - Define-use sequence: Consists of a definition method followed by all the use methods.
 - Random sequence: The sequence of use and modifier calls is assigned randomly.
 - Suspect sequence: If a sequence is suspect for any reason, try it.
@@ -162,6 +168,7 @@ The best is to mix define-use with random.
 Entry Criteria: Alpha-omega cycle on the CUT
 
 Exit Criteria:
+
 - All define-use method pairs have been exercised, and an object of CUT has taken on the values in each test case at least once.
 - Achieve at least branch coverage on each method in the CUT.
 
@@ -170,6 +177,7 @@ Exit Criteria:
 Behavior of SUT modeled by a finite state machine.
 
 FSM - Finite State Machine - is 5-tuple $M = (S, I, O, \delta, \lambda)$
+
 - $S$ is a finite set of states.
 - $I$ is a finite set of inputs.
 - $O$ is a finite set of outputs.
@@ -219,6 +227,7 @@ Develop a class scope test suite for a class that has fixed constraints on messa
 ### Example - Account class
 
 States:
+
 - Open
 - Overdrawn
 - Closed
@@ -226,6 +235,7 @@ States:
 - Inactive
 
 Operations:
+
 - open
 - balance
 - credit
@@ -243,15 +253,15 @@ Operations:
 
 We must develop a truth table for each conditional transition.
 
-| State | Message | Condition | Next | State |
-| ----- | ------- | --------- | ---- | ----- |
-| Overdrawn | credit | Post: balance < 0.00 | Overdrawn |
-| Overdrawn | credit | Post: balance >= 0.00 | Open |
-| Open | debit | Post: balance < 0.00 | Overdrawn |
-| Open | debit | Post: balance >= 0.00 | Open |
-| Open | - | Post: currentYear - lastYear > 5 | Inactive |
-| Open | close | Pre: balance == 0.00 | Closed |
-| Overdrawn | debit | Pre: !customer | Overdrawn |
+| State     | Message | Condition                        | Next      | State |
+| --------- | ------- | -------------------------------- | --------- | ----- |
+| Overdrawn | credit  | Post: balance < 0.00             | Overdrawn |
+| Overdrawn | credit  | Post: balance >= 0.00            | Open      |
+| Open      | debit   | Post: balance < 0.00             | Overdrawn |
+| Open      | debit   | Post: balance >= 0.00            | Open      |
+| Open      | -       | Post: currentYear - lastYear > 5 | Inactive  |
+| Open      | close   | Pre: balance == 0.00             | Closed    |
+| Overdrawn | debit   | Pre: !customer                   | Overdrawn |
 
 - close() in Open generates an additional transition when balance > 0
 - debit() in Overdrawn generates an additional transition when customer == true
@@ -274,26 +284,26 @@ For all the new nodes we explore only the ones whose state hasn't been explored 
 
 #### 4. Tabulate events and actions along each path to form message sequences
 
-| Run | Test Run/Event Path | Expected Terminal State |
-| --- | ------------------- | ----------------------- |
-| 1 | new | open |
-| 2 | new -> balance | open |
-| 3 | new -> credit | open |
-| 4 | new -> debit [b >= 0.0] | open |
-| 5 | new -> debit [b < 0.0] | overdrawn |
-| 6 | new -> debit [b < 0.0] -> [customer]debit/error | overdrawn |
-| 7 | new -> debit [b < 0.0] -> [!customer] debit | overdrawn |
-| 8 | new -> debit [b < 0.0] -> balance | overdrawn |
-| 9 | new -> debit [b < 0.0] -> credit[b > 0.0] | overdrawn |
-| 10 | new -> debit [b < 0.0] -> credit[b >= 0.0] | open |
-| 11 | new -> freeze | frozen |
-| 12 | new -> freeze -> balance | frozen |
-| 13 | new -> freeze -> unfreeze | open |
-| 14 | new -> [currentY - lastY > 5] | inactive |
-| 15 | new -> [currentY - lastY > 5] -> balance | inactive |
-| 16 | new -> [currentY - lastY > 5] -> settle | closed |
-| 17 | new -> [b!=0.0] close/error | open |
-| 18 | new -> [b==0.0] close | closed |
+| Run | Test Run/Event Path                             | Expected Terminal State |
+| --- | ----------------------------------------------- | ----------------------- |
+| 1   | new                                             | open                    |
+| 2   | new -> balance                                  | open                    |
+| 3   | new -> credit                                   | open                    |
+| 4   | new -> debit [b >= 0.0]                         | open                    |
+| 5   | new -> debit [b < 0.0]                          | overdrawn               |
+| 6   | new -> debit [b < 0.0] -> [customer]debit/error | overdrawn               |
+| 7   | new -> debit [b < 0.0] -> [!customer] debit     | overdrawn               |
+| 8   | new -> debit [b < 0.0] -> balance               | overdrawn               |
+| 9   | new -> debit [b < 0.0] -> credit[b > 0.0]       | overdrawn               |
+| 10  | new -> debit [b < 0.0] -> credit[b >= 0.0]      | open                    |
+| 11  | new -> freeze                                   | frozen                  |
+| 12  | new -> freeze -> balance                        | frozen                  |
+| 13  | new -> freeze -> unfreeze                       | open                    |
+| 14  | new -> [currentY - lastY > 5]                   | inactive                |
+| 15  | new -> [currentY - lastY > 5] -> balance        | inactive                |
+| 16  | new -> [currentY - lastY > 5] -> settle         | closed                  |
+| 17  | new -> [b!=0.0] close/error                     | open                    |
+| 18  | new -> [b==0.0] close                           | closed                  |
 
 #### 5. Develop test data for each path using Invariant Boundaries pattern for events, messages and actions
 
@@ -321,6 +331,7 @@ credit in Overdrawn
 | [b < 0]   | $0$      | $-0.01$   |
 
 Note:
+
 - Do not repeat test cases with same input values
 - Add at least one test case for each identified cases
 
@@ -330,23 +341,24 @@ VT = Valid Transition, PSP = Possible sneak path, ? = Conditional Transition
 
 | Events \ State | Open | Overdrawn | Frozen | Inactive | Closed |
 | -------------- | ---- | --------- | ------ | -------- | ------ |
-| credit | VP | ? | PSP | PSP | PSP |
-| debit | ? | ? | PSP | PSP | PSP |
-| balance | VP | VP | VP | VP | PSP |
-| freeze | VP | PSP | PSP | PSP | PSP |
-| unfreeze | PSP | PSP | VP | PSP | PSP |
-| settle | PSP | PSP | PSP | VP | PSP |
-| 5 years | VP | PSP | PSP | PSP | PSP |
-| close | ? | PSP | PSP | PSP | PSP |
+| credit         | VP   | ?         | PSP    | PSP      | PSP    |
+| debit          | ?    | ?         | PSP    | PSP      | PSP    |
+| balance        | VP   | VP        | VP     | VP       | PSP    |
+| freeze         | VP   | PSP       | PSP    | PSP      | PSP    |
+| unfreeze       | PSP  | PSP       | VP     | PSP      | PSP    |
+| settle         | PSP  | PSP       | PSP    | VP       | PSP    |
+| 5 years        | VP   | PSP       | PSP    | PSP      | PSP    |
+| close          | ?    | PSP       | PSP    | PSP      | PSP    |
 
 Add PSP to the transition tree
 
-| Run | Test Run/Event Path | Expected Terminal State | Exception |
-| --- | ------------------- | ----------------------- | --------- |
-| 19 | new -> unfreeze | open | throw |
-| 20 | new -> settle | open | throw |
-| 21 | new -> debit [b < 0.0] -> freeze | overdrawn | throw |
-| 22 | new -> debit [b < 0.0] -> unfreeze | overdrawn | throw |
+| Run | Test Run/Event Path                | Expected Terminal State | Exception |
+| --- | ---------------------------------- | ----------------------- | --------- |
+| 19  | new -> unfreeze                    | open                    | throw     |
+| 20  | new -> settle                      | open                    | throw     |
+| 21  | new -> debit [b < 0.0] -> freeze   | overdrawn               | throw     |
+| 22  | new -> debit [b < 0.0] -> unfreeze | overdrawn               | throw     |
+
 | ...
 
 ### Entry and Exit Criteria
@@ -354,6 +366,7 @@ Add PSP to the transition tree
 Entry Criteria: Alpha - omega cycle
 
 Exit Criteria:
+
 - Achieve branch coverage on each method in the Class Under Test
 - Provide N+ coverage
   - A test for each root-to-leaf path in the expanded transition tree and a full set of sneak path cases.

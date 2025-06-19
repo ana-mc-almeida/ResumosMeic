@@ -1,6 +1,7 @@
 ### Vertical vs. Horizontal Scalability
 
 Antes de começar há dois conceitos importantes:
+
 - Vertical scalability refere-se a melhorar o hardware dos servidores existentes, adicionando mais CPU, por exemplo.
 - Horizontal scalability refere-se a aumentar o número de servidores.
 
@@ -28,15 +29,15 @@ A maior vantagem é que agora o nosso sistema tem availability, já que mesmo qu
 
 Já resolvemos o problema de falhas para a web layer. Mas o mesmo problema ainda existe na data layer. Como só temos uma database, se ela cair, o sistema também fica inoperacional. Assim, o bottleneck passa a ser na data layer.
 
-Para resolver este problema da maneira mais fácil possível podemos usar um esquema Master / Slave para a database. A maior parte das aplicações têm muito mais *reads* do que *writes*, cerca de 95%-5%. Este esquema consiste na replicação de databases em que uma é o Master e apenas suporta *writes*. Todas as outras databases são slaves e apenas permitem *reads*. Assim resolvemos o problema, mas precisamos de garantir que os Slaves estão sincronizados com o Master. No caso de um dos Slaves cair, não há qualquer problema porque há mais Slaves que o podem substituir. Se for o último Slave a cair, então o Master passa a suportar operações de *read* até que o Slave seja reposto. Se o Master cair, é preciso eleger um dos Slaves, que esteja sincronizado com o Master, para ser o novo Master.
+Para resolver este problema da maneira mais fácil possível podemos usar um esquema Master / Slave para a database. A maior parte das aplicações têm muito mais _reads_ do que _writes_, cerca de 95%-5%. Este esquema consiste na replicação de databases em que uma é o Master e apenas suporta _writes_. Todas as outras databases são slaves e apenas permitem _reads_. Assim resolvemos o problema, mas precisamos de garantir que os Slaves estão sincronizados com o Master. No caso de um dos Slaves cair, não há qualquer problema porque há mais Slaves que o podem substituir. Se for o último Slave a cair, então o Master passa a suportar operações de _read_ até que o Slave seja reposto. Se o Master cair, é preciso eleger um dos Slaves, que esteja sincronizado com o Master, para ser o novo Master.
 
 ### 5. Cache
 
 Fazer leituras e escritas à database pode ser demorado. Para mitigar esta demora instalam-se Caches entre a web tier e a database tier que permitem que leituras frequentes não sejam sempre direcionadas à database. Também dá jeito que escritas não sejam muito frequentes.
 
-Há um vasto conjunto de preocupações a ter ao instalar a Cache, por exemplo, qual *Expiration policy* usar. Convém não usar um *expiration time* muito curto porque isso força o sistema a reler a informação da datbase com frequência. No entanto, também não convém ser muito longo porque pode o conteúdo pode ser modificado entretanto.
+Há um vasto conjunto de preocupações a ter ao instalar a Cache, por exemplo, qual _Expiration policy_ usar. Convém não usar um _expiration time_ muito curto porque isso força o sistema a reler a informação da datbase com frequência. No entanto, também não convém ser muito longo porque pode o conteúdo pode ser modificado entretanto.
 
-Temos de ter também em conta a *Eviction Policy*, que pode ser Least-Recently-Used (LRU), Least-Frequenly-Used (LFU) ou First In First Out (FIFO).
+Temos de ter também em conta a _Eviction Policy_, que pode ser Least-Recently-Used (LRU), Least-Frequenly-Used (LFU) ou First In First Out (FIFO).
 
 ### 6. Content Delivery Network (CDN)
 

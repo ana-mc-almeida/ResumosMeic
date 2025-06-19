@@ -5,6 +5,7 @@ A metric to check the amount of code that is being tested.
 Coverage value = # Covered test requirements / # Total test requirements
 
 Coverage reports can:
+
 - Point out a grossly inadequate test suite.
 - Suggest the presence of surprises (things that the code does that are not in the specification).
 - Help to identify implementation constructs that may require implementation-based test design.
@@ -27,7 +28,6 @@ Coverage measures what is executed, not what is checked. Even if you could reach
 Achieved when all statements in a method have been executed at least once. This means that all nodes in CGF are exercised at least once.
 
 Example: [Pratica 6, Exercicio 1.2](../Praticas/Pratica%206/Pratica%206.md#2)
-
 
 ## Branch coverage model
 
@@ -88,6 +88,7 @@ Example: [Pratica 6, Exercicio 7.1](../Praticas/Pratica%206/Pratica%206.md#1-4)
 ## Simple loop coverage model
 
 Exercise body of loop:
+
 - 0 times
 - once
 - twice

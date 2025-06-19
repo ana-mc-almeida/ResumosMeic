@@ -15,7 +15,7 @@
 
 Escolhe-se o primeiro assignment tendo todas as variáveis o valor 1. A primeira a última clausula são violadas.
 
-- Se flipassemos A, D, E não iriamos melhorar nada a nossa situação. 
+- Se flipassemos A, D, E não iriamos melhorar nada a nossa situação.
 - Se flipassemos C iriamos satisfazer a primeira e última clausula, mas estariamos a violar a segunda.
 - Se flipassemos D iriamos satisfazer a última clausula, mas a primeira continuava a ser violada.
 
@@ -45,19 +45,22 @@ Por isso escolher flipar tanto A como B resolvem o problema.
 Primeiro todas as constraints têm peso 1.
 
 Escolhe-se o primeiro assign para todas as variáveis terem valor 1. E nesse caso, a primeira e última clausula são violadas. Por isso os seus pesos aumentam em 1 unidade. E nesta altura temos:
+
 - $w_1$ = $w_4$ = 2
 - $w_2$ = $w_3$ = 1
 
 O próximo assignment pode ser:
+
 - Flipar A, D, E, mas não nos ajuda a satisfazer as clausulas violadas.
 - Flipar B que faz com que tenhamos um custo de 2 porque a primeira clausula não fica satisfeita.
 - Flipar C que faz com que tenhamos um custo de 1 porque satisfaz a primeira e ultima clausula, mas viola a segunda.
 
 Ou seja flipamos C sem duvida. E passamos a ter os pesos:
+
 - $w_1$ = $w_2$ = $w_4$ = 2
 - $w_3$ = 1
 
-*Até podia continuar, mas nem daria para mostrar o constraint weighting a funcionar por isso fico por aqui.*
+_Até podia continuar, mas nem daria para mostrar o constraint weighting a funcionar por isso fico por aqui._
 
 ## Random walk Strategies
 
@@ -73,7 +76,8 @@ Ou seja flipamos C sem duvida. E passamos a ter os pesos:
 Atribui-se o valor 1 a todas as variaveis e a primeira e última clausula são violadas.
 
 Escolhe-se aleatoriamente a clausula ( !B V !C )
-- Para se minimizar o número de constraints violadas muda-se B para 0. 
+
+- Para se minimizar o número de constraints violadas muda-se B para 0.
 - Se flipassemos C, iriamos estar a violar a segunda clausula.
 
 Só falta satisfazer a clausula ( !C ) por isso flipa-se C.

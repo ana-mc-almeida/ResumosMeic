@@ -13,12 +13,14 @@ Data Flow Testing focuses on the points at which variables change value and the 
   - **c** - used in a computation.
 
 A parameter x passed to a function
+
 - call-by-value, is considered as a use (c-use) of x.
 - call-by-reference, is considered as a definition and use (c-use) of x.
 
 Variables can be used and re-defined in the same statement on both sides of an assignment or as a call by reference parameter in function call.
+
 - x = x + 5;
-- x *= 5;
+- x \*= 5;
 - increment(&y);
 
 #### Example
@@ -28,15 +30,15 @@ Variables can be used and re-defined in the same statement on both sides of an a
 - `printf ("Output: %d \n", x + y)` : uses variables (c-use) x and y
 - `if (x > 0)`: uses variable (p-use) x
 
-| i | Code Line | Def | C-use | P-use |
-| - | --------- | --- | ----- | ----- |
-| 1 | read (x, y); | x, y|
-| 2 | z = x + 2; | z | x |
-| 3 | if (z < y) | | | z, y |
-| 4 | w = x + 1; | w | x
-| - | else | - | - | -
-| 5 | y = y + 1; | y | y |
-| 6 | print (x, y, w, z); | | x, y, w, z
+| i   | Code Line           | Def  | C-use      | P-use |
+| --- | ------------------- | ---- | ---------- | ----- |
+| 1   | read (x, y);        | x, y |
+| 2   | z = x + 2;          | z    | x          |
+| 3   | if (z < y)          |      |            | z, y  |
+| 4   | w = x + 1;          | w    | x          |
+| -   | else                | -    | -          | -     |
+| 5   | y = y + 1;          | y    | y          |
+| 6   | print (x, y, w, z); |      | x, y, w, z |
 
 ## Static Data Flow Testing
 
@@ -45,6 +47,7 @@ Identify potential defects, commonly known as data flow anomaly.
 ### Data flow anomaly
 
 Three types of abnormal situations with using variable.
+
 - Defined and then defined again - action sequence **dd**.
 - Undefined but referenced - action sequence **-u**.
 - Defined but not referenced - action sequence **dk**.
@@ -66,7 +69,7 @@ Select paths by analyzing the program's data flow in order to explore sequences 
 A path is called a definition clear path (def-clear path) with respect to variable $v$ if $v$ has
 been neither defined nor undefined in nodes of that path, except the first and last nodes.
 
-### Definiton-use pair (du-pair) 
+### Definiton-use pair (du-pair)
 
 A definition-use pair with respect to a variable $v$ is a pair $(d,u)$ such that $d$ is a node in the program's flow graph at which $v$ is defined, $u$ is a node or edge at which $v$ is used and there is at least one def-clear path with respect to $v$ from $d$ to $u$. In other words, there is at least one path $(d, \dots, u)$ such that the value that is assigned to $v$ at $d$ is used at $u$.
 
@@ -89,6 +92,7 @@ Nodes defining A = {1, 2}<br>
 Nodes using A = {2, 4, 5, <3,4>, <3,5>}
 
 du-pair:
+
 - (1,2)
 - (1,4)
 - (1,5)
@@ -99,34 +103,34 @@ du-pair:
 - (2,<3,4>)
 - (2,<3,5>)
 
-| du-pair | dc-path | 
-| ------- | ------- |
-| (1,2) | <1,2>
-| (1,4) | <1,3,4>
-| (1,5) | <1,3,4,5>
-| | <1,3,5>| 
-| (1,<3,4>) | <1,3,4>
-| (1,<3,5>)|  <1,3,5>
-| (2,4)|  <2,3,4>
-| (2,5) | <2,3,4,5>
-| | <2,3,5>
-| (2,<3,4>) | <2,3,4>
-| (2,<3,5>) | <2,3,5>
+| du-pair   | dc-path   |
+| --------- | --------- |
+| (1,2)     | <1,2>     |
+| (1,4)     | <1,3,4>   |
+| (1,5)     | <1,3,4,5> |
+|           | <1,3,5>   |
+| (1,<3,4>) | <1,3,4>   |
+| (1,<3,5>) | <1,3,5>   |
+| (2,4)     | <2,3,4>   |
+| (2,5)     | <2,3,4,5> |
+|           | <2,3,5>   |
+| (2,<3,4>) | <2,3,4>   |
+| (2,<3,5>) | <2,3,5>   |
 
 #### Variable B
 
 Nodes defining B = {1, 4}<br>
 Nodes using B = {4, 5, <1,2>, <1,3>}
 
-| du-pair | dc-path |
-| ------- | ------- |
-| (1,4) | <1,2,3,4>
-| | <1,3,4>
-| (1,5)|  <1,2,3,5>
-| | <1,3,5>
-| (1,<1,2>) | <1,2>
-| (1,<1,3>) | <1,3>
-| (4,5) | <4,5>
+| du-pair   | dc-path   |
+| --------- | --------- |
+| (1,4)     | <1,2,3,4> |
+|           | <1,3,4>   |
+| (1,5)     | <1,2,3,5> |
+|           | <1,3,5>   |
+| (1,<1,2>) | <1,2>     |
+| (1,<1,3>) | <1,3>     |
+| (4,5)     | <4,5>     |
 
 ### Definition Complete Path
 
@@ -141,9 +145,9 @@ A simple path is a path in which all nodes, except possibly the first and the la
 - All-Defs - for every program variable $v$, at least one def-clear path from every definition of $v$ to at least one c-use or one p-use of $v$ must be covered.
 - All-Uses - for every program variable $v$, at least one def-clear path from every definition of $v$ to every c-use and every p-use of v must be covered.
 - All-P-Uses - for every variable $v$, at least one dc-path from every definition of $v$ to
-every P-use of v must be covered.
+  every P-use of v must be covered.
 - All-C-Uses - for every variable $v$, at least one dc-path from every definition of $v$ to
-every C-use of v must be covered.
+  every C-use of v must be covered.
 - All-P-Uses/Some-C-Uses - for every variable $v$, at least one dc-path from every definition of $v$ to every P-use of v must be covered. If a definition of $v$ has no P-uses, at least one dc-path from the definition of $v$ to a C-use of $v$ must be covered.
 - All-C-Uses/Some-P-Uses - for every variable $v$, at least one dc-path from every definition of $v$ to every C-use of $v$ must be covered. If a definition of $v$ has no C-uses, at least one dc-path from the definition of $v$ to a P-use of $v$ must be covered.
 - All DU-Paths - for every program variable $v$, every du-path from every definition of $v$ to every c-use and every p-use of $v$ must be covered.

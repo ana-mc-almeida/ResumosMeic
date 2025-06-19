@@ -2,9 +2,10 @@
 
 ### Multi-master replication
 
-Utiliza-se sharding para se guardar informação. Gera-se o unique id utilizando o *auto_increment* das databases. O valor aumenta pelo número de databases. Ou seja Se houverem 2 datbases, o gerador de ids da primeira vai gerar: 1, 3, 5, ...
+Utiliza-se sharding para se guardar informação. Gera-se o unique id utilizando o _auto_increment_ das databases. O valor aumenta pelo número de databases. Ou seja Se houverem 2 datbases, o gerador de ids da primeira vai gerar: 1, 3, 5, ...
 
 Desvantagens:
+
 - Não é escalável facilmente
 - Não é comparável por tempo
 
@@ -13,6 +14,7 @@ Desvantagens:
 Cada servidor gera o seu próprio UUID. Isto oferece performance e retira todos os problemas de sincronização. Escala facilmente porque cada servidor só depende de si para gerar UUIDs.
 
 Desvantagens:
+
 - UUIDs têm 128 bits.
 - UUIDs não são comparáveis por tempo.
 - UUIDs não são numericos apenas.
@@ -22,6 +24,7 @@ Desvantagens:
 Existe um servidor que incrementa os ids e vai distribuindo a outros servidores quando lhe pedem. Oferece ids numericos, é fácil de fazer e funciona bem para pequenas e médias aplicações.
 
 Desvantagens:
+
 - É um single point of failure.
 - É dificil de escalar porque envolve sincronização.
 
@@ -40,10 +43,13 @@ Divide-se o ID em várias secções:
 ## API Endpoints (REST-style)
 
 1. URL Shortening: POST
-  - Request parameter: longURL
-  - Return shortURL
+
+- Request parameter: longURL
+- Return shortURL
+
 2. Redirecting: GET
-  - Return longURL
+
+- Return longURL
 
 ### 301 vs 302 Redirect
 

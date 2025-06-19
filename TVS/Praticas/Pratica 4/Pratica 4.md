@@ -17,7 +17,7 @@ We will use define-use. Since we are going to make one test case for each method
 ```java
 @Test
 public class TestExample() {
-    
+
     @Test(expecteExceptions = InvalidOperationException.class)
     public void testsInvalidInputForXThenThrowException() {
         new Example(-10, 41, -5);
@@ -81,7 +81,7 @@ We could skip test 7 because we are alreay testing condition3 == True for all it
 ```java
 @Test
 public class ExampleTest {
-    
+
     public void testValidValueForPDescription() {
         Prize p = new Prize(1, "1234567890");
         PrizeDB pdb = new PrizeDB(p);
@@ -90,7 +90,7 @@ public class ExampleTest {
         assertEquals(pdb.find(1), p);
         assertEquals(pdb.getNumberOfPrizes(), 1);
     }
-    
+
     public void testValidValueForCondition3() {
         Prize p1 = new Prize(1, "1234567890123");
         PrizeDB pdb = new PrizeDB(p1);
@@ -102,43 +102,44 @@ public class ExampleTest {
         assertEquals(pdb.getNumberOfPrizes(), 2);
     }
 
-} 
+}
 ```
 
 ## Teste ao nível do metodo `add()`
 
 Functions for `add(p)`:
+
 - add `p` if possible.
 - throw exception if `p == null`, `p.id()` is not unique, PrizeDB is full, `p.description()` is valid.
 - increase size if `p` is added.
 
 In and Out values:
 
-| Function | In | Out |
-| -------- | -- | --- |
-| add `p` if possible | `p`, set | set |
+| Function                                                                | In                          | Out       |
+| ----------------------------------------------------------------------- | --------------------------- | --------- |
+| add `p` if possible                                                     | `p`, set                    | set       |
 | throw exception if `p == null`, `p.id()` is not unique, PrizeDB is full | `p`, set, `p.description()` | exception |
-| increase size if `p` is added | `p`, set | size |
+| increase size if `p` is added                                           | `p`, set                    | size      |
 
 Categories:
 
-| | Caterogry |
-| - | ------ |
-| set | empty |
-| | holding |
-| | full |
-| `p` | invalid
-| | valid |
+|     | Caterogry |
+| --- | --------- |
+| set | empty     |
+|     | holding   |
+|     | full      |
+| `p` | invalid   |
+|     | valid     |
 
 Choices:
 
-| | Caterogry | Choices |
-| - | ------ | ------ |
-| set | empty | $\{\}$ |
-| | holding | $\{p_1\}, \{p_1, \dots, p_9\}, \{p_1, \dots, p_n\}, n \in [1, 9]$ |
-| | full | $\{p_1, \dots, p_{10}\}$
-| `p` | invalid | null
-| | not unique | $p_1$ |
-| | unique | $p_\times$ |
-| `p.description()` | invalid | $9, 100$ |
-| | valid | $10, 50, 99$ |
+|                   | Caterogry  | Choices                                                           |
+| ----------------- | ---------- | ----------------------------------------------------------------- |
+| set               | empty      | $\{\}$                                                            |
+|                   | holding    | $\{p_1\}, \{p_1, \dots, p_9\}, \{p_1, \dots, p_n\}, n \in [1, 9]$ |
+|                   | full       | $\{p_1, \dots, p_{10}\}$                                          |
+| `p`               | invalid    | null                                                              |
+|                   | not unique | $p_1$                                                             |
+|                   | unique     | $p_\times$                                                        |
+| `p.description()` | invalid    | $9, 100$                                                          |
+|                   | valid      | $10, 50, 99$                                                      |

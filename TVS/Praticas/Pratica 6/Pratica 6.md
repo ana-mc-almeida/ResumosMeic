@@ -14,8 +14,9 @@
 >                System.out.println (i);
 >        }
 >    }
->}
->```
+> }
+> ```
+
 ## 1.
 
 > Desenho o grafo de controlo de fluxo do método compute.
@@ -27,6 +28,7 @@
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de instrução.
 
 3 Caminhos:
+
 - ABJ
 - ACDJ
 - ACEFGHIFJ
@@ -36,6 +38,7 @@
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de ramo.
 
 3 Caminhos:
+
 - ABJ
 - ACDJ
 - ACEFGHIFGIFJ
@@ -53,6 +56,7 @@
 Queremos encontrar os $C$ caminhos independentes. $C = e - n + 2$, onde $e$ são os edges e $n$ os nodes.
 
 Neste caso vamos ter $C = 13 - 10 + 2 = 5$ caminhos:
+
 - ABJ
 - ACDJ
 - ACEFJ
@@ -96,6 +100,7 @@ Nenhuma das coberturas que vamos usar faz distinção entre predicados compostos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de instrução.
 
 2 Caminhos:
+
 - ABCEFHI
 - ABCDFGI
 
@@ -104,6 +109,7 @@ Nenhuma das coberturas que vamos usar faz distinção entre predicados compostos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de ramo.
 
 3 Caminhos:
+
 - ABCEFHI
 - ABCDFGI
 - ACEFI
@@ -113,6 +119,7 @@ Nenhuma das coberturas que vamos usar faz distinção entre predicados compostos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de caminho.
 
 12 Caminhos:
+
 - ACEFI
 - ACEFGI
 - ACEFHI
@@ -131,6 +138,7 @@ Nenhuma das coberturas que vamos usar faz distinção entre predicados compostos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de caminho base.
 
 $C = 12 - 9 + 2 = 5$ caminhos:
+
 - ACEFI
 - ABCEFI
 - ACDFI
@@ -176,6 +184,7 @@ Para voltarmos à cobertura que não distingue entre predicados simples e compos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de instrução.
 
 2 Caminhos:
+
 - AFG
 - ABCDEG
 
@@ -184,6 +193,7 @@ Para voltarmos à cobertura que não distingue entre predicados simples e compos
 > Identifique o conjunto mínimo de caminhos que atinge 100% de cobertura de ramo;
 
 3 Caminhos:
+
 - AFG
 - ABCDEG
 - ABDG
@@ -208,12 +218,12 @@ Para voltarmos à cobertura que não distingue entre predicados simples e compos
 
 > if ((A || B) && C) ...
 
-| | | 0 | | | 1 | |
-| - | - | - | - | - | - | - |
-| | A | B | C | A | B | C |
-| **focus A** | 0 | 0 | 1 | 1 | 0 | 1 |
-| **focus B** | 0 | 0 | 1 | 0 | 1 | 1 |
-| **focus C** | 1 | 0 | 0 | 1 | 0 | 1 |
+|             |     | 0   |     |     | 1   |     |
+| ----------- | --- | --- | --- | --- | --- | --- |
+|             | A   | B   | C   | A   | B   | C   |
+| **focus A** | 0   | 0   | 1   | 1   | 0   | 1   |
+| **focus B** | 0   | 0   | 1   | 0   | 1   | 1   |
+| **focus C** | 1   | 0   | 0   | 1   | 0   | 1   |
 
 Test cases: { (0,0,1), (1,0,1), (0,1,1), (1,0,0) }
 

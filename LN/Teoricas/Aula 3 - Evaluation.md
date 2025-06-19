@@ -10,8 +10,9 @@ No inicio cria-se uma tabela com um espaço branco seguido da palavra, tanto par
 
 <img src="Imagens/Aula3 Levenshtein.png">
 
-Para preencher as outras celulas é preciso verificar se a letra na linha e coluna são iguais. 
-- Se forem iguais o resultado é copiado da célula diretamente diagonal em cima e à esquerda. 
+Para preencher as outras celulas é preciso verificar se a letra na linha e coluna são iguais.
+
+- Se forem iguais o resultado é copiado da célula diretamente diagonal em cima e à esquerda.
 - Se não forem iguais o resultado da célula vai ser o minimo das celulas acima, à esquerda e à diagonal superior esquerda + 1.
 
 <img src="Imagens/Aula3 Levenshtein Resolvido.png">
@@ -49,15 +50,16 @@ $2 \times | s \cap t | / (|s| + |t|)$
 ### Soundex
 
 Algorithm:
+
 1. Retain the first letter of the name.
 2. Remove all vowels, y, h, w (but not the ones in the first position).
 3. Replace the other letters by digits (after the first letter):
-    - b, f, p, v -> 1
-    - c, g, j, k, q, s, x, z -> 2
-    - d, t -> 3
-    - l -> 4
-    - m, n -> 5
-    - r -> 6
+   - b, f, p, v -> 1
+   - c, g, j, k, q, s, x, z -> 2
+   - d, t -> 3
+   - l -> 4
+   - m, n -> 5
+   - r -> 6
 4. Adjacent numbers are coded as a single number (ex: 55 -> 5).
 5. At the end if you have more than 3 digits drop them after the third one (ex: L2345 -> L234). If you have less than 3 digits add zeros (ex: L2 -> L200).
 
@@ -88,7 +90,7 @@ False Negatives (FN)
 - Recall -> TP / (TP + FN)
 - Accuracy -> (TP + TN) / (TP + TN + FP + FN)
 - F-measure
-- F1-measure = 2 * P * R / (P + R)
+- F1-measure = 2 _ P _ R / (P + R)
 
 ### Other Metrics
 

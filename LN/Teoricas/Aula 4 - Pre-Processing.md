@@ -11,6 +11,7 @@ Process of breaking down a stream of text into smaller, manageable units called 
 The goal is to create tokens that retain meaningful linguistic information while making the text more accessible for computational models.
 
 Tokens can be:
+
 - Characters
 - Words
 - Subwords
@@ -92,6 +93,7 @@ Output: [un, happi, ness]
 #### Disadvantages
 
 Some words are supposed to have upper case letters:
+
 - Us vs us
 - Windows vs. windows
 - Figo vs. figo

@@ -25,15 +25,15 @@ Tinham algumas regras de gramática e 250 lexical items (palavras).
 
 ### Statistical-based
 
-Statistical Machine Translation (SMT) são modelos probabilisticos que têm em conta *faithfulness* e *fluency*. Utilizam estas duas categorias para escolher a tradução mais provável.
+Statistical Machine Translation (SMT) são modelos probabilisticos que têm em conta _faithfulness_ e _fluency_. Utilizam estas duas categorias para escolher a tradução mais provável.
 
-T' = argmax $_T$ P(T, S) * P(T), sendo S a source language.
+T' = argmax $_T$ P(T, S) \* P(T), sendo S a source language.
 
 | S = Estou cansado | Faithfulness | Fluency |
 | ----------------- | ------------ | ------- |
-| I'm exhausted | 3 | 5 |
-| Tired me | 5 | 2 |
-| I love cookies | 0 | 5 |
+| I'm exhausted     | 3            | 5       |
+| Tired me          | 5            | 2       |
+| I love cookies    | 0            | 5       |
 
 Para este metodo são criadas várias hipóteses de tradução e associa-se uma probabilidade a cada hipótese. A mais provável é escolhida.
 

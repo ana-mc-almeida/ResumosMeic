@@ -5,11 +5,11 @@ Availability tactics servem para prevenir ou aguentar faults para que o serviço
 ## Detect Faults
 
 - Monitor: Monitoriza o estado de várias partes do systema. Deteta failures na network ou em shared resources. Usa outras tactics desta categoria para detetar componentes que não funcionam.
-  - Exemplo: O monitorizador do sistema pode iniciar self-tests. 
+  - Exemplo: O monitorizador do sistema pode iniciar self-tests.
   - Se funcionar com um timer ou counter, então chama-se watchdog. O processo de um componente resetar o timer ou o counter como sinal que está a funcionar chama-se "petting the watchdog".
 - Ping / Echo: Envia um par request/response que é usado para saber se é possível alcançar e o RTT entre dois nós da network. É preciso que exista um time threshold para o pinging component saiba quanto deve esperar.
 - Heartbeat: Periodicamente envia uma mensagem do processo que está a ser monitorizado para o processo monitorizador.
-  - A diferença entre o Ping/Echo e o Heartbeat é quem tem a responsabilidade de iniciar o *health check*.
+  - A diferença entre o Ping/Echo e o Heartbeat é quem tem a responsabilidade de iniciar o _health check_.
 - Timestamp: Adiciona um timestamp ou um sequence number às mensagens para garantir uma sequência de eventos correta.
 - Condition monitoring: Verifica condições de um processo ou dispositivo, ou valida assunções feitas durante o design.
   - O monitor tem de ser simples para não trazer novos erros.
@@ -23,7 +23,7 @@ Availability tactics servem para prevenir ou aguentar faults para que o serviço
 ### Preparation and Repair
 
 - Redundant spare: Existe uma configuração em que um componente duplicado passa a fazer o trabalho de um componente primário que falhou.
-- Rollback: O sistema reverte as alterações até ao último *good state*.
+- Rollback: O sistema reverte as alterações até ao último _good state_.
 - Exception handling: Quando uma exceção é detata o sistema pode tratar dela de forma a não cair. Por exemplo criando uma classe com a origem, nome e descrição da exceção.
 - Software upgrade: Quando é preciso fazer uma atualização no software sem dar shutdown ao sistema. Por exemplo, quando queremos migrar uma base de dados para uma melhorada.
   - Se quisermos corrigir um erro numa rede de servidores, podemos ir dando shutdown e resolvendo o problema um a um. Assim só há um que está offline. Se passarmos para algo mais complexo como migrar uma database, já temos maiores problemas.

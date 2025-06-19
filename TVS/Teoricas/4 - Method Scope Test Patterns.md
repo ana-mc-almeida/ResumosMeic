@@ -12,12 +12,14 @@ Class scope testing is typically the responsibility of the class developer.
 ## Class Scope Integration
 
 The purpose of class scope integration is to demonstrate that the CUT is ready to test. Two approaches for reaching the operability threshold:
+
 - Small Pop
 - Alpha-Omega Cycle
 
 ### Small Pop
 
 It is effective when responsibility-based testing and debugging are unlikely to be impeded by simple coding problems. "Popping" an object out of a class to test it independently.
+
 - The class under test (CUT) is small and simple.
 - All or most of the servers of the class under test are known to be stable by testing or usage.
 - All or most of the inherited features are known to be stable by testing or usage.
@@ -37,6 +39,7 @@ Really useful for incremental development.
 #### Testing strategy:
 
 The test driver sends one message to each of the following kinds of methods in the specified order:
+
 1. New or constructor method
 2. Accessor (get) method
 3. Boolean (predicate) method
@@ -80,6 +83,7 @@ Test model: Black box testing
 ### Example
 
 `getNextElement()` of class `List`
+
 - Returns successive elements of the list
 - Position is established by other methods, otherwise a `NoPosition` exception is thrown
 - An `EmptyList` exception is thrown if the list is empty.
@@ -87,38 +91,40 @@ Test model: Black box testing
 #### 1. Identify all functions of the MUT
 
 - Primary function: return next element in the list.
-- Secondary functions: 
+- Secondary functions:
   - Keep track of the last position and wrap it from last to first.
   - Throw the NoPosition and EmptyList exceptions if appropriate.
 
 #### 2. Identify input and output parameters of MUT
 
 Input:
+
 - position of the last referenced object
 - the list itself
 
 Output:
+
 - the returned element
 - the incremented position cursor
 - Can also consider the exception thrown as an output
 
 #### 3. Identify categories for each input parameter
 
-| Parameter | Caterogry |
-| --------- | --------- |
-| Position of the last referenced element | nth element |
-| | Special cases |
-| State of the list | m-elements |
-| | Special cases |
+| Parameter                               | Caterogry     |
+| --------------------------------------- | ------------- |
+| Position of the last referenced element | nth element   |
+|                                         | Special cases |
+| State of the list                       | m-elements    |
+|                                         | Special cases |
 
 #### 4. Partition each category into choices
 
-| Parameter | Caterogry | Choices |
-| --------- | --------- | ------- |
+| Parameter                               | Caterogry                         | Choices                                              |
+| --------------------------------------- | --------------------------------- | ---------------------------------------------------- |
 | Position of the last referenced element | nth element, $n \in [2, Max - 1]$ | $n = 2, n = Max - 1, n = \forall x \in ]2, Max - 1[$ |
-| | Special cases | Undefined, first, last|
-| State of the list | m-elements | $m \forall x \in [2, Max[$
-| | Special cases | Empty, singleton, full ($m = Max$) |
+|                                         | Special cases                     | Undefined, first, last                               |
+| State of the list                       | m-elements                        | $m \forall x \in [2, Max[$                           |
+|                                         | Special cases                     | Empty, singleton, full ($m = Max$)                   |
 
 #### 5. Identify constraints on choices
 
@@ -127,28 +133,28 @@ Output:
 
 #### 6. Generate test cases by enumerating all choices
 
-| Test Case | Cursor Position | Content |
-|-----------|-----------------|---------|
-| 1    | Undefined      |  m = rand(x)    |
-| 2    | first          | empty |
-| 3    | first          | singleton |
-| 4    | first          | m = rand(x)    |
-| 5    | first          | full                             |
-| 6    | n = 2          | empty                            |
-| 7    | n = 2          | singleton                        |
-| 8    | n = 2          | m = rand(x)    |
-| 9    | n = 2          | full               |
-| 10   | n = rand(x)    | empty            |
-| 11   | n = rand(x)    | singleton       |
-| 12   | n = rand(x)    | m = rand(x)    |
-| 13   | n = rand(x)    | full              |
-| 14   | n = Max -1     | empty                    |
-| 15   | n = Max -1     | singleton                    |
-| 16   | n = Max -1     |          m = rand(x)    |
-| 17   | n = Max -1     | full                           |
-| 18   | last           | empty                         |
-| 19   | last           |               m = rand(x)    |
-| 20   | last           | full                          |
+| Test Case | Cursor Position | Content     |
+| --------- | --------------- | ----------- |
+| 1         | Undefined       | m = rand(x) |
+| 2         | first           | empty       |
+| 3         | first           | singleton   |
+| 4         | first           | m = rand(x) |
+| 5         | first           | full        |
+| 6         | n = 2           | empty       |
+| 7         | n = 2           | singleton   |
+| 8         | n = 2           | m = rand(x) |
+| 9         | n = 2           | full        |
+| 10        | n = rand(x)     | empty       |
+| 11        | n = rand(x)     | singleton   |
+| 12        | n = rand(x)     | m = rand(x) |
+| 13        | n = rand(x)     | full        |
+| 14        | n = Max -1      | empty       |
+| 15        | n = Max -1      | singleton   |
+| 16        | n = Max -1      | m = rand(x) |
+| 17        | n = Max -1      | full        |
+| 18        | last            | empty       |
+| 19        | last            | m = rand(x) |
+| 20        | last            | full        |
 
 #### 7. Develop expected values for each test case
 
@@ -159,6 +165,7 @@ Output:
 Entry criteria: Small Pop or Alpha-Omega cycle
 
 Exit Criteria:
+
 - Every combination of choices is tested once
 - Each exception must be thrown at least once
 - Branch coverage must be satisfied
@@ -182,6 +189,7 @@ The intent is to design test suite for behaviors selected according to combinati
 ### Fault Model
 
 Reveals:
+
 - Incorrect value assigned to a decision variable
 - Incorrect or missing operator/variable in a predicate
 - Incorrect structure in a predicate (dandling else, a misplaced semicolon, ...)
@@ -199,6 +207,7 @@ Reveals:
 Entry criteria: Small Pop
 
 Exit Criteria:
+
 - Produce every action at least once.
 - Force each exception due to incorrect input (if any) at least once.
 - Branch coverage for MUT.
@@ -252,6 +261,7 @@ int factorial(int n) {
 ### Strategy: Test procedure
 
 The test model should define:
+
 - Base case
 - Recursive case
 - Pre-conditions for the initial call
@@ -260,6 +270,7 @@ The test model should define:
 - All ascent-phase bindings
 
 Test suite should contain:
+
 - Attempt to violate the precondition in the initial call and at least once in the descent phase.
 - Attempt to violate the postcondition at least once in the ascent phase.
 - Test boundary cases on depth: zero, one and maximum.
@@ -273,6 +284,7 @@ Test suite should contain:
 Entry criteria: Small Pop
 
 Exit criteria:
+
 - Null, Singleton and Maximal cases.
 - Attempted violation of pre-condition in initial call and during the descent-phase.
 - Attempted violation of post-condition during the ascendent-phase.
@@ -291,7 +303,7 @@ Exit criteria:
 
 ## Polymorphic Message Test
 
-The intent is to design a test suite for a client of a polymorphic server that exercise all  client bindings to the server. A polymorphic method can be binded to several implementations 
+The intent is to design a test suite for a client of a polymorphic server that exercise all client bindings to the server. A polymorphic method can be binded to several implementations
 
 ### Fault Model
 
@@ -308,10 +320,13 @@ Test model: Develop extended flow graph of MUT.
 <img src="Imagens/4 - Polymorphic Message Test, Test Model.png">
 
 Test procedure:
+
 1. Determine the number of candidate bindings for each message sent to a polymorphic server object.
 2. Expand segment with multiway branch sub-graph for each segment that has a polymorphic message.
+
 - Add two nodes for each binding: a branch node and sequential node.
 - Add a final, catch-all node to represent runtime binding error.
+
 3. Draw the test cases based on this model that exercise all branches.
 
 <img src="Imagens/4 - Polymorphic Message Test, Test Procedure.png">
@@ -319,6 +334,7 @@ Test procedure:
 ### Entry and Exit Criteria
 
 Entry criteria
+
 - Small Pop
 - Server class should be stable
 

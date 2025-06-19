@@ -3,6 +3,7 @@
 ### Definition
 
 N-gram is a sequence of N tokens.
+
 - N = 1 -> unigrams
 - N = 2 -> bigrams
 - N = 3 -> trigrams
@@ -12,11 +13,12 @@ N-gram is a sequence of N tokens.
 
 #### Example 1 - Complete sentences
 
-- Once upon a ___
-- Spoiler ___
-- Stranger ___
+- Once upon a \_\_\_
+- Spoiler \_\_\_
+- Stranger \_\_\_
 
 Solution:
+
 - Once upon a **time**
 - Spoiler **alert**
 - Stranger **things**
@@ -38,6 +40,7 @@ Which is the most likely?
 
 Input: It is raining cats and dogs.<br>
 Possible translations:
+
 - Chovem cães e gatos
 - Chove a potes
 - Chovem potes
@@ -69,6 +72,7 @@ P(time | Once upon a) = count(once upon a time) / count(once upon a)
 It is possible to calculate the probability of a future event without having to look to the entire history.
 
 To calculate P($W$ | H) = P($W_N$ | $W_1...W_{N-1}$):
+
 - Use bigrams -> P($W$ | H) $\approx$ P($W_N$ | $W_{N-1}$)
 - Use trigrams -> P($W$ | H) $\approx$ P($W_N$ | $W_{N-2}W_{N-1}$)
 
@@ -94,13 +98,13 @@ Using trigrams -> $P(w_1^N) \approx \prod\limits_{k=1}^NP(w_k | w_{k-2}w_{k-1})$
 
 <img src="Imagens/Aula4 Markov example sentence.png">
 
-$P($ I eat chinese food $) = P($ I $|$ \<s>$) \times P($ eat $|$ I $) \times P($ Chinese $|$ eat $) \times P($ food $|$ Chinese $) \times P($ \<s> $|$ food $)$ 
+$P($ I eat chinese food $) = P($ I $|$ \<s>$) \times P($ eat $|$ I $) \times P($ Chinese $|$ eat $) \times P($ food $|$ Chinese $) \times P($ \<s> $|$ food $)$
 
 Como não sabemos $P($ I $|$ \<s>$)$ nem $P($ \<s> $|$ food $)$ vamos assumir que o seu valor é 1 para não interferir nas contas.
 
 Logo:<br>
-count(I eat) / count(I) * count(eat Chinese) / count(eat) * count(Chinese food) / count(Chinese) = <br>
-= 13 / 3437 * 19/938 * 120/213 = ...
+count(I eat) / count(I) _ count(eat Chinese) / count(eat) _ count(Chinese food) / count(Chinese) = <br>
+= 13 / 3437 _ 19/938 _ 120/213 = ...
 
 <br>
 
@@ -126,6 +130,7 @@ Add 1 to all the counts and recalculate.
 
 With bigrams:<br>
 $P$ Laplace $(W_N | W_{N-1})$ = $($ count $(W_{N-1}W_N) + 1) / ($ count $(w_{N-1}) + |V|)$
+
 - |V| is the the number of words in the vocabulary V
 
 #### Example

@@ -84,7 +84,7 @@ Syntatic analysis
 
 Semantic analysiss
 
-B = 4 * 3 = 12<br>
+B = 4 \* 3 = 12<br>
 C = 3 + 4 = 7<br>
 A = 12 + 7 - 2 = 17<br>
 

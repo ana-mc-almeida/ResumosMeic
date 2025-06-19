@@ -21,7 +21,7 @@ Neste algoritmo percorre-se a árvore até se atingir um ramo onde nenhum dos el
 ### Example
 
 Neste exemplo, ao percorrer a árvore pelo quando chegamos a $x_7$ não há valores do domínio que satisfaçam as constraints $x_1$ != $x_7$ e $x_3$ != $x_7$. Como isto acontece vamos voltar a olhar para o inicio da árvore e ver quando o domínio é reduzido.<br>
-A primeira diminuição do domínio de $x_7$ acontece por causa da escolha $x_1$ = red. Com esta decisão o $D_7$ = {blue}. Mais tarde, a escolha de $x_3$ = blue, vai também reuzir o domínio de $x_7$, esvaziando-o. Como a decisão em $x_3$ foi a última a diminuir o domínio de $x_7$, o $latest_7$ = 3. E é para $x_3$ que se faz o backjump. 
+A primeira diminuição do domínio de $x_7$ acontece por causa da escolha $x_1$ = red. Com esta decisão o $D_7$ = {blue}. Mais tarde, a escolha de $x_3$ = blue, vai também reuzir o domínio de $x_7$, esvaziando-o. Como a decisão em $x_3$ foi a última a diminuir o domínio de $x_7$, o $latest_7$ = 3. E é para $x_3$ que se faz o backjump.
 
 <img src="Imagens/Aula6 Gashnig example1.png">
 

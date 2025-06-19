@@ -5,12 +5,14 @@ Bayesian games (or games of incomplete information) allow us to represent agents
 ## First definition
 
 A Bayesian game is a tuple $(N, G, P, I)$ where
+
 - $N$ is a set of agents.
 - $G$ is a set of games with $N$ agents each, such that the action sets for all the games are identical.
 - $P \in \prod(G)$ is a common prior (probability of each game being the one that is being played) over games, where $\prod(G)$ is the set of all probability distributions over $G$.
 - $I = (I_1, \dots, I_N)$ is a tuple of partitions of $G$, one for each agent.
 
 The agents only know:
+
 - The games.
 - The common prior.
 - The equivalence classes of all agents.
@@ -20,6 +22,7 @@ The agents only know:
 This definition has a different presentation, it is based on types - a way of defining uncertainty directly over a game's payoff function.
 
 A Bayesian game is a tuple $(N, A, \Theta, p, u)$ where:
+
 - $N$ is a set of agents.
 - $A = A_1, \times \dots \times A_N$ where $A_i$ is the set of actions available to agent $i$.
 - $\Theta = \Theta_1 \times \dots \times \Theta_N$ where $\Theta_i$ is the type space of agent $i$.

@@ -27,7 +27,7 @@
 
 - For decoder-only models, the pretraining task is language modeling.
 - Fine-tuning is done by training a classifier on the last hidden state:
-$$h_1, \dots , h_L = \text{Decoder}(x_1, \dots , x_L)y = \text{softmax}(Ah_L + b)$$
+  $$h_1, \dots , h_L = \text{Decoder}(x_1, \dots , x_L)y = \text{softmax}(Ah_L + b)$$
 - Where A and b are the classifier parameters.
 - There are two common choices for fine-tuning:
   - Freeze the pretrained model an train only A and b.
@@ -37,12 +37,12 @@ $$h_1, \dots , h_L = \text{Decoder}(x_1, \dots , x_L)y = \text{softmax}(Ah_L + b
 
 - Encoders get bidirectional context, so we can't do language modeling - the pretraining task is masked language modeling.
 - The key idea is to replace a fraction of the input tokens with a special mask token, and then predict the original tokens:
-$$h_1, \dots , h_L = Encoder(x_1, \dots , x_L)y = \text{softmax}(Ah_i + b)$$
+  $$h_1, \dots , h_L = Encoder(x_1, \dots , x_L)y = \text{softmax}(Ah_i + b)$$
 
 ### Pretrained Encoder-Decoder
 
 - For Encoder-decoder models we can do something like language modeling, but where a prefix of every input is provided to the encoder and is not predicted by the decoder:
-$$h_1, \dots , h_T = \text{Encoder}(x_1, \dots , x_T )h_{T +1}, \dots , h_L2T = Decoder(x_{T +1}, \dots , x_{2T} )y_i = \text{softmax}(Ah_i+b)$$
+  $$h_1, \dots , h_T = \text{Encoder}(x_1, \dots , x_T )h_{T +1}, \dots , h_L2T = Decoder(x_{T +1}, \dots , x_{2T} )y_i = \text{softmax}(Ah_i+b)$$
 - The encoder portion benefits from bidirectional context.
 - The decoder portion benefits from unidirectional context.
 - T5 is an example of this architecture.

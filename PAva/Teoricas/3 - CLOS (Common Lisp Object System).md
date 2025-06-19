@@ -17,7 +17,7 @@ Em CLOS é possível definir generic functions, por exemplo a função add:
 
 ;; (add '(1 2) 3) adiciona o número 3 a cada elemento da lista:
 (defmethod add ((x list) (y t))
-    (add x (make-list (length x) :initial-element y)) 
+    (add x (make-list (length x) :initial-element y))
 )
 
 (defmethod add ((x t) (y list))
@@ -39,7 +39,7 @@ Para além de ser possível distinguir funções pelos tipos dos parametros pode
     1)
 ```
 
-E os metodos que são identificados com a instancia do parametro têm maior prioridade do que os que são identificados pelo tipo. 
+E os metodos que são identificados com a instancia do parametro têm maior prioridade do que os que são identificados pelo tipo.
 
 ### fibonacci example
 
@@ -57,7 +57,7 @@ O mesmo acontece para cadeias de heranças de tipos, os tipos mais especificos t
 )
 
 (defmethod fib ((n number))
-    (+ (fib (- n 1)) 
+    (+ (fib (- n 1))
         (fib (- n 2))
     )
 )
@@ -90,6 +90,7 @@ Tendo em conta a hierarquia dos tipos dos numeros:
 ```
 
 Resultados de alguns testes:
+
 ```
 > (explain 123)
 123 is a fixnum
@@ -112,6 +113,7 @@ Para permitir a execução de mais de um metodo fazemos:
 ```
 
 Resultados de alguns testes:
+
 ```
 > (explain 123)
 The number 123 is a fixnum (in binary, is 1111011)
@@ -128,21 +130,24 @@ The number 1/3 is a rational
 3. If it does not exist, calls no-applicable-method using, as arguments, the original generic function and the arguments of the original call.
 
 Effective Method Computation:
+
 1. Selects the applicable methods.
 2. Sorts applicable methods by precedence order.
 3. Combines applicable methods, producing the effective method.
 
 Sorting the Applicable Methods:
+
 - Sorts applicable methods by precedence order from most specific to least specific.
 - Given two applicable methods:
   1. Their parameter specializers are examined in order (by default, from left to right).
-  2. When two specializers differ, the highest precedence method is the one whose parameter specializer occurs first in the class precedence list of the corresponding argument. 
+  2. When two specializers differ, the highest precedence method is the one whose parameter specializer occurs first in the class precedence list of the corresponding argument.
   3. When one specializer is an instance specializer `((eql object))`, the highest precedence method is the one whose parameter contains that specializer.
   4. When all specializers are identical, the two methods must have different qualifiers and either one can be selected to precede the other.
 
 ### Method Combination:
 
 There are many pre-defined method combinations (known as method combination types):
+
 - Simple - `append`, `nconc`, `list`, `progn`, `max`, `min`, `+`, `and`, `or`. Requires using the same method combination type in the generic function and all methods of the generic function.
 - Standard - `standard`. Used by default when nothing is specified on the generic function. Implicitly used when the generic function is not specified.
 
@@ -157,10 +162,13 @@ There are many pre-defined method combinations (known as method combination type
   - `:around` Method called instead of other applicable methods but that can call some of them by using `call-next-method`.
 
 If there are no applicable :around methods:
+
 1. All `:before` methods are called, from most specific to least specific, and their values are ignored.
 2. The most specific primary method is called.
-  - If that method calls `call-next-method`, the next most specific method is called and their values are returned to the caller.
-  - The values returned by the most specific primary method become the values returned by the generic function call.
+
+- If that method calls `call-next-method`, the next most specific method is called and their values are returned to the caller.
+- The values returned by the most specific primary method become the values returned by the generic function call.
+
 3. All `:after` methods are called, from least specific to most specific, and their values are ignored.
 
 `call-next-method`:
@@ -180,12 +188,15 @@ Primary Methods: methods qualified with the combination type (`append`, `nconc`,
 Auxiliary Methods: methods qualified with `:around`.
 
 If there are no applicable `:around` methods:
+
 1. The effective method is the application of the combination type (the operator) to the results of calling all the applicable primary methods sorted by precedence order.
 
 If there are applicable `:around` methods, the most specific one is called. If that method calls `call-next-method`:
+
 1. If there are more applicable `:around` methods, the next most specific `:around` method is called.
 2. If there are no more applicable `:around` methods:
-  - 1. The effective method is the application of the combination type (the operator) to the results of calling all the applicable primary methods sorted by precedence order.
+
+- 1. The effective method is the application of the combination type (the operator) to the results of calling all the applicable primary methods sorted by precedence order.
 
 ### User-Defined Method Combination
 
@@ -195,6 +206,7 @@ If there are applicable `:around` methods, the most specific one is called. If t
 - Calls each applicable method in the effective method.
 
 For example:
+
 ```
 (define-method-combination list ()
     ((methods (list)))
@@ -248,8 +260,8 @@ For example:
 
 ### Class Precedence List
 
-- Flavors:  Depth-first, from left to right, duplicates removed from the right (standard-object and t appended on the right).
-- Loops Identical but duplicates removed from the left. 
+- Flavors: Depth-first, from left to right, duplicates removed from the right (standard-object and t appended on the right).
+- Loops Identical but duplicates removed from the left.
 - CLOS Topological sort of the inheritance graph using the local ordering of superclasses.
 
 #### Example
@@ -291,6 +303,7 @@ The standard-object class is a direct subclass of class t, is an instance of cla
 Results of some tests:
 
 Metaclass `standard-class`:
+
 ```
 > (defclass foo () ())
 #<STANDARD-CLASS FOO>
@@ -307,6 +320,7 @@ Metaclass `standard-class`:
 We get in a loop when we reach standard-class
 
 Metaclass `built-in-class`:
+
 ```
 > (class-of 1)
 #<BUILT-IN-CLASS FIXNUM>
@@ -317,6 +331,7 @@ Metaclass `built-in-class`:
 ```
 
 Metaclass `forward-referenced-class`:
+
 ```
 > (defclass bar (baz) ())
 #<STANDARD-CLASS BAR>
@@ -333,6 +348,7 @@ Metaclass `forward-referenced-class`:
 BAZ class is considered an instance of FORWARD REFERENCED CLASS when it was not defined yet.
 
 Function `change-class`:
+
 ```
 > (setq foo-instance (make-instance 'foo))
 #<FOO @ #x717a0562>
@@ -348,6 +364,7 @@ Function `change-class`:
 - From the name of a type `'bar`: `(find-class 'bar)`
 
 Example:
+
 ```
 > (class-of "I am a string")
 #<BUILT-IN-CLASS STRING>
@@ -362,11 +379,13 @@ Example:
 ### `make-instance`
 
 The generic function `make-instance`:
+
 ```
 (defgeneric make-instance (class &rest initargs))
 ```
 
 Method specialization for symbols:
+
 ```
 (defmethod make-instance ((class symbol) &rest initargs)
     (apply #'make-instance (find-class class) initargs)
@@ -374,6 +393,7 @@ Method specialization for symbols:
 ```
 
 Method specialization for classes:
+
 ```
 (defmethod make-instance ((class class) &rest initargs)
     (let ((instance (apply #'allocate-instance class initargs)))
@@ -384,6 +404,7 @@ Method specialization for classes:
 ```
 
 Optimizer:
+
 ```
 (define-compiler-macro make-instance (class-expr &rest init-exprs)
     (if (and (consp class-expr) (eq (first class-expr) 'quote))
@@ -396,13 +417,16 @@ Optimizer:
 ### Slots
 
 The expression `(slot-value obj name)` returns the value of `name` in `obj`.
-  - If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'slot-value)`
-  - If the slot exists but is unbound, calls the generic function `slot-unbound`: `(slot-unbound (class-of obj) obj name)`
+
+- If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'slot-value)`
+- If the slot exists but is unbound, calls the generic function `slot-unbound`: `(slot-unbound (class-of obj) obj name)`
 
 The expression `(setf (slot-value obj name) new-value)` changes the value of slot `name` in `obj`.
-  - If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'setf new-value)`
+
+- If the slot does not exist, calls the generic function `slot-missing`: `(slot-missing (class-of obj) obj name 'setf new-value)`
 
 Resultados de alguns testes:
+
 ```
 (defclass foo ()
     ((slot1))
@@ -446,7 +470,7 @@ Restarts:
             (gethash slot-name (extra-slots object))
         )
         (setf
-            (setf (gethash slot-name (extra-slots object)) 
+            (setf (gethash slot-name (extra-slots object))
                 new-value
             )
         )
@@ -456,6 +480,7 @@ Restarts:
 ```
 
 Results:
+
 ```
 (defclass foo (dynamic-object)          ;Redefining class foo...
     ((slot1))
@@ -473,8 +498,8 @@ NIL                                     ;Humm, we should improve this
 
 We should not return a value for "missing" slots that are not present in the set of extra slots.
 
-
 Improving it we get:
+
 ```
 (defmethod slot-missing ((class t)
         (object dynamic-object)
@@ -508,6 +533,7 @@ Improving it we get:
 ```
 
 Results:
+
 ```
 > (slot-value foo1 'slot1)          ;A 'normal' slot
 1
@@ -550,6 +576,7 @@ CL-USER> (slot-value foo2 'slot1)
 In all implementations that include the MOP (all of them, in practice), they call the generic functions `slot-value-using-class` and `(setf slot-value-using-class)`
 
 The (non-generic) function `slot-value`:
+
 ```
 (defun slot-value (object slot-name)
     (let* ((class (class-of object))
@@ -563,6 +590,7 @@ The (non-generic) function `slot-value`:
 ```
 
 The Generic Function `slot-value-using-class`:
+
 ```
 (defmethod slot-value-using-class ((class standard-class)
                                     (object standard-object)
@@ -576,6 +604,7 @@ The Generic Function `slot-value-using-class`:
 ```
 
 The Generic Function `slot-unbound`:
+
 ```
 (defmethod slot-unbound ((class t) instance slot-name)
     (restart-case

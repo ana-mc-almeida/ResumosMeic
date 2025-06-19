@@ -1,7 +1,8 @@
 # Feed Forward Neural Networks
 
-Redes neuronais convencionais não são suficientes para Lingua Natural: 
-- Os inputs são independentes uns dos outros, o que faz com que se perca o contexto das frases. 
+Redes neuronais convencionais não são suficientes para Lingua Natural:
+
+- Os inputs são independentes uns dos outros, o que faz com que se perca o contexto das frases.
 - Têm um tamanho de inputs fixos, o que raramente acontece quando se processa texto.
 
 <br>
@@ -20,18 +21,22 @@ No entanto, pode ser preciso também olhar para as palavras seguintes para conse
 
 <img src="Imagens/Aula6 RNN examples.png">
 
-One to many: 
+One to many:
+
 - Passar uma imagem e receber uma descrição.
 
 Many to one:
+
 - Receber um prompt e criar uma imagem.
 - Receber script de um filme e atribuir-lhe uma categoria.
 
 Many to many (primeiro):
+
 - Tradução
 - Sumarização
 
 Many to may (segundo):
+
 - Caracterizar as palavras de uma frase: verbo, nome, etc...
 
 #### Character-based Example
@@ -43,6 +48,7 @@ Many to may (segundo):
 # Sequence to Sequence Models
 
 Sequence to Sequence models têm uma arquitetura encoder-decoder. O encoder processa o input e transforma-o num vetor de contexto. Este vetor é suposto ser um bom resumo do input.
+
 - Este vetor tem um tamanho fixo.
 
 Depois o decoder pega no vetor de contexto e transforma-o no output.
@@ -52,10 +58,12 @@ Depois o decoder pega no vetor de contexto e transforma-o no output.
 Este mecanismo é usado para tarefas de sequence prediction. Em vez de o input de cada time step ser o valor gerado no time step anterior, usa-se o input original.
 
 Vantagens:
+
 - Acelera a aprendizagem do model, já que é guiado para a sequência certa.
 - Evita acoumulação de erros.
 
 Desvantagens:
+
 - Se o modelo começar a confiar demasiado que vai ter auxilio do professor não vai conseguir recuperar dos seus próprios erros no futuro.
 
 #### Example
@@ -87,6 +95,7 @@ Uma das funcionalidades do discriminator pode ser verificação de autenticidade
 Attention mechanisms são usados para align e tradução. No alignment escolhem-se as partes do input que são mais relevantes para cada palavra. A tradução usa a informação obtida no alignment para gerar o output.
 
 Há vários tipos de attention mechanisms:
+
 - Soft Attention: Associa importâncias diferentes a diferentes partes do input.
 - Hard Attention: Escolhe partes especificas do input e ignora o resto.
 - Self attention: Capture relações entre partes da frase.

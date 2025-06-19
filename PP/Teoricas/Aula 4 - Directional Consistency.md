@@ -10,7 +10,7 @@ Uma constraint network é backtrack-free quando todos os caminhos têm solução
 
 $d = (v_1,..., v_n)$ ordering of the nodes.
 
-### Definitions 
+### Definitions
 
 - The nodes are added from bottom to top.
 - Parents of a node $v$ are the nodes adjacent to $v$ that precede $v$ in $d$.
@@ -25,11 +25,12 @@ $d = (v_1,..., v_n)$ ordering of the nodes.
 ## Induced width and induced graph
 
 The induced graph of (G, d) is an ordererd graph (G*, d). G* is created by:
+
 1. Processing nodes of G from last to first (top to bottom)
 2. Connecting all of the parents of a node after processing.
 
 Induced width of (G, d), w*(d), is the width of (G*, d)
-Induced width of a graph, w*, is still the minimmum induced width over all of its orderings.
+Induced width of a graph, w\*, is still the minimmum induced width over all of its orderings.
 
 ### Example
 
@@ -70,9 +71,10 @@ Uma constraint network é directional arc-consistent para uma certa ordem $d$ ss
 
 <img src="Imagens/Aula 4 DAC.png">
 
-#### Explanation 
+#### Explanation
 
 Percorre a network seguindo a ordem reversa de $d$. Dentro desse loop percorre também todos os elementos que estão acima na lista aplicando revise entre estes elementos. Seria algo como:
+
 ```
 for (int i = n - 1; i >= 0; i--) {
     for (int j = i - 1; j >= 0; j--) {

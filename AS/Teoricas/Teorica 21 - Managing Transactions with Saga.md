@@ -1,6 +1,7 @@
 # Managing Transactions with Saga
 
 ## Transaction Management in a Microservice Architecture
+
 Transaction management is straightforward in monolithic architectures due to the use of ACID transactions. However, in microservices, each service has its database, making transactions span multiple services, which complicates maintaining data consistency. Traditional distributed transactions, such as those using the XA protocol and two-phase commit (2PC), are not viable because they are incompatible with many modern systems (e.g., NoSQL databases and message brokers) and reduce system availability.
 
 To overcome these challenges, the Saga pattern is used. A saga is a sequence of local transactions, each confined to a single service and coordinated asynchronously. Sagas differ from ACID transactions as they lack isolation and require compensating transactions to rollback changes when errors occur.
@@ -17,6 +18,7 @@ Each approach has its advantages and disadvantages. Choreography simplifies part
 ## Handling the Lack of Isolation
 
 Unlike traditional ACID transactions, sagas lack isolation. Changes from a saga's local transactions become immediately visible to other sagas, potentially causing anomalies:
+
 - Lost Updates: One saga overwrites changes made by another without acknowledging them.
 - Dirty Reads: A saga reads uncommitted changes from another.
 - Fuzzy/Nonrepeatable Reads: A saga reads inconsistent data because other sagas have made updates mid-execution.

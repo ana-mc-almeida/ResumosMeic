@@ -17,12 +17,14 @@ Energy based model over binary vectors. Consists of two layers: a visible layer 
 The model is trained using a method called contrastive divergence, where the goal is to adjust the weights so that the model's distribution matches the data distribution. This is done by alternating between two phases: a positive phase (activating hidden units based on visible units) and a negative phase (reconstructing the visible units and updating hidden units).
 
 RBMs can be used for:
+
 - Dimensionality reduction (compressing data into a lower-dimensional form).
 - Collaborative filtering (recommender systems).
 - Pretraining deep networks (to initialize weights before fine-tuning with backpropagation).
 - Generating new samples similar to training data.
 
 In relation to normal Boltzmann Machines
+
 - Layer Connections: In RBMs, there are no connections within a layer. The visible layer (input) is connected only to the hidden layer (features), and vice versa. This restriction simplifies training and makes the model easier to learn.
 - Training: The lack of intra-layer connections makes the Gibbs sampling process more efficient, allowing for faster and more stable training using methods like contrastive divergence.
 - Usage: RBMs are mainly used for unsupervised learning, dimensionality reduction, and as building blocks in deep belief networks (DBNs) for pretraining.
@@ -30,10 +32,12 @@ In relation to normal Boltzmann Machines
 ## Generative Adversarial Networks (GANs)
 
 Used for generating new data instances that resemble a given training dataset. A GAN consists of two main components:
+
 - Generator: A neural network that generates synthetic data (like images) from random noise. Its goal is to create data that looks as realistic as possible.
 - Discriminator: A neural network that distinguishes between real data (from the training set) and fake data (produced by the generator). It provides feedback to the generator, guiding it to improve the quality of its outputs.
 
 These two networks are trained together in a minimax game:
+
 - The generator tries to fool the discriminator by creating more realistic fake data.
 - The discriminator tries to become better at distinguishing real data from fake data.
 

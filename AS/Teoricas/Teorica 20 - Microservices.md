@@ -5,6 +5,7 @@
 Structures a software application as a collection of small, independently deployable services. Each service operates in its own process and communicates with others through lightweight mechanisms, often HTTP resource APIs. This approach emphasizes organizing services around business capabilities, enabling teams to develop, deploy, and scale services independently.
 
 Key characteristics of microservices include:
+
 - Componentization via Services: Unlike traditional monolithic architectures that use in-process function calls, microservices treat each service as a separate component accessed over a network. This separation allows for independent development and deployment.
 - Organized Around Business Capabilities: Teams are structured cross-functionally, each responsible for a specific business capability, from user interface to data storage.
 - Products Not Projects: Development teams own their services throughout the entire lifecycle, promoting a product mindset over a project-based approach.

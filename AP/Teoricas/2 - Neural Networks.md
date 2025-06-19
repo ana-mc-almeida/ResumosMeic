@@ -39,11 +39,13 @@ $$\dfrac{\partial L(y, \hat{y})}{\partial z^{[l]}} = \dfrac{\partial L(y, \hat{y
 ### Strategies
 
 Symbol-to-number:
+
 - Take a computational graph and numerical inputs, returns a set of numerical values describing the gradient at those input values.
 - Advantage: simpler to implement and debug.
 - Disadvantage: only works for first-order derivatives
 
 Symbol-to-symbol differentiation:
+
 - Take a computational graph and add additional nodes to the graph that provide a symbolic description of the desired derivatives (i.e. the derivatives are just another computational graph).
 - Advantage: generalizes automatically to higher-order derivatives
 - Disadvantage: harder to implement and to debug
@@ -108,27 +110,29 @@ $$\dfrac{\partial f}{\partial x} \approx \dfrac{f(x+\epsilon) - f(x-\epsilon)}{2
 ## Momentum
 
 - Momentum is a technique that accelerates gradient descent in the relevant direction and dampens oscillations.
-- It means: remember the previous gradients and use them to update the current gradient: 
-  - $\theta_t = \theta_{t-1} - \alpha_t g(\theta_{t-1}) + \gamma_t(\theta_{t-1} - \theta_{t-2}) $
+- It means: remember the previous gradients and use them to update the current gradient:
+
+  - $\theta*t = \theta*{t-1} - \alpha*t g(\theta*{t-1}) + \gamma*t(\theta*{t-1} - \theta\_{t-2}) $
 
   - $g(\theta_t)$ is the gradient estimate at time $t$.
+
 - Advantages: reduces the update in irrelevant directions and accelerates the update in relevant directions.
 
 ## Adaptive Gradient (AdaGrad)
 
 - AdaGrad is a technique that adapts the learning rate to the parameters, performing smaller updates for frequent parameters and larger updates for infrequent parameters.
-- Scale the update of each component ($\epsilon$ for numerical stability): 
-  - $\theta_{j,t} = \theta_{j,t-1} - \dfrac{\alpha}{\sqrt{G_{j,t-1}+\epsilon}}g_j(\theta_{t-1}) $
-  - $G_{j,t} $ is the sum of squares of the gradients w.r.t. $\theta_j$ up to time $t$: $G_{j_t} = \sum\limits^t_{i=1} g^2_{j,i} $
+- Scale the update of each component ($\epsilon$ for numerical stability):
+  - $\theta*{j,t} = \theta*{j,t-1} - \dfrac{\alpha}{\sqrt{G*{j,t-1}+\epsilon}}g_j(\theta*{t-1}) $
+  - $G_{j,t} $ is the sum of squares of the gradients w.r.t. $\theta_j$ up to time $t$: $G*{j_t} = \sum\limits^t*{i=1} g^2\_{j,i} $
 - Advantages: robust to choice of $\alpha$ and learning rate decay.
 - Disadvantages: step size vanishes, because $G_{j,t}$ is monotonically increasing.
 
 ## Root Mean Square Propagation (RMSProp)
 
 - RMSProp addresses the vanishing learning issue.
-- Same scaled update for each component: $\theta_{j,t} = \theta_{j,t-1} - \dfrac{\alpha}{\sqrt{G_{j,t-1}+\epsilon}}g_j(\theta_{t-1}) $
-- Use a forgetting factor $\gamma$ to decay the sum of squares of the gradients (typically $\gamma$ = 0.9): $G_{j,t} = \gamma G_{j,t-1} + (1 - \gamma)g^2_{j,t} $ - now the sum of
-squares of the gradients is decaying.
+- Same scaled update for each component: $\theta*{j,t} = \theta*{j,t-1} - \dfrac{\alpha}{\sqrt{G*{j,t-1}+\epsilon}}g_j(\theta*{t-1}) $
+- Use a forgetting factor $\gamma$ to decay the sum of squares of the gradients (typically $\gamma$ = 0.9): $G*{j,t} = \gamma G*{j,t-1} + (1 - \gamma)g^2\_{j,t} $ - now the sum of
+  squares of the gradients is decaying.
 
 ## Adaptive Moment Estimation (Adam)
 

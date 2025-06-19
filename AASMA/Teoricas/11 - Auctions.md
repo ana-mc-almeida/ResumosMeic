@@ -10,7 +10,7 @@
   - Every bidder knows the number of bidders in the auction.
   - The bid is public (and only one bid is submitted).
 - First-Price - All bidders submit sealed bids simultaneously, no bidder knows the bids of
-the other bidders, the highest bidder wins and pays the submitted price.
+  the other bidders, the highest bidder wins and pays the submitted price.
   - Every bidder knows the number of bidders in the auction.
   - The bids are private.
   - Bidders can only submit one bid.

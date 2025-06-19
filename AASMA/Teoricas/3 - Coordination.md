@@ -5,14 +5,15 @@
 We can model a coordination problem as a coordination game.
 
 Consider the stag hunt game with two hunters:
+
 - If they both hunt hares, they each capture half of the hares in the range.
 - If one hunts the stag and the other hunts hares, the stag hunter goes home empty-handed while the hare hunter captures all the hares.
 - Finally, if both hunt the stag, then each of their shares of the stag is greater than the value of all the hares.
 
-| Hunter 1 \ Hunter 2 | Stag | Hare |
-| ------------------- | ---- | ---- |
-| **Stag** | $3,3$ | $0,2$ |
-| **Hare** | $2,0$ | $1,1$ |
+| Hunter 1 \ Hunter 2 | Stag  | Hare  |
+| ------------------- | ----- | ----- |
+| **Stag**            | $3,3$ | $0,2$ |
+| **Hare**            | $2,0$ | $1,1$ |
 
 With no coordination the action to hunt a Stag is a risk-taking strategy and the action to hunt a Hare is a conservative strategy.
 
@@ -30,10 +31,10 @@ So coordination can be defined as the process in which a group of agents choose 
 
 Each agent wants to cross first, but if they both cross they will crash.
 
-| Car 1 \ Car 2 | Cross | Stop |
-| ------------- | ----- | ---- |
-| **Cross** | $-1,-1$ | $1,0$ |
-| **Stop** | $0,1$ | $0,0$ |
+| Car 1 \ Car 2 | Cross   | Stop  |
+| ------------- | ------- | ----- |
+| **Cross**     | $-1,-1$ | $1,0$ |
+| **Stop**      | $0,1$   | $0,0$ |
 
 Both (Cross, Stop) and (Stop, Cross) are Nash Equilibria and Pareto optimal. But we don't know which to choose.
 

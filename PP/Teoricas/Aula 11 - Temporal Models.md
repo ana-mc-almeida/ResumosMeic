@@ -36,8 +36,9 @@ Para este exemplo, é impossível arranjar uma ground instance que ao mesmo temp
 Uma timeline é secure se é consistent e se todas as as ground instances que satisfazem as constraints são consistent.
 
 É possível tornar uma timeline consistent em secure ao adicionar separation constraints:
+
 - r != r1
-- t2 < t3 
+- t2 < t3
 
 Exemplo de uma timeline secure:
 <img src="Imagens/Aula11 Time Line Consistent Example.png">
@@ -57,6 +58,7 @@ Se todas as assertions de uma timeline têm causal support, então a timeline é
 Para uma variável ter causal support é preciso que exista informação que essa assertion é válida a priori ou que exista outra assertion que a torne possível. Formalmente:<br>
 
 A assertion $[t_1, t_2] x = v_1$ ou $[t_1,t_2]x: (v_1, v_2)$ tem causal support se:
+
 - Há informação a priori.
 - Há outra assertion que produz $x = v_i$ no $t_1$
   - $[t_0, t_1]x = v_1$
@@ -116,6 +118,7 @@ Isto é basicamente a representação a sério e total destes problemas. Contém
 
 O planning problem é um chronicle $\phi_o$ que tem algumas flaws, parecidas com as flaws em PSPs.
 Para resolver as flaws precisamos de adicionar:
+
 - Assertions
 - Constraints
 - Actions
@@ -167,6 +170,7 @@ $[t_1, t_2]$ loc(r1) = loc1, $[t_3, t_4]$ loc($r$) : ($l, l'$)
 <img src="Imagens/Aula11 Planning Problem Flaw 3 Example.png">
 
 Se não tivermos cuidado podemos acabar com uma situação assim. O resolver é adicionar separation constraints:
+
 - $r$ != r1
 - $t_2$ < $t_3$
 - $t_4$ < $t_1$
@@ -180,6 +184,7 @@ Se não tivermos cuidado podemos acabar com uma situação assim. O resolver é 
 ### Heuristics
 
 Há algumas heuristicas que poemos ter em conta ao escolher a flaw e o resolver:
+
 - Escolher a flaw que tem menos resolvers.
 - Escolher o resolver que remove menos resolvers das outras flaws.
 
@@ -190,12 +195,14 @@ Há algumas heuristicas que poemos ter em conta ao escolher a flaw e o resolver:
 Cada vez que um resolver modifica (T, C), existe o risco de (T, C) ficar inconsistente. O objetivo é dar prune a esta parte do search space.
 
 C pode ter dois tipos de constraints:
+
 - Object constraints
   - Por exemplo: loc($r$) = loc1, $r$ != r1, ...
 - Temporal constraints
   - Por exemplo: $t_1$ < $t_3$, $t_2$ = $t_4$
 
 Assumindo que os object constraints e os temporal constraints são independentes entre si, podemos separar o problema em dois problemas:
+
 - Checkar consistency das object constraints.
 - Checkar consistency das temporal constraints.
 - C é consistente sse ambos forem consistentes.
@@ -230,4 +237,3 @@ O resultado de uma composition é um intervalo em que o start time é a soma dos
 
 - Itera sobre todos os trios.
 - Reduz o intervalo e checka consistency
-

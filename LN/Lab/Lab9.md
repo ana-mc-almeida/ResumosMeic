@@ -17,7 +17,6 @@ alex eats soup everyday:
   - ADV
     - everyday
 
-
 children like chips:
 
 - S
@@ -45,7 +44,6 @@ cats adore salty soup
         - salty
       - N
         - soup
-
 
 Rules:<br>
 S -> NP VP | NP VP ADV<br>
@@ -84,6 +82,3 @@ VP -> V NP<br>
 V -> "adore"<br>
 NP -> N<br>
 N -> "soup"
-
-
-

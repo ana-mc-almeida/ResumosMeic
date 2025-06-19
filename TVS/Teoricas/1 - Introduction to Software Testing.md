@@ -10,6 +10,7 @@ Quality = expectations - delivery
 # Quality cost
 
 Being X a normalized unit of cost:
+
 - Design - 1X
 - Implementation - 5X
 - Integration - 10X
@@ -23,11 +24,13 @@ All costs associated with planning and running tests (and revisions) just one ti
 ### Costs of nonconformance
 
 Costs due to internal failures (before release)
--  Cost of isolating, reporting and regression testing bugs (found before the product is released) to assure that they're fixed.
+
+- Cost of isolating, reporting and regression testing bugs (found before the product is released) to assure that they're fixed.
 
 Costs due to external failures (after release)
+
 - If bugs are missed and make it through to the customers, the result will be costly
-product support calls, possibly fixing, retesting, and releasing the software, and, in a worst case-scenario, a product recall or lawsuits.
+  product support calls, possibly fixing, retesting, and releasing the software, and, in a worst case-scenario, a product recall or lawsuits.
 - Angry clients.
 
 # Types of tests
@@ -62,6 +65,7 @@ Changes often break working code. Rerun tests of version $n - 1$ on version $n$ 
 Passing a test is not enough to show the absence of bugs. Proof of correctness is equivalent to exhaustive testing.
 
 ### Triangle example:
+
 - Length side in ] 0,10000 ]
 - 104 possibilities for a segment size
 - 1012 for a triangle.
@@ -74,7 +78,8 @@ The best bugs are those that cause a failure every time they execute. However, m
 Fault sensitivity: The ability of code to hide faults from a test suite. Executing buggy code does not always expose the bug.
 
 Coincidental correctness: Buggy code can produce correct results for some inputs
-  - Have x + x instead of x * x. Same result for x = 0 or x = 2.
+
+- Have x + x instead of x \* x. Same result for x = 0 or x = 2.
 
 # Testing Model
 
@@ -101,6 +106,7 @@ Purposely introduces faults into code to test. Then check if those faults are de
 # Testing cycle
 
 Specification of a test case includes:
+
 - The method to test.
 - The initial state of the system.
   - initial state of the object being invoked (OUT).
@@ -126,6 +132,7 @@ Properties of a test case:
 - Fast
 
 Test execution:
+
 1. Establish that the IUT is minimally operational
 2. Execute the test suite(s)
 3. Use a coverage tool

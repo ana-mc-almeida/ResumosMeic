@@ -1,9 +1,10 @@
-Para criar uma linguagem de programação não precisamos de criar um compilador diretamente. Podemos usar um evaluator. Enquanto a nossa linguagem não está definida precisamos de um evaluator de outra linguagem para correr o nosso evaluator. Vamos usar o evaluator do Scheme. 
+Para criar uma linguagem de programação não precisamos de criar um compilador diretamente. Podemos usar um evaluator. Enquanto a nossa linguagem não está definida precisamos de um evaluator de outra linguagem para correr o nosso evaluator. Vamos usar o evaluator do Scheme.
 
 # Evaluator
 
 Abstract syntax: the evaluator will operate in terms of an abstract syntax: the syntax is recognized by predicates that abstract from the concrete syntax used.<br>
 Example: Abstract Syntax for Assignments:
+
 ```
 (define (set? expression)
     (eq? (car expression) 'set!)
@@ -11,6 +12,7 @@ Example: Abstract Syntax for Assignments:
 ```
 
 Evaluator:
+
 ```
 ####### Identify what to evaluate #######
 (define (eval exp)
@@ -80,6 +82,7 @@ Evaluator:
 ```
 
 We can change the name of the operations with this:
+
 ```
 (define (addition? exp)
     (and (pair? exp)
@@ -252,6 +255,7 @@ The improved evaluator looks like:
 ```
 
 Example:
+
 ```
 >>  (let ((pi 3.14159) (radius 5))
         (* 2 (* pi radius))
@@ -275,6 +279,7 @@ Example:
 ```
 
 Shadowing example
+
 ```
 >>  (let ((a 1))
         (let ((b (+ a 2)))
@@ -284,13 +289,13 @@ Shadowing example
         )
     )
 =>  (eval (let ((a 1)) (let ((b (+ a 2))) (let ((a (+ a b))) (* 2 a)))) ())
-=>      (eval 1 ()) 
+=>      (eval 1 ())
 <=      1
 =>      (eval (let ((b (+ a 2))) (let ((a (+ a b))) (* 2 a))) ((a . 1)))
 =>          (eval (+ a 2) ((a . 1)))
 =>              (eval a ((a . 1)))
 <=              1
-=>              (eval 2 ((a . 1))) 
+=>              (eval 2 ((a . 1)))
 <=              2
 <=          3
 =>          (eval (let ((a (+ a b))) (* 2 a)) ((b . 3) (a . 1)))
@@ -312,6 +317,7 @@ Shadowing example
 ```
 
 Currently the REPL starts in a clean state, forcing us to introduce all needed names. We can provide some pre-defined names:
+
 ```
 (define initial-bindings
     (list (cons 'pi 3.14159)
@@ -339,6 +345,7 @@ Currently the REPL starts in a clean state, forcing us to introduce all needed n
 ```
 
 Adicionando funções:
+
 ```
 (define (call? exp)
     (and (pair? exp)
@@ -365,7 +372,7 @@ Adicionando funções:
 )
 
 (define (flet-functions exp)
-    (map 
+    (map
         (lambda (f)
             (make-function (cadr f) (cddr f))
         )
@@ -425,6 +432,7 @@ Adicionando funções:
 ```
 
 Adicionando as funções ao evaluator:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -458,6 +466,7 @@ Adicionando as funções ao evaluator:
 ```
 
 Neste momento se quisermos chamar uma função temos de usar `(call name args)`, mas seria melhor poder só usar `(name args)`. Podemos adicionar essa possibilidade:
+
 ```
 (define (call? exp)
     (pair? exp)
@@ -475,6 +484,7 @@ Neste momento se quisermos chamar uma função temos de usar `(call name args)`,
 ## Rebinding names
 
 Exemplo:
+
 ```
 >>  (flet ((square (a) "I'm a square"))
         (square 10)
@@ -536,6 +546,7 @@ Porque é que conseguimos mudar a função `square`, mas não conseguimos mudar 
 ```
 
 E assim podemos reduzir o tamanho do evaluator:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -559,6 +570,7 @@ E assim podemos reduzir o tamanho do evaluator:
 ```
 
 Exemplo:
+
 ```
 >>  (+ 3 4)
 7
@@ -579,7 +591,7 @@ Exemplo:
         )
         (+ (* 1 2) 3)
     )
-9                           # O resultado é 9 em vez de 6 porque as bindings são associadas em paralelo dentro do let. 
+9                           # O resultado é 9 em vez de 6 porque as bindings são associadas em paralelo dentro do let.
 >>  (flet ((+ (x y) (* x y))
             (* (x y) (+ x y))
         )
@@ -596,7 +608,7 @@ O environment que temos até agora é funcional: é criado, usado e descartado, 
 
 ```
 (define (def? exp)
-    (and (pair? exp) 
+    (and (pair? exp)
         (eq? (car exp) 'def)
     )
 )
@@ -626,7 +638,7 @@ O environment que temos até agora é funcional: é criado, usado e descartado, 
 )
 
 (define (fdef? exp)
-    (and (pair? exp) 
+    (and (pair? exp)
         (eq? (car exp) 'fdef)
     )
 )
@@ -656,6 +668,7 @@ O environment que temos até agora é funcional: é criado, usado e descartado, 
 ```
 
 Adicionando ao evaluator:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -688,6 +701,7 @@ Adicionando ao evaluator:
 ```
 
 Example:
+
 ```
 >>  (def foo 1)
 1
@@ -702,13 +716,14 @@ Example:
 The evaluation of a definition modifies the current environment. The modification occurs as a side-effect. Understanding side-effects requires an evaluation order.
 
 Example with left-to-right evaluation order:
+
 ```
 >>  (def baz 3)
 3
 >>  (+ (let ((x 0))
             (def baz 5)
         )
-        baz 
+        baz
     )
 8
 >>  (+ (let ()
@@ -721,6 +736,7 @@ Example with left-to-right evaluation order:
 Este comportamento de dar 12 em vez de 9 é porque quando saimos de um scope tudo é descartado, mas isso não acontece quando o scope é vazio. No exemplo de cima, obtivemos 8 porque o baz depois do let volta a ser 3, como tinha sido definido anteriormente. O mesmo não se verifica para o caso de baixo. Isto não devia acontecer!
 
 In our current implementation, the environment is implemented as a continuous sequence of bindings without separation between different scopes. To add such separation, we need to partition that sequence into frames. Each time we augment the environment (i.e., for every `let`, `flet` and function call), we create a new frame. Each frame contains an association list for the bindings. This change require us to redefine:
+
 - the process of finding bindinds: `eval-name`
 - the process of augmenting the environment: `augment-environment`
 - the process of updating the environment: `define-name!`
@@ -757,6 +773,7 @@ In our current implementation, the environment is implemented as a continuous se
 ```
 
 Example:
+
 ```
 >>  (def baz 3)
 3
@@ -776,7 +793,7 @@ Example:
 >>  (fdef incr ()
         (def counter (+ counter 1))
     )
-    (function () 
+    (function ()
         (def counter (+ counter 1))
     )
 >>  (incr)
@@ -832,6 +849,7 @@ To update a name we must locate its binding but that's what the evaluation of th
 ```
 
 Adicionando a expressão de assignment ao evaluator:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -892,12 +910,14 @@ Besides assignments, there is another important source of side-effects: input/ou
 ```
 
 Example:
+
 ```
 >> (print-value "fact(5)" (fact 5))
 = 120 fact(5)                               # Huh?
 ```
 
 Maybe using:
+
 ```
 (fdef evaluate-all-and-return-the-last-one (v1 v2 v3 v4 v5)
     v5
@@ -918,7 +938,7 @@ Nop! Nothing guarantees that the arguments to the function evaluate-all-and-retu
 
 ```
 (define (begin? exp)
-    (and (pair? exp) 
+    (and (pair? exp)
         (eq? (car exp) 'begin)
     )
 )
@@ -971,6 +991,7 @@ Nop! Nothing guarantees that the arguments to the function evaluate-all-and-retu
 ```
 
 Example:
+
 ```
 (fdef print-value (text value)
     (begin
@@ -1011,15 +1032,16 @@ It is usual to consider that every function body, every let body, and every flet
 ```
 
 Namespaces:
+
 - Java has namespaces for types, for constructors, for methods, for fields and variables, for labels, etc.
 - C has a different namespace for structs, but a single namespace for functions and variables.
 - Scheme has a single namespace: each name has just one meaning in each context.
 - A Lisp-2 is a Lisp that has one namespace for functions and another namespace for variables.
 - A Lisp-1 is a Lisp that has a single namespace where a name either represents a function or a variable but not both.
 - Let's modify our evaluator to implement Lisp-2 semantics:
-    - Create a different namespace for functions.
-    - Each function definition is placed in the function namespace.
-    - Each function call accesses the function namespace.
+  - Create a different namespace for functions.
+  - Each function definition is placed in the function namespace.
+  - Each function call accesses the function namespace.
 - Our namespace for functions will be implemented using hidden naming conventions, but we could use more sophisticated (and efficient) approaches.
 
 ```
@@ -1080,6 +1102,7 @@ Namespaces:
 ```
 
 Lisp-2 and Higher-Order Functions example:
+
 ```
 >>  (fdef reflexive-operation (f x)
         (f x x)
@@ -1093,7 +1116,7 @@ In a Lisp-2, a name that is not in function call position is always treated as n
 
 ```
 (define (function-reference? exp)
-    (and (pair? exp) 
+    (and (pair? exp)
         (eq? (car exp) 'function)
     )
 )
@@ -1122,6 +1145,7 @@ In a Lisp-2, a name that is not in function call position is always treated as n
 ```
 
 Now:
+
 ```
 >>  (fdef reflexive-operation (f x)
         (f x x)
@@ -1135,7 +1159,7 @@ In a Lisp-2, a name that is in function call position is always treated as belon
 
 ```
 (define (funcall? exp)
-    (and (pair? exp) 
+    (and (pair? exp)
         (eq? (car exp) 'funcall)
     )
 )
@@ -1236,8 +1260,8 @@ Sums and products are so identical that it is possible to abstract them using ad
 
 Functional programming in a Lisp-2 tends to spread `funcall` and `function` all over the code. This makes the code hard to read.
 
-
 Accumulation (in a Lisp-1):
+
 ```
 (fdef accumulate (combiner neutral f a b)
     (if (> a b)
@@ -1253,6 +1277,7 @@ Accumulation (in a Lisp-1):
 Functional programming in a Lisp-1 looks much better (at the price of loosing homonyms). Let's change our evaluator to become a Lisp-1.
 
 Em Lisp-2 tinhamos:
+
 ```
 (define (in-function-namespace name)
     (string->symbol
@@ -1265,6 +1290,7 @@ Em Lisp-2 tinhamos:
 ```
 
 Em Lisp-1:
+
 ```
 (define (in-function-namespace name)
     name
@@ -1272,11 +1298,13 @@ Em Lisp-1:
 ```
 
 Para simplificar também podemos:
+
 - Drop `function` (and `function-reference?`, `function-reference-name`, `eval-function-reference`).
 - Drop `funcall` (and `funcall?`, `funcall-operator`, `funcall-operands`, `eval-funcall`).
 - Drop `in-function-namespace`.
 
 Example:
+
 ```
 >> (fdef next (i)
 (if (< i 0)
@@ -1294,6 +1322,7 @@ error in "Unbound name -- EVAL-NAME": (if (< i 0) - +)
 We were expecting to see a name in the operator position, but we now have an expression there. Let's generalize the treatment of the operator.
 
 Antes:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -1330,6 +1359,7 @@ Antes:
 ```
 
 Depois:
+
 ```
 (define (eval exp env)
     (cond ((self-evaluating? exp) exp)
@@ -1368,10 +1398,11 @@ Depois:
 ## Anonymous functions
 
 Named Functions
+
 ```
 (fdef approx-pi (n)
     (flet ((term (i) (/ (expt -1.0 i) (+ (* 2 i) 1))))
-        (* 4 
+        (* 4
             (sum term 0 n)
         )
     )
@@ -1379,11 +1410,12 @@ Named Functions
 ```
 
 Anonymous Functions
+
 ```
 (fdef approx-pi (n)
-    (* 4 
+    (* 4
         (sum (lambda (i) (/ (expt -1.0 i) (+ (* 2 i) 1)))
-            0 
+            0
             n
         )
     )
@@ -1456,6 +1488,7 @@ Thus, we have the following equivalence: `(fdef square (x) (* x x)) = (def squar
 Example $let = lambda + function call$:
 
 From:
+
 ```
 (let ((x (+ 1 2))
         (y (* 2 3))
@@ -1465,6 +1498,7 @@ From:
 ```
 
 To:
+
 ```
 ((lambda (x y)
         (- x y)
@@ -1503,6 +1537,7 @@ $$\sum\limits^1_{x=-1} 10x^2 +5x = (10 - 5) + 0 + (10 + 5) = 20$$
 ```
 
 So far, we didn't think carefully about the scope of our binding constructs:
+
 - A def form creates a binding in the current environment.
 - A function call creates a set of bindings (for the parameters) that extends the current environment.
 - At the end of the call, the extended environment is discarded.
@@ -1517,7 +1552,8 @@ Passing a function with free variables as argument causes the downwards funarg p
 
 Solution: Functions must know the correct environment for resolving the free variables.<br>
 
-One potential solution might be to use name-mangling techniques to avoid name clashes. Isto é, usar nomes super esquisitos que mais ninguém vá usar. Mas isso traz problemas: 
+One potential solution might be to use name-mangling techniques to avoid name clashes. Isto é, usar nomes super esquisitos que mais ninguém vá usar. Mas isso traz problemas:
+
 - It makes the code hard to read.
 - It doesn't really solve the problem, porque quando metemos funções com parametros com nomes esquisitos a chamar outras funções com parametros com nomes esquisitos vamos voltar a ter colisões.
 
@@ -1548,7 +1584,7 @@ Other languages (e.g., Scheme, Haskel, Common Lisp) implement environments with 
 error in "Unbound name -- EVAL-NAME": f
 ```
 
-Returning a function with free variables as result causes the upwards funarg problem where the function is called in an environment where the free variables are not longer bound (or are bound to different values). 
+Returning a function with free variables as result causes the upwards funarg problem where the function is called in an environment where the free variables are not longer bound (or are bound to different values).
 
 Some languages avoid the upwards funarg problem by restricting the language - Pascal forbids functional returns, C forbids inner functions, Java forbids non-final free variables in anonymous inner classes and other languages (e.g., Scheme, Haskel, Common Lisp) implement environments with indefinite extent.
 
@@ -1623,12 +1659,14 @@ error in "Unbound name -- EVAL-NAME": fact
 
 Antes funcionanva, mas agora `flet` creates a function and establishes a scope where a name is bound to that function. But the function is created outside that scope. As a result, the function cannot refer itself.
 
-A solução do Lisp para este problema é: 
-1. Creates the scope for the function name (temporarily binding it to some value). 
-2. Creates the function inside that scope. 
+A solução do Lisp para este problema é:
+
+1. Creates the scope for the function name (temporarily binding it to some value).
+2. Creates the function inside that scope.
 3. Modifies the binding of the function name to point to the function.
 
 A solução do Scheme é:
+
 1. Creates an empty scope.
 2. Creates the function inside that scope.
 3. Modifies the scope, adding a new binding from the function name to the function.
@@ -1658,6 +1696,7 @@ Vamos adicionar Pairs ao nosso Evaluator:
 ```
 
 E já agora podemos fazer listas:
+
 ```
 >>  (fdef caar (p) (car (car p)))
 (function (p) ...)
@@ -1762,6 +1801,7 @@ Isto acontece porque function calls evaluate all their arguments but `and` requi
 3. The computed form is evaluated in place of the macro call.
 
 A function call evaluates the arguments and computes a result that is not evaluated. A macro call does not evaluate the arguments and computes a result that is evaluated:
+
 ```
 >>  (fdef f-foo (x)
         (display x)
@@ -1868,6 +1908,7 @@ A macro is a function but is called differently. We will implement macros simply
 Macro Calls don't evaluate the operands. Evaluate the returned value (in the current environment).
 
 From:
+
 ```
 (and (not (= b 0))
     (/ a b)
@@ -1875,6 +1916,7 @@ From:
 ```
 
 To:
+
 ```
 (if (not (= b 0))
     (/ a b)
@@ -1883,6 +1925,7 @@ To:
 ```
 
 Transformation:
+
 ```
 (mdef and (b0 b1)
     (list 'if
@@ -1894,6 +1937,7 @@ Transformation:
 ```
 
 Example:
+
 ```
 >>  (fdef quotient-or-zero (a b)
         (or (and (not (= b 0))
@@ -1929,11 +1973,13 @@ Division:Division:3                     # What?
 ```
 
 Macro Problems:
+
 - Macro calls do not evaluate their arguments.
 - Macro expansions might have multiple occurrences of the same parameter.
 - Thus, macro expansions might have multiple occurrences of a form that was passed as argument to the macro call.
 
 Solution:
+
 - Never repeat a parameter in a macro expansion.
 - If necessary, expand into a binding form that binds a local variable to that parameter and reuse the local variable in the expanded code.
 
@@ -1957,6 +2003,7 @@ Mas a melhor solução é usar hygienic macros que in a lexically scoped languag
 ## Templates
 
 In most cases, the macro expansion can be described by a template of code. To be flexible, a template must allow for some parts of it to be replaced with values computed at expansion time.
+
 - `(quasiquote foo)` can be abbreviated as `foo.
 - `(unquote foo)` can be abbreviated as `,foo`.
 - `(unquote-splicing foo)` can be abbreviated as `,@foo`.
@@ -2040,7 +2087,7 @@ In most cases, the macro expansion can be described by a template of code. To be
 
 # Meta circularidade
 
-Se criarmos uma macro `define` na nossa linguagem PAva, vamos estar a usar o `def` que está já definido no evaluator de PAva e por sua vez vamos estar a usar o `define` que vem do Scheme. 
+Se criarmos uma macro `define` na nossa linguagem PAva, vamos estar a usar o `def` que está já definido no evaluator de PAva e por sua vez vamos estar a usar o `define` que vem do Scheme.
 
 Para além disso também se quisermos oferecer capacidades eval, temos de criar um evaluator. A solução mais simples é usar o evaluator como input do evaluator. Mas a melhor solução é usar o evaluator como uma primite operation. Para isto também precisamos de reificar o current environment.
 
@@ -2077,6 +2124,7 @@ E assim até podemos criar pairs (`kons`, `kar`, `kdr`) e classes. Até é poss�
 # Continuations
 
 There are operations whose semantics is difficult to express in the "usual" computational model:
+
 - `error`
 - `throw`
 - `yield`
@@ -2115,7 +2163,7 @@ Assim podemos transformar:
 )
 ```
 
-em 
+em
 
 ```
 (define (mystery a b c d e)
@@ -2159,11 +2207,11 @@ To simplify the program, we will define functions that call the continuation wit
 
 (define (mystery a b c d e)
     (-c c d
-        (λ (r0) 
+        (λ (r0)
             (/c r0 e
-                (λ (r1) 
+                (λ (r1)
                     (*c b r1
-                        (λ (r2) 
+                        (λ (r2)
                             (+c a r2
                                 (λ (r3) r3)
                             )
@@ -2179,14 +2227,15 @@ To simplify the program, we will define functions that call the continuation wit
 Each function now accepts an explicit continuation. In order to "return", the function calls the continuation. A "normal" function call always returns to its caller because the continuation is implicit. When the continuation is explicit, it is possible to not call it, i.e., it is possible to not return to its caller.
 
 Exemplo:
+
 ```
 (define (mystery a b c d e)
     (-c c d
-        (λ (r0) 
+        (λ (r0)
             (/c r0 e
-                (λ (r1) 
+                (λ (r1)
                     (*c b r1
-                        (λ (r2) 
+                        (λ (r2)
                             (+c a r2
                                 (λ (r3) r3)
                             )
@@ -2230,9 +2279,9 @@ The function must accept a continuation. The function "transfers" control to (i.
 ```
 (define (mystery-c a b c d e cont)
     (-c c d
-        (λ (r0) 
+        (λ (r0)
             (/c r0 e
-                (λ (r1) 
+                (λ (r1)
                     (*c b r1
                         (λ (r2) (+c a r2
                             (λ (r3) (cont r3))) # call continuation instead of identify function
@@ -2248,7 +2297,7 @@ The function must accept a continuation. The function "transfers" control to (i.
 Implicit continuation => program in direct style.<br>
 Explicitly continuation => program in continuation-passing style.
 
-The continuation is represented as a function. The explicit representation of a continuation is the reification of the continuation. There are no hidden pending computations. Each computed result is  explicitely named. All calls become tail calls. All recursive calls become tail recursive calls. A stack is not required.
+The continuation is represented as a function. The explicit representation of a continuation is the reification of the continuation. There are no hidden pending computations. Each computed result is explicitely named. All calls become tail calls. All recursive calls become tail recursive calls. A stack is not required.
 
 The reification of a continuation allows its capture:
 
@@ -2262,8 +2311,8 @@ The reification of a continuation allows its capture:
                 (set! pending-fact-computations c)
                 (c 1)
             )
-            (fact (- n 1) 
-                (lambda (r) 
+            (fact (- n 1)
+                (lambda (r)
                     (c (* n r))
                 )
             )
@@ -2463,6 +2512,7 @@ Note that call/cc is implemented as special syntax in our evaluator but is a "no
 ```
 
 Mistery:
+
 ```
 (define (mystery a b c d e)
     (+ a (* b (safe-/ (- c d) e)))
@@ -2513,6 +2563,7 @@ The function `a-pythagorean-triple` uses the function `(an-integer-between a b)`
 ```
 
 Exemplo:
+
 ```
 >>  (amb 1 2)
 1
@@ -2554,11 +2605,13 @@ The ambiguous operator `amb` evaluates just one expression. Each of the remainin
 ```
 
 From:
+
 ```
 (amb e0 e1 ... en)
 ```
 
 To:
+
 ```
 (call/cc
     (lambda (c)
@@ -2574,6 +2627,7 @@ To:
 ```
 
 The `amb` Macro
+
 ```
 (mdef amb (e . es)
     `(call/cc (lambda (c)

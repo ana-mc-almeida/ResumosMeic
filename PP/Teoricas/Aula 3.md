@@ -1,6 +1,7 @@
 ## Constraint Propagation
 
 Advantages:
+
 - Narrows search space
 - Constraints can become explicit enough to go directly to solution
 
@@ -12,7 +13,7 @@ R and R' have the same solutions, but R' is more explicit
 ## Arc-consistency
 
 - Infer constraints on pairs of variables.
-- Makes sure that every value in the domain of a variable has a leagal match in the domain of any related variable. 
+- Makes sure that every value in the domain of a variable has a leagal match in the domain of any related variable.
 - Decreases the size of the variables' domains.
 
 ### Definition
@@ -22,6 +23,7 @@ The subnetwork defined by {$x_i, x_j$} is arc-consistent iff $x_i$ is arc-consis
 A network of constraints is called arc-consistent iff all of its arcs are arc-consistent.
 
 ### Example
+
 - Variables x, y
 - Domains { 1, 2, 3 }
 - $R_{xy}$ = { x < y }
@@ -35,9 +37,11 @@ A network of constraints is called arc-consistent iff all of its arcs are arc-co
 <img src="Imagens/Aula3 Revise Procedure.png">
 
 #### Explanation:
+
 This procedure just checks for each value of the domain of a variable $x$ if there any $y$ such that $(x, y)$ belong to $R_{xy}$. If there is no value that satisfies this condition, then the value is removed from the variable domain.
 
 #### Disadvantages
+
 The problem with this approach is that it will just run each variable once. This can be a problem if a variable domain changes later on because of another variable in the network.
 
 ### AC-1 - Brute force algorithm
@@ -45,9 +49,11 @@ The problem with this approach is that it will just run each variable once. This
 <img src="Imagens/Aula3 AC-1.png">
 
 #### Explanation:
+
 This algorithm just loops through every pair of variables that participates in a constraint applying revise procedure. It will keep looping until no domain is changed.
 
 #### Disadvantages
+
 The problem with AC-1 is that it is really slow. There is no reason to (re)process ALL the constraints.
 
 ### AC-3 - An efficient algorithm
@@ -55,9 +61,11 @@ The problem with AC-1 is that it is really slow. There is no reason to (re)proce
 <img src="Imagens/Aula3 AC-3.png">
 
 #### Explanation:
+
 In this case, instead of looping arround every pair of variables that participate in a constraint like AC-1 does, we just follow a queue. The queue starts with every pair of variables that participate in a constraint, but then only the ones that have their domain changed, by applying revise procedure, are again added to the queue.
 
 #### Advantages
+
 In this case we can have the same results, but it is not necessary to loop through arcs that are not being changed anymore.
 
 ### AC-4
@@ -65,12 +73,12 @@ In this case we can have the same results, but it is not necessary to loop throu
 <img src="Imagens/Aula3 AC-4.png">
 
 #### Explanation:
+
 Basicamente em vez de guardar as coisas numa queue, tem duas listas, uma $S_{(x_i,a_i)}$ que contem todas as conexões. E uma outra $counter(i, a_i, j)$ que é o número de ligações entre o valor $a_i$ da variavel $x_i$ e todos os valores da variavel $x_j$.<br>
-Primeiro para cada counter checka-se se $counter(x_i, a_i, x_j) == 0$. E se for quer dizer que não há conexões entre o valor $a_i$ e a variavel $x_j$. E então vai ser adicionado a uma lista. Depois de todos os counters serem analisados, vai percorrer-se a lista e decrementar os counters dos valores que estavam ligados àquela variável. No caso de esse counter chegar a zero, esse par variavel-valor são adicionados à lista.  
+Primeiro para cada counter checka-se se $counter(x_i, a_i, x_j) == 0$. E se for quer dizer que não há conexões entre o valor $a_i$ e a variavel $x_j$. E então vai ser adicionado a uma lista. Depois de todos os counters serem analisados, vai percorrer-se a lista e decrementar os counters dos valores que estavam ligados àquela variável. No caso de esse counter chegar a zero, esse par variavel-valor são adicionados à lista.
 
-Na realidade, ao contrário do que diz nos slides, este algoritmo não diminui o espaço, mas diminui o tempo. Mas é muito pouco utilizado. 
+Na realidade, ao contrário do que diz nos slides, este algoritmo não diminui o espaço, mas diminui o tempo. Mas é muito pouco utilizado.
 A lista M que se mostra no algoritmo tem uma funcionalidade qualquer no livro. Apesar se não ser usada para nada no pseudo código ela tem uma utilidade qualquer.
-
 
 ## Path-consistency
 

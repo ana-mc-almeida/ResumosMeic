@@ -62,12 +62,14 @@ O maior problema é que há palavras que podem ter mais do que uma tag. Por exem
 Input: He had a book
 
 Step 1:
+
 - he -> pronome
 - had -> verbo
 - a -> artigo
 - book -> nome, verbo
 
 Step 2:
+
 - Rule 1: Se a tag anterior for um artigo, remove a tag verbo.
 
 Com esta regra sabemos que book é um nome.
@@ -85,6 +87,7 @@ Descreve um sistema com estados não observaveis, no nosso caso, as tags, usando
 $$P(T | W) \approx \prod_{i=1}^n P(t_i | t_{i-1}) \times P(w_i | t_i)$$
 
 São assumidas duas coisas:
+
 - $P(t_i | t_{i-1})$ Assume que as palavras estão organizados em bigramas.
 - $P(w_i | t_i)$ Assume que a probabilidade da palavra só depende da sua tag.
 
@@ -102,53 +105,53 @@ Descobrir qual é a sequencia PoS tags para a frase "will cook will". Seguindo a
 
 <img src="Imagens/Aula8 Viterbi Example.png">
 
-| SS | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | *S(1,1)* | *S(1,2)* | *S(1,3)* |
-| Verb | *S(2,1)* | *S(2,2)* | *S(2,3)* |
+| SS   | will     | cook     | will     |
+| ---- | -------- | -------- | -------- |
+| Noun | _S(1,1)_ | _S(1,2)_ | _S(1,3)_ |
+| Verb | _S(2,1)_ | _S(2,2)_ | _S(2,3)_ |
 
-| BP | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | 0 | *BP(1,2)* | *BP(1,3)* |
-| Verb | 0 | *BP(2,2)* | *BP(2,3)* |
+| BP   | will | cook      | will      |
+| ---- | ---- | --------- | --------- |
+| Noun | 0    | _BP(1,2)_ | _BP(1,3)_ |
+| Verb | 0    | _BP(2,2)_ | _BP(2,3)_ |
 
 Calculando cada uma das células:
 
-*S(1,1)* = P(will | Noun) * P(Noun | \<s>) = 0.2 * 0.7 = 0.14
+_S(1,1)_ = P(will | Noun) _ P(Noun | \<s>) = 0.2 _ 0.7 = 0.14
 
-*S(2,1)* = P(will | Verb) * P(Verb | \<s>) = 0.25 * 0.3 = 0.075
+_S(2,1)_ = P(will | Verb) _ P(Verb | \<s>) = 0.25 _ 0.3 = 0.075
 
-*S(1,2)* = max {<br>
-&emsp;*S(1,1)* * P(cook | Noun) * P(Noun | Noun) = 0.14 * 0.2 * 0.2 = 0.0056<br>
-&emsp;*S(2,1)* * P(cook | Noun) * P(Noun | Verb) = 0.075 * 0.2 * 0.4 = 0.006<br>
-} = 0.006 -> que é o segundo argumento da função max por isso colocamos *BP(1,2)* = 2
+_S(1,2)_ = max {<br>
+&emsp;_S(1,1)_ _ P(cook | Noun) _ P(Noun | Noun) = 0.14 _ 0.2 _ 0.2 = 0.0056<br>
+&emsp;_S(2,1)_ _ P(cook | Noun) _ P(Noun | Verb) = 0.075 _ 0.2 _ 0.4 = 0.006<br>
+} = 0.006 -> que é o segundo argumento da função max por isso colocamos _BP(1,2)_ = 2
 
-*S(2,2)* = max {<br>
-&emsp;*S(1,1)* * P(cook | Verb) * P(Verb | Noun) = 0.14 * 0.2 * 0.4 = 0.0056<br>
-&emsp;*S(2,1)* * P(cook | Verb) * P(Verb | Verb) = 0.075 * 0.1 * 0.55 = 0.004125<br>
-} = 0.0056 -> que é o primeiro argumento da função max por isso colocamos *BP(2,2)* = 1
+_S(2,2)_ = max {<br>
+&emsp;_S(1,1)_ _ P(cook | Verb) _ P(Verb | Noun) = 0.14 _ 0.2 _ 0.4 = 0.0056<br>
+&emsp;_S(2,1)_ _ P(cook | Verb) _ P(Verb | Verb) = 0.075 _ 0.1 _ 0.55 = 0.004125<br>
+} = 0.0056 -> que é o primeiro argumento da função max por isso colocamos _BP(2,2)_ = 1
 
-*S(1,3)* = max {<br>
-&emsp;*S(1,2)* * P(will | Noun) * P(Noun | Noun) = 0.006 * 0.2 * 0.2 = 0.00024<br>
-&emsp;*S(2,2)* * P(will | Noun) * P(Noun | Verb) = 0.0056 * 0.2 * 0.4 = 0.00048<br>
-} = 0.00048 -> que é o segundo argumento da função max por isso colocamos *BP(1,3)* = 2
+_S(1,3)_ = max {<br>
+&emsp;_S(1,2)_ _ P(will | Noun) _ P(Noun | Noun) = 0.006 _ 0.2 _ 0.2 = 0.00024<br>
+&emsp;_S(2,2)_ _ P(will | Noun) _ P(Noun | Verb) = 0.0056 _ 0.2 _ 0.4 = 0.00048<br>
+} = 0.00048 -> que é o segundo argumento da função max por isso colocamos _BP(1,3)_ = 2
 
-*S(2,3)* = max {<br>
-&emsp;*S(1,2)* * P(will | Verb) * P(Verb | Noun) = 0.006 * 0.25 * 0.4 = 0.0006<br>
-&emsp;*S(2,2)* * P(will | Verb) * P(Verb | Verb) = 0.0056 * 0.25 * 0.55 = 0.00077<br>
-} = 0.00077 -> que é o segundo argumento da função max por isso colocamos *BP(2,3)* = 2
+_S(2,3)_ = max {<br>
+&emsp;_S(1,2)_ _ P(will | Verb) _ P(Verb | Noun) = 0.006 _ 0.25 _ 0.4 = 0.0006<br>
+&emsp;_S(2,2)_ _ P(will | Verb) _ P(Verb | Verb) = 0.0056 _ 0.25 _ 0.55 = 0.00077<br>
+} = 0.00077 -> que é o segundo argumento da função max por isso colocamos _BP(2,3)_ = 2
 
 Preenchendo os valores na tabela ficamos com:
 
-| SS | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | 0.14 | 0.006 | 0.00048 |
+| SS   | will  | cook   | will    |
+| ---- | ----- | ------ | ------- |
+| Noun | 0.14  | 0.006  | 0.00048 |
 | Verb | 0.075 | 0.0056 | 0.00077 |
 
-| BP | will | cook | will |
-| -- | ---- | ---- | ---- |
-| Noun | 0 | 2 | 2 |
-| Verb | 0 | 1 | 2 |
+| BP   | will | cook | will |
+| ---- | ---- | ---- | ---- |
+| Noun | 0    | 2    | 2    |
+| Verb | 0    | 1    | 2    |
 
 Olhando para a ultima coluna da tabela SS sabemos que o valor mais provavel é ser um verbo, depois usamos a tabela BP para saber a sequência inteira. da seguinte maneira:
 
@@ -165,12 +168,14 @@ Part-of-Speech é uma labelling task. RNN's, LSTM's ou outras arquiteturas podem
 # Main Concepts
 
 As palavras são constituidas por morphenes. As morphenes podem ser:
+
 - Stems (lexical morphenes) - têm o significado principal da palavra.
 - Affixes (grammatical morphenes) - muda o significado da stem.
 
 ### Example
 
 Reusable:
+
 - Use - Stem
 - re- - quer dizer repetição
 - -able - indica capacidade

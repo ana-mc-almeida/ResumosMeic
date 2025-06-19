@@ -3,11 +3,13 @@
 A parte mais difícil de classificar imagens é saber que features devem ser retiradas da imagem.
 
 A abordagem imediata é criar um vetor de features $\phi(x)$. Pode incluir todo o tipo de features: boolean, continous, etc. Por exemplo, em NLP diferentes objetivos podem ter diferentes features:
+
 - Word occurences: binary features (word occurs or not in document)
 - Word counts: numeric features (how many times a word occurs)
 - POS tags: classification features (classify words as nouns, verbs, etc)
 
 Em NLP para verificar a qualidade da tradução podemos usar vários mecanismos:
+
 - number of tokens in the source and in target segment
 - probability of source and target segment
 - ...
@@ -34,7 +36,7 @@ $\hat{w}_\text{ridge} = (\boldsymbol{X}^T \boldsymbol{X} + \lambda I)^{-1} \bold
 
 $\hat{w}_\text{MAP} = \text{arg } \max\limits_w P(w | y) = \text{arg } \max\limits_w \dfrac{P(y | w) P(w)}{P(y)} = \text{arg } \max\limits_w P(y | w) P(w)$ <- (Bayes)
 
-$\hat{w}_\text{MAP} = \text{arg } \min\limits_w \lambda||\boldsymbol{w}||^2_2 + ||\boldsymbol{X}\boldsymbol{w} - \boldsymbol{y}||^2$ <- loss function + regularization term 
+$\hat{w}_\text{MAP} = \text{arg } \min\limits_w \lambda||\boldsymbol{w}||^2_2 + ||\boldsymbol{X}\boldsymbol{w} - \boldsymbol{y}||^2$ <- loss function + regularization term
 
 Regularization constant: $\lambda = \dfrac{\sigma^2}{\tau^2}$
 
@@ -60,7 +62,7 @@ Is a linear model that gives a score for each class.
 
 ### Softmax
 
-$\text{softmax} = \dfrac{e^{w_y^T\phi(x)}}{\sum\limits_{y'} e^{w_{y'}^T\phi(x)}} $
+$\text{softmax} = \dfrac{e^{w*y^T\phi(x)}}{\sum\limits*{y'} e^{w\_{y'}^T\phi(x)}} $
 
 Derivative, com cross-entropy loss: $\dfrac{\partial L}{\partial z_i} = \hat{y}_i - y_i$
 
@@ -96,6 +98,7 @@ $\Omega(W)$ is the regularization function and $\lambda$ controls the weight.
 # Non-Linear Classifiers
 
 Ways to deal with non-linear data:
+
 - Feature engineering - manually define non-linear features.
 - Kernel methods - implicitly map data to a higher-dimensional space.
 - Neural networks - learn non-linear features.
@@ -109,7 +112,7 @@ Ways to deal with non-linear data:
 ## Kernel Methods
 
 - Similarity function $k : \Chi \times \Chi \rightarrow \mathbb{R}$, that is symmetric
-and positive semi-definite.
+  and positive semi-definite.
 - Given dataset $D = {(xn, yn)}^N_{n=1}$, we can define the Gram matrix $K \in \mathbb{R}^{N \times N}$, where $K_{ij} = k(x_i, x_j)$.
   - Symmetric - $K_{ij} = K_{ji}$;
   - Positive semi-definite - $v^TKv \geq 0$, $\forall v \in \mathbb{R}^N$.
@@ -117,6 +120,7 @@ and positive semi-definite.
 - Kernel trick: take a feature-based algorithm (e.g. linear regression) and replace the dot product $x^Tx'$ with a kernel $k(x, x')$. The resulting algorithm is a non-linear algorithm that operates in the feature space - many models can be kernelized.
 
 There are several popular kernels:
+
 - Polynomial kernel: $k(x, x') = (x^Tx' + c)^d$
 - Gaussian radial basis function (RBF): $k(x, x') = \exp(-\dfrac{||x-x'||^2}{2\sigma^2})$
 - String kernels.

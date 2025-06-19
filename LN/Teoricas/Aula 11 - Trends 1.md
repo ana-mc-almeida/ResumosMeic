@@ -3,6 +3,7 @@
 Modelos de machine learning que são treinados com datasets gigantes para serem usados no futuro. A ideia é treiná-los durante imenso tempo numa certa lingua até ficarem excelentes. No futuro, quando forem usados só é preciso fazer uns ajustes especificos à linguagem.
 
 Há duas maneiras de os usar:
+
 - Inference -> É o processo que estes modelos usam para gerar um output com base no input.
 - Prompting -> É o processo de dar um input ao modelo para o guiar a dar o output que desejamos.
 
@@ -17,6 +18,7 @@ Pelo contrário, é uma técnica em que damos vários exemplos ao modelo para o 
 ### Transfer learning
 
 É uma técnica que permite usar um modelo que foi desenvolvido para uma task especifica noutra task como starting point. Podem haver dois tipos de transfer learning:
+
 - Feature-Based -> As features aprendidades graças à taks inicial são usadas como satarting point para uma nova task.
 - Fine-Tuning -> Os pesos do modelo são ajustados para serem mais adequados à nova tarefa.
 
@@ -42,7 +44,7 @@ Durante a inference, são usados tanto os pesos do pre-trained model como os pes
 
 ### LoRA (Low-Rank Adaptation)
 
-*Não percebi nada, ninguém percebeu ig, nem o chat me salvou :(*
+_Não percebi nada, ninguém percebeu ig, nem o chat me salvou :(_
 
 LoRA vai arranjar uma matriz AB de low rank, para dar update mais facilmente aos pesos. Usar matrizes de low rank faz com que seja muito mais fácil. Depois juntam-se os pesos normais e os pesos das matrizes AB atualizados.
 
@@ -58,6 +60,7 @@ Há hard sharing, soft sharing e muito mais abordagens:
 ## Compression Techiques
 
 Metodos que tentam diminuir a complexidade ou tamanho dos modelos sem perdas significativas de performance:
+
 - Pruning
 - Quantization
 - Teacher-Student model
