@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "Other Courses",
+      "path": ".."
+    },
+    {
+      "name": "PP",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "PP/": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "Other Courses",
+      "path": ".."
+    },
+    {
+      "name": "AASMA",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "AASMA/": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "Other Courses",
+      "path": ".."
+    },
+    {
+      "name": "PAva",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "PAva/": true
+    }
+  }
+}

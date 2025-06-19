@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "Other Courses",
+      "path": ".."
+    },
+    {
+      "name": "TVS",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "TVS/": true
+    }
+  }
+}
