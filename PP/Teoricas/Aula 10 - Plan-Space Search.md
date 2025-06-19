@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Plan-Space Search](#plan-space-search)
+    + [Flaw: Open Goals](#flaw-open-goals)
+    + [Flaw: Threat](#flaw-threat)
+    + [Algoritmo](#algoritmo)
+    + [Exemplo - dos slides](#exemplo---dos-slides)
+
+<!-- tocstop -->
+
 # Plan-Space Search
 
 Vamos usar tecnicas de CSPs para termos soluções mais flexiveis do que planos convencionais. Por exemplo, planos com uma ordem parcial das ações.

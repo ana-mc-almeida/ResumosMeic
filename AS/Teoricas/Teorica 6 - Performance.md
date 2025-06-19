@@ -1,3 +1,16 @@
+
+
+<!-- toc -->
+
+- [Performance](#performance)
+    + [Performance General Scenario](#performance-general-scenario)
+    + [Exemplo](#exemplo)
+  * [Tactics](#tactics)
+    + [Control Resource Demand](#control-resource-demand)
+    + [Manage Resources](#manage-resources)
+
+<!-- tocstop -->
+
 # Performance
 
 ### Performance General Scenario

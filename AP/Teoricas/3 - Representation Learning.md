@@ -1,3 +1,30 @@
+
+
+<!-- toc -->
+
+- [Representations](#representations)
+  * [Hierarchical Compositionality](#hierarchical-compositionality)
+  * [Distributed Representations](#distributed-representations)
+  * [Auto-Encoders](#auto-encoders)
+    + [Single Value Decomposition (SVD)](#single-value-decomposition-svd)
+  * [Linear Auto-Encoder](#linear-auto-encoder)
+    + [Sparse Auto-Encoders](#sparse-auto-encoders)
+    + [Stochastic Auto-Encoders](#stochastic-auto-encoders)
+    + [Denoising Auto-Encoders](#denoising-auto-encoders)
+    + [Stacked Auto-Encoders](#stacked-auto-encoders)
+    + [Variational Auto-Encoders (VAEs)](#variational-auto-encoders-vaes)
+  * [Regularized Auto-Encoders](#regularized-auto-encoders)
+  * [Unsupervised Pre-training](#unsupervised-pre-training)
+  * [Word Representations](#word-representations)
+    + [Neural Language Models](#neural-language-models)
+  * [Word2Vec](#word2vec)
+    + [Skip-Gram](#skip-gram)
+    + [Large Vocabulary Problem](#large-vocabulary-problem)
+    + [Negative Sampling](#negative-sampling)
+  * [Linear Relationships](#linear-relationships)
+
+<!-- tocstop -->
+
 # Representations
 
 - Can make models more expressive and accurate.

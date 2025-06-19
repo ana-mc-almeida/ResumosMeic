@@ -1,3 +1,13 @@
+
+
+<!-- toc -->
+
+- [Deep Generative Models](#deep-generative-models)
+  * [Restricted Boltzmann Machines (RBMs) (or harmoniums)](#restricted-boltzmann-machines-rbms-or-harmoniums)
+  * [Generative Adversarial Networks (GANs)](#generative-adversarial-networks-gans)
+
+<!-- tocstop -->
+
 # Deep Generative Models
 
 Deep Generative Models (DGMs) are a class of models in machine learning that learn to generate new data samples from the same distribution as the training data. These models are typically used for generating images, videos, text, or other complex data types. Unlike discriminative models, which are designed to classify or predict specific outputs based on input data, generative models aim to model the underlying distribution of the data. They have applications in fields such as image generation, text generation, and data augmentation.

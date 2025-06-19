@@ -1,3 +1,29 @@
+
+
+<!-- toc -->
+
+  * [Functionalities](#functionalities)
+    + [Main functionality](#main-functionality)
+    + [Constraints](#constraints)
+  * [Qualities](#qualities)
+    + [Performance](#performance)
+    + [Integrability](#integrability)
+    + [Modifiability](#modifiability)
+    + [Availability](#availability)
+    + [Security](#security)
+  * [Context](#context)
+- [Rounds](#rounds)
+  * [Round 1](#round-1)
+    + [Iteration 1](#iteration-1)
+  * [Round 2](#round-2)
+  * [Round 3](#round-3)
+  * [Round 4](#round-4)
+  * [Round 5](#round-5)
+  * [Round 6](#round-6)
+  * [Round 7](#round-7)
+
+<!-- tocstop -->
+
 ## Functionalities
 
 - Notifications: Product updates, etc

@@ -1,3 +1,16 @@
+
+
+<!-- toc -->
+
+- [Deterministic Models](#deterministic-models)
+  * [Domain Models](#domain-models)
+    + [Rigid vs Varying Properties](#rigid-vs-varying-properties)
+    + [Representação](#representacao)
+  * [Forward Search](#forward-search)
+    + [Algorithm](#algorithm)
+
+<!-- tocstop -->
+
 # Deterministic Models
 
 ## Domain Models

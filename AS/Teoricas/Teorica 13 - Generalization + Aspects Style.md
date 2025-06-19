@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Generalization Style](#generalization-style)
+- [Aspects Style](#aspects-style)
+
+<!-- tocstop -->
+
 # Generalization Style
 
 Este style serve para sistemas com herança. Ou seja, para quando há relação _is-a_.

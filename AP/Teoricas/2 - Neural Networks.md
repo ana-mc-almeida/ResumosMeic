@@ -1,3 +1,33 @@
+
+
+<!-- toc -->
+
+  * [Hyperbolic Tangent](#hyperbolic-tangent)
+  * [Universal Approximation Theorem](#universal-approximation-theorem)
+- [Backpropagation](#backpropagation)
+  * [Gradient output layer:](#gradient-output-layer)
+  * [Gradient hidden layer parameters:](#gradient-hidden-layer-parameters)
+  * [Gradient hidden layer below:](#gradient-hidden-layer-below)
+  * [Gradient hidden layer below before activation $g$:](#gradient-hidden-layer-below-before-activation-g)
+- [Autodiff](#autodiff)
+  * [Strategies](#strategies)
+- [Regularization](#regularization)
+  * [$\ell_2$ regularization:](#ell_2-regularization)
+  * [$\ell_1$ regularization:](#ell_1-regularization)
+  * [Dropout regularization](#dropout-regularization)
+- [Dataset](#dataset)
+- [Hyperparameter Tuning](#hyperparameter-tuning)
+- [Normalization](#normalization)
+- [Decaying the Learning Rate](#decaying-the-learning-rate)
+- [Mini-Batches](#mini-batches)
+- [Gradient Checking](#gradient-checking)
+- [Momentum](#momentum)
+- [Adaptive Gradient (AdaGrad)](#adaptive-gradient-adagrad)
+- [Root Mean Square Propagation (RMSProp)](#root-mean-square-propagation-rmsprop)
+- [Adaptive Moment Estimation (Adam)](#adaptive-moment-estimation-adam)
+
+<!-- tocstop -->
+
 ### Hyperbolic Tangent
 
 $\text{tanh}(z) = \dfrac{e^z - e^{-z}}{e^z + e^{-z}}$

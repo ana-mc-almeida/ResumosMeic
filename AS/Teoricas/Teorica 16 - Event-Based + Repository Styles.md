@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Event-Based Style (aka Publish-Subscribe Style)](#event-based-style-aka-publish-subscribe-style)
+- [Repository Style - Shared Data Style](#repository-style---shared-data-style)
+
+<!-- tocstop -->
+
 # Event-Based Style (aka Publish-Subscribe Style)
 
 Overview: Components (publisher) place events on the bus by announcing them. The connector then delivers those events to the components that have registered an interest in those events (subscribers).

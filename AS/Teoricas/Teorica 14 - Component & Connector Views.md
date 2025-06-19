@@ -1,3 +1,11 @@
+
+
+<!-- toc -->
+
+- [Componenet and Connector Views](#componenet-and-connector-views)
+
+<!-- tocstop -->
+
 # Componenet and Connector Views
 
 Uma C&C view mostra elementos em runtime, por exemplo processos, clients, servers, e data stores. Estes elementos são chamados de components. E mostra connectors que são elementos que mostram interação entre componentes, por exemplo communication links, protocolos e acessos a shared storage.

@@ -1,3 +1,22 @@
+
+
+<!-- toc -->
+
+- [Backtracking](#backtracking)
+    + [Example](#example)
+- [Look-ahead schemes](#look-ahead-schemes)
+- [Forward Checking](#forward-checking)
+    + [Example](#example-1)
+- [Arc-consistency look-ahead](#arc-consistency-look-ahead)
+- [Full lookahead](#full-lookahead)
+- [Partial lookahead](#partial-lookahead)
+    + [Example](#example-2)
+- [Dynamic lookahead value orderings](#dynamic-lookahead-value-orderings)
+- [Lookahead variable orderings](#lookahead-variable-orderings)
+    + [Example](#example-3)
+
+<!-- tocstop -->
+
 # Backtracking
 
 Percorre a árvore depth-first.

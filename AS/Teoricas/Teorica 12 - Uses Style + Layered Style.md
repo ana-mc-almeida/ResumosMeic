@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Uses Style](#uses-style)
+- [Layered Style](#layered-style)
+
+<!-- tocstop -->
+
 # Uses Style
 
 Este style mostra os modulos usados por cada modulo. Define-se a relação _uses_ entre dois modulos como especificação da relação _depends-on_. É um estile super parecido ao que se usa para AMS para a gestão de negócio.

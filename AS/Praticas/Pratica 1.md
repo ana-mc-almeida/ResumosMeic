@@ -1,3 +1,18 @@
+
+
+<!-- toc -->
+
+    + [Vertical vs. Horizontal Scalability](#vertical-vs-horizontal-scalability)
+- [Scale From Zero To Millions Of Users](#scale-from-zero-to-millions-of-users)
+    + [1. Single Server](#1-single-server)
+    + [2. Database](#2-database)
+    + [3. Load Balancer](#3-load-balancer)
+    + [4. Data Replication](#4-data-replication)
+    + [5. Cache](#5-cache)
+    + [6. Content Delivery Network (CDN)](#6-content-delivery-network-cdn)
+
+<!-- tocstop -->
+
 ### Vertical vs. Horizontal Scalability
 
 Antes de começar há dois conceitos importantes:

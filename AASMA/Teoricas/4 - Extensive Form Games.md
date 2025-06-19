@@ -1,3 +1,31 @@
+
+
+<!-- toc -->
+
+- [Extensive Form Games](#extensive-form-games)
+    + [Example - Sharing game](#example---sharing-game)
+  * [Strategies and Equilibria](#strategies-and-equilibria)
+    + [Theorem](#theorem)
+    + [Example](#example)
+  * [Subgame-perfect equilibria](#subgame-perfect-equilibria)
+    + [Definition (Subgame of $G$ rooted at $h$)](#definition-subgame-of-g-rooted-at-h)
+    + [Definition (Subgames of $G$)](#definition-subgames-of-g)
+    + [Definition (Subgame-perfect equilibrium)](#definition-subgame-perfect-equilibrium)
+    + [Example (A,G), (C,F)](#example-ag-cf)
+    + [Example (B,H), (C,E)](#example-bh-ce)
+  * [Backward Induction](#backward-induction)
+    + [Example](#example-1)
+- [Imperfect-information extensive-form games](#imperfect-information-extensive-form-games)
+  * [Strategies and Equilibria](#strategies-and-equilibria-1)
+    + [Pure Strategy](#pure-strategy)
+    + [Nash Equilibria](#nash-equilibria)
+    + [Mixed Strategy](#mixed-strategy)
+    + [Behavioral Strategy](#behavioral-strategy)
+    + [Example](#example-2)
+    + [Theorem [Kuhn, 1953]](#theorem-kuhn-1953)
+
+<!-- tocstop -->
+
 # Extensive Form Games
 
 Turned-based game. Player 2 will know what player 1 has played. One player takes a decision and the other accepts or rejects that decision.

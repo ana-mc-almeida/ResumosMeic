@@ -1,3 +1,29 @@
+
+
+<!-- toc -->
+
+- [Allocation Styles](#allocation-styles)
+    + [Overview](#overview)
+    + [Elements](#elements)
+    + [Relations](#relations)
+  * [Deployment Style](#deployment-style)
+    + [Overview](#overview-1)
+    + [Elements](#elements-1)
+    + [Relations](#relations-1)
+    + [Constraints](#constraints)
+  * [Install Style](#install-style)
+    + [Overview](#overview-2)
+    + [Elements](#elements-2)
+      - [Relations](#relations-2)
+    + [Constraints](#constraints-1)
+  * [Work Assignment Style](#work-assignment-style)
+    + [Overview](#overview-3)
+    + [Elements](#elements-3)
+    + [Relations](#relations-3)
+    + [Constraints](#constraints-2)
+
+<!-- tocstop -->
+
 # Allocation Styles
 
 ### Overview

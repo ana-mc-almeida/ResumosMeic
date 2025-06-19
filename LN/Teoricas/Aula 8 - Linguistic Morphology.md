@@ -1,3 +1,31 @@
+
+
+<!-- toc -->
+
+- [Linguistic Knowlege](#linguistic-knowlege)
+    + [Phonetic Knowlege](#phonetic-knowlege)
+    + [Morphological knowlege](#morphological-knowlege)
+    + [Syntatic knowlege](#syntatic-knowlege)
+    + [Semantic Knowlege](#semantic-knowlege)
+    + [Pragmatic Knowlege](#pragmatic-knowlege)
+    + [Discourse Knowlege](#discourse-knowlege)
+    + [World Knowlege](#world-knowlege)
+- [Part-Of-Speech Tagging](#part-of-speech-tagging)
+  * [Rule-based](#rule-based)
+    + [Example](#example)
+  * [Stochastic](#stochastic)
+    + [Hidden Markov Model - HMM](#hidden-markov-model---hmm)
+    + [Viterbi](#viterbi)
+      - [Algoritmo](#algoritmo)
+      - [Exemplo](#exemplo)
+  * [Deep-learning](#deep-learning)
+- [Main Concepts](#main-concepts)
+    + [Example](#example-1)
+  * [Affixes](#affixes)
+  * [Other word formations](#other-word-formations)
+
+<!-- tocstop -->
+
 # Linguistic Knowlege
 
 ### Phonetic Knowlege

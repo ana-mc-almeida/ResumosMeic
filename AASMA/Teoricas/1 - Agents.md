@@ -1,3 +1,33 @@
+
+
+<!-- toc -->
+
+- [Agents](#agents)
+  * [Properties](#properties)
+  * [Environment Properties](#environment-properties)
+  * [Abstract Architectures](#abstract-architectures)
+  * [Deductive reasoning agents](#deductive-reasoning-agents)
+    + [Advantages](#advantages)
+    + [Disadvantages:](#disadvantages)
+  * [Agents as Intentional Systems](#agents-as-intentional-systems)
+    + [Deliberation](#deliberation)
+    + [Means-ends reasoning](#means-ends-reasoning)
+    + [Commitment strategies](#commitment-strategies)
+  * [Reactive agents](#reactive-agents)
+    + [Purely reactive agents](#purely-reactive-agents)
+    + [Brooks: subsumption architecture](#brooks-subsumption-architecture)
+    + [Agent development using Brooks' architecture](#agent-development-using-brooks-architecture)
+  * [Hybrid Agents](#hybrid-agents)
+    + [Advantages](#advantages-1)
+    + [Disadvantages](#disadvantages)
+  * [Rational Agents](#rational-agents)
+    + [Binary Relations](#binary-relations)
+      - [Properties:](#properties)
+    + [Preferences](#preferences)
+    + [Utility](#utility)
+
+<!-- tocstop -->
+
 # Agents
 
 An agent is a computer system that is capable of independent (autonomous) action on behalf of its user or owner. More formally, an agent is a computer system capable of autonomous action in some environment in order to meet its design objectives.

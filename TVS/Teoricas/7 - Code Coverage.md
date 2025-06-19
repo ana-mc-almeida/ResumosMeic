@@ -1,3 +1,24 @@
+
+
+<!-- toc -->
+
+- [Code Coverage](#code-coverage)
+    + [Control flow graph (CFG)](#control-flow-graph-cfg)
+- [Method scope code coverage models](#method-scope-code-coverage-models)
+  * [Statement coverage model](#statement-coverage-model)
+  * [Branch coverage model](#branch-coverage-model)
+  * [Path coverage model](#path-coverage-model)
+    + [Infeasible Path](#infeasible-path)
+  * [Basis-Path model coverage](#basis-path-model-coverage)
+  * [Condition coverage model](#condition-coverage-model)
+  * [Branch/Condition coverage model](#branchcondition-coverage-model)
+  * [Multiple condition coverage](#multiple-condition-coverage)
+  * [Modified Condition/Decision coverage (MC/DC)](#modified-conditiondecision-coverage-mcdc)
+  * [Simple loop coverage model](#simple-loop-coverage-model)
+- [Subsume relationship](#subsume-relationship)
+
+<!-- tocstop -->
+
 # Code Coverage
 
 A metric to check the amount of code that is being tested.

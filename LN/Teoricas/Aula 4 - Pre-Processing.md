@@ -1,3 +1,30 @@
+
+
+<!-- toc -->
+
+- [Pre-Processing](#pre-processing)
+  * [Tokenization](#tokenization)
+    + [Definition](#definition)
+    + [Character-level](#character-level)
+      - [Example](#example)
+      - [Advantages](#advantages)
+      - [Disadvantages](#disadvantages)
+    + [Word-Level](#word-level)
+      - [Example:](#example)
+      - [Advantages](#advantages-1)
+      - [Disadvantages](#disadvantages-1)
+    + [Subword-Level](#subword-level)
+      - [Example](#example-1)
+      - [Advantages](#advantages-2)
+  * [Setence / Word Manipulation](#setence--word-manipulation)
+    + [Remove words and expressions](#remove-words-and-expressions)
+    + [Lowercasing](#lowercasing)
+      - [Disadvantages](#disadvantages-2)
+    + [Normalization](#normalization)
+  * [Conclusions](#conclusions)
+
+<!-- tocstop -->
+
 # Pre-Processing
 
 Prepare the text in order to make it less expensive computationally and don't lose important information at the same time.

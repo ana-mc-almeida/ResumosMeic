@@ -1,3 +1,23 @@
+
+
+<!-- toc -->
+
+- [1](#1)
+- [2](#2)
+  * [a)](#a)
+  * [b)](#b)
+- [3](#3)
+  * [a)](#a-1)
+  * [b)](#b-1)
+  * [c)](#c)
+  * [d)](#d)
+- [4](#4)
+- [Strange Days](#strange-days)
+  * [Sequence "4 3 3 4 2"](#sequence-4-3-3-4-2)
+  * [Sequence every red cut](#sequence-every-red-cut)
+
+<!-- tocstop -->
+
 # 1
 
 Hyponym: Domestic cat<br>

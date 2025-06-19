@@ -1,3 +1,11 @@
+
+
+<!-- toc -->
+
+- [Mocking](#mocking)
+
+<!-- tocstop -->
+
 # Mocking
 
 - Dummy objects: are passed around but never actually used.

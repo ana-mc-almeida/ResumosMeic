@@ -1,3 +1,31 @@
+
+
+<!-- toc -->
+
+- [Constraint Propagation](#constraint-propagation)
+- [Arc-consistency](#arc-consistency)
+  * [Definition](#definition)
+  * [Example](#example)
+  * [Revise Procedure](#revise-procedure)
+    + [Explanation:](#explanation)
+    + [Disadvantages](#disadvantages)
+  * [AC-1 - Brute force algorithm](#ac-1---brute-force-algorithm)
+    + [Explanation:](#explanation-1)
+    + [Disadvantages](#disadvantages-1)
+  * [AC-3 - An efficient algorithm](#ac-3---an-efficient-algorithm)
+    + [Explanation:](#explanation-2)
+    + [Advantages](#advantages)
+  * [AC-4](#ac-4)
+    + [Explanation:](#explanation-3)
+- [Path-consistency](#path-consistency)
+  * [Definition](#definition-1)
+  * [Example](#example-1)
+  * [Revise-3](#revise-3)
+  * [PC-1](#pc-1)
+  * [PC-2](#pc-2)
+
+<!-- tocstop -->
+
 ## Constraint Propagation
 
 Advantages:

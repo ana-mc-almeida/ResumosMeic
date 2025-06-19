@@ -1,3 +1,20 @@
+
+
+<!-- toc -->
+
+- [Back-Of-The-Envelope Estimation](#back-of-the-envelope-estimation)
+    + [Exemplo](#exemplo)
+- [Availability](#availability)
+    + [Failure](#failure)
+    + [Fault](#fault)
+    + [Error](#error)
+    + [Availability Calulation](#availability-calulation)
+    + [System Availability Requirements](#system-availability-requirements)
+    + [Availability General Scenario](#availability-general-scenario)
+    + [Example](#example)
+
+<!-- tocstop -->
+
 # Back-Of-The-Envelope Estimation
 
 Fazem-se estimativas das capacidades do sistemas considerando valores tabelados e ocurrências frequentes do sistema. Pode ser medido, o espaço ocupado, tempo que se demora ou até a availability do serviço.

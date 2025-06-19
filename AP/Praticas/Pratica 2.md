@@ -1,3 +1,21 @@
+
+
+<!-- toc -->
+
+    + [Perceptron Algorithm:](#perceptron-algorithm)
+- [Question 1](#question-1)
+  * [1.1](#11)
+  * [1.2](#12)
+  * [1.3](#13)
+  * [1.4](#14)
+- [Question 2](#question-2)
+  * [2.1](#21)
+  * [2.2](#22)
+  * [2.3](#23)
+  * [2.4](#24)
+
+<!-- tocstop -->
+
 ### Perceptron Algorithm:
 
 Initialize $w^{0}$ = **0**<br>

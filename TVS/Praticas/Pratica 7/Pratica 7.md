@@ -1,3 +1,13 @@
+
+
+<!-- toc -->
+
+- [1.](#1)
+  * [`public void addBook(Book b) throws CannotProcessRequestException`](#public-void-addbookbook-b-throws-cannotprocessrequestexception)
+  * [`List search(String author, String title, BigDecimal price) throws CannotProcessRequestException`](#list-searchstring-author-string-title-bigdecimal-price-throws-cannotprocessrequestexception)
+
+<!-- tocstop -->
+
 # 1.
 
 > https://fenix.tecnico.ulisboa.pt/disciplinas/TVS36/2024-2025/2-semestre/exercicio-1

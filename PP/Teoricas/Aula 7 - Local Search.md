@@ -1,3 +1,19 @@
+
+
+<!-- toc -->
+
+- [Stochastic Greedy Local Search](#stochastic-greedy-local-search)
+  * [Greedy Local Search](#greedy-local-search)
+    + [Algorithm](#algorithm)
+      - [Example](#example)
+    + [Heuristics](#heuristics)
+      - [Constraint Weighting Example](#constraint-weighting-example)
+  * [Random walk Strategies](#random-walk-strategies)
+    + [WalkSAT](#walksat)
+      - [Example](#example-1)
+
+<!-- tocstop -->
+
 # Stochastic Greedy Local Search
 
 ## Greedy Local Search

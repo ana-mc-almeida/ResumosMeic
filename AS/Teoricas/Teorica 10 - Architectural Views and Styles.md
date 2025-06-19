@@ -1,3 +1,13 @@
+
+
+<!-- toc -->
+
+- [Architecture Views](#architecture-views)
+- [Architecture Styles](#architecture-styles)
+- [Module Representation](#module-representation)
+
+<!-- tocstop -->
+
 # Architecture Views
 
 Uma view é provavelmente a forma de documentação mais importante para uma arquitetura de software.

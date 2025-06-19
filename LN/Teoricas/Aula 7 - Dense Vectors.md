@@ -1,3 +1,31 @@
+
+
+<!-- toc -->
+
+    + [Word Embedding Definition](#word-embedding-definition)
+- [Dimentionality Reduction](#dimentionality-reduction)
+  * [Latent Semantic Analysis (or Indexing)](#latent-semantic-analysis-or-indexing)
+    + [Singular Value Decomposition (SVD)](#singular-value-decomposition-svd)
+    + [Example term-document matrix](#example-term-document-matrix)
+    + [Example word-word matrix](#example-word-word-matrix)
+- [Neural Word Embedding](#neural-word-embedding)
+  * [Word2Vec](#word2vec)
+    + [Model architecture](#model-architecture)
+    + [Training Data](#training-data)
+    + [Conclusion](#conclusion)
+  * [GloVe](#glove)
+  * [fastText](#fasttext)
+  * [BERT - Contextual model](#bert---contextual-model)
+    + [Task1 - Masked Language Model](#task1---masked-language-model)
+      - [Example](#example)
+    + [Task2 - Next Sentence Prediction](#task2---next-sentence-prediction)
+      - [Example](#example-1)
+    + [Training](#training)
+- [Neural Sentence Embeddings](#neural-sentence-embeddings)
+- [Evaluating Word Embeddings](#evaluating-word-embeddings)
+
+<!-- tocstop -->
+
 ### Word Embedding Definition
 
 Um word embedding é a representação de uma palavra com um vetor. O objetivo é que palavras com significados semelhantes sejam (hopefully) representados por vetores que estão próximos no espaço vetorial.

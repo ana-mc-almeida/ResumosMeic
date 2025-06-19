@@ -1,3 +1,32 @@
+
+
+<!-- toc -->
+
+- [Comparing Strings](#comparing-strings)
+  * [Edit-based](#edit-based)
+    + [Levenshtein distance](#levenshtein-distance)
+    + [Longest Common Subsequence (LCS) distance](#longest-common-subsequence-lcs-distance)
+    + [Hamming distance](#hamming-distance)
+    + [Damerau-Levenshtein distance](#damerau-levenshtein-distance)
+    + [Jaro distance](#jaro-distance)
+  * [Similarity-Metrics (Token-based)](#similarity-metrics-token-based)
+    + [Jaccard](#jaccard)
+    + [Dice](#dice)
+  * [Comparing Strings at the sound level](#comparing-strings-at-the-sound-level)
+    + [Soundex](#soundex)
+  * [Conclusion](#conclusion)
+- [Automatic Evaluation](#automatic-evaluation)
+    + [Base line](#base-line)
+    + [Metrics](#metrics)
+    + [Other Metrics](#other-metrics)
+- [Human Evaluation](#human-evaluation)
+    + [Advantages](#advantages)
+    + [Types](#types)
+  * [Automatic vs. Human Evaluation](#automatic-vs-human-evaluation)
+  * [Extrinsic vs. Intrinsic Evaluation](#extrinsic-vs-intrinsic-evaluation)
+
+<!-- tocstop -->
+
 # Comparing Strings
 
 ## Edit-based

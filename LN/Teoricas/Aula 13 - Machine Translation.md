@@ -1,3 +1,20 @@
+
+
+<!-- toc -->
+
+    + [Collocations](#collocations)
+      - [Exemplo](#exemplo)
+- [Machine Translation](#machine-translation)
+  * [Approaches](#approaches)
+    + [Classic](#classic)
+    + [Statistical-based](#statistical-based)
+    + [Deep Learning-based](#deep-learning-based)
+  * [Shared Tasks](#shared-tasks)
+  * [Datasets](#datasets)
+  * [Metrics](#metrics)
+
+<!-- tocstop -->
+
 ### Collocations
 
 Collocations são uma combinação de palavras de uma linguagem que aparecem com demasiada frequência para aparecerem por sorte. Usar uma combinação diferente soa estranho.

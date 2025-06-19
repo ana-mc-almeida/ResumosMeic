@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [Bayesian Games](#bayesian-games)
+  * [First definition](#first-definition)
+  * [Second definition](#second-definition)
+      - [Timing of decisions](#timing-of-decisions)
+
+<!-- tocstop -->
+
 # Bayesian Games
 
 Bayesian games (or games of incomplete information) allow us to represent agents' uncertainties about the game being played.

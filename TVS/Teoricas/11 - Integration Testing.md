@@ -1,3 +1,35 @@
+
+
+<!-- toc -->
+
+- [Integration Testing](#integration-testing)
+    + [Requirements](#requirements)
+    + [Object-oriented development](#object-oriented-development)
+    + [Integration faults](#integration-faults)
+    + [Integration strategies](#integration-strategies)
+    + [Drive definition](#drive-definition)
+  * [Big Bang Integration](#big-bang-integration)
+    + [Strategy](#strategy)
+    + [Consequences](#consequences)
+  * [Incremental integration](#incremental-integration)
+  * [Bottom-up Integration](#bottom-up-integration)
+    + [Strategy](#strategy-1)
+    + [Consequences](#consequences-1)
+  * [Top-down integration](#top-down-integration)
+    + [Strategy](#strategy-2)
+    + [Consequences](#consequences-2)
+  * [Sandwich Integration Testing](#sandwich-integration-testing)
+    + [Strategy](#strategy-3)
+    + [Consequences](#consequences-3)
+  * [Layer Integration](#layer-integration)
+    + [Strategy](#strategy-4)
+    + [Consequences](#consequences-4)
+  * [Client/Server Integration](#clientserver-integration)
+    + [Strategy](#strategy-5)
+    + [Consequences](#consequences-5)
+
+<!-- tocstop -->
+
 # Integration Testing
 
 Software systems are built with components that must interoperate, integration testing is useful to reveal component interoperability faults.

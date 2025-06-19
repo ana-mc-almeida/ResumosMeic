@@ -1,3 +1,29 @@
+
+
+<!-- toc -->
+
+- [Evaluator](#evaluator)
+  * [Rebinding names](#rebinding-names)
+  * [Accumulation](#accumulation)
+  * [Anonymous functions](#anonymous-functions)
+  * [Second order sum](#second-order-sum)
+  * [Scopes](#scopes)
+    + [Downwards Funarg Problem](#downwards-funarg-problem)
+- [Upwards Funarg Problem](#upwards-funarg-problem)
+  * [Recursive functions](#recursive-functions)
+  * [Data Structures](#data-structures)
+  * [Symbols](#symbols)
+  * [Macros](#macros)
+  * [Templates](#templates)
+- [Meta circularidade](#meta-circularidade)
+- [Continuations](#continuations)
+    + [Handling Errors](#handling-errors)
+    + [Continuations](#continuations-1)
+  * [Aborting a computation](#aborting-a-computation)
+- [Nondeterministic Programs](#nondeterministic-programs)
+
+<!-- tocstop -->
+
 Para criar uma linguagem de programação não precisamos de criar um compilador diretamente. Podemos usar um evaluator. Enquanto a nossa linguagem não está definida precisamos de um evaluator de outra linguagem para correr o nosso evaluator. Vamos usar o evaluator do Scheme.
 
 # Evaluator

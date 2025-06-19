@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Backward Search](#backward-search)
+    + [Algorithm](#algorithm)
+
+<!-- tocstop -->
+
 # Backward Search
 
 ### Algorithm

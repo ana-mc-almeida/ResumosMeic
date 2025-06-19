@@ -1,3 +1,25 @@
+
+
+<!-- toc -->
+
+- [Conflict sets](#conflict-sets)
+    + [Dead-end Definition](#dead-end-definition)
+- [Backjumping styles](#backjumping-styles)
+  * [Gashnig's backjumping](#gashnigs-backjumping)
+    + [Pseudo-code](#pseudo-code)
+    + [Example](#example)
+  * [Graph-based backjumping](#graph-based-backjumping)
+    + [Ancestor Definition](#ancestor-definition)
+    + [Parent Definition](#parent-definition)
+    + [Induced ancestors Definition](#induced-ancestors-definition)
+    + [Explanation](#explanation)
+    + [Example](#example-1)
+  * [Conflict-directed backjumping](#conflict-directed-backjumping)
+    + [Explanation](#explanation-1)
+    + [Example](#example-2)
+
+<!-- tocstop -->
+
 # Conflict sets
 
 ### Dead-end Definition

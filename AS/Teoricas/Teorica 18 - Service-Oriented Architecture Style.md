@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+- [Service-Oriented Architecture Style](#service-oriented-architecture-style)
+    + [Overview](#overview)
+    + [Elements](#elements)
+    + [Relations](#relations)
+    + [Computational Model](#computational-model)
+    + [Constraints](#constraints)
+    + [What It's For](#what-its-for)
+
+<!-- tocstop -->
+
 # Service-Oriented Architecture Style
 
 ### Overview

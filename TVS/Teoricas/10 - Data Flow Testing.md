@@ -1,3 +1,26 @@
+
+
+<!-- toc -->
+
+- [Data Flow Testing](#data-flow-testing)
+    + [Data operations categories](#data-operations-categories)
+      - [Example](#example)
+  * [Static Data Flow Testing](#static-data-flow-testing)
+    + [Data flow anomaly](#data-flow-anomaly)
+  * [Dynamic Data Flow Testing](#dynamic-data-flow-testing)
+    + [Strategy](#strategy)
+    + [Definition-clear path](#definition-clear-path)
+    + [Definiton-use pair (du-pair)](#definiton-use-pair-du-pair)
+    + [Example](#example-1)
+      - [Variable A](#variable-a)
+      - [Variable B](#variable-b)
+    + [Definition Complete Path](#definition-complete-path)
+    + [Simple path](#simple-path)
+    + [Data Flow Testing Criteria](#data-flow-testing-criteria)
+  * [Relationship between strategies](#relationship-between-strategies)
+
+<!-- tocstop -->
+
 # Data Flow Testing
 
 Instead of focus on control flow of a program. Focus on data flow of a program.

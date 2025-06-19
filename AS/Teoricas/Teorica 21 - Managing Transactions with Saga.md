@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [Managing Transactions with Saga](#managing-transactions-with-saga)
+  * [Transaction Management in a Microservice Architecture](#transaction-management-in-a-microservice-architecture)
+  * [Coordinating Sagas](#coordinating-sagas)
+  * [Handling the Lack of Isolation](#handling-the-lack-of-isolation)
+
+<!-- tocstop -->
+
 # Managing Transactions with Saga
 
 ## Transaction Management in a Microservice Architecture

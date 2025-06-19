@@ -1,3 +1,20 @@
+
+
+<!-- toc -->
+
+- [Vectors](#vectors)
+  * [Language as vectors (sparse)](#language-as-vectors-sparse)
+  * [Documents as vectors](#documents-as-vectors)
+    + [TF-IDF](#tf-idf)
+      - [Example](#example)
+  * [Words as vectors](#words-as-vectors)
+    + [Problem](#problem)
+    + [Cosine similarity](#cosine-similarity)
+      - [Example](#example-1)
+  * [Setences as vectors](#setences-as-vectors)
+
+<!-- tocstop -->
+
 # Vectors
 
 ## Language as vectors (sparse)

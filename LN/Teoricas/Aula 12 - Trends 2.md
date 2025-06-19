@@ -1,3 +1,20 @@
+
+
+<!-- toc -->
+
+- [Large Language Models](#large-language-models)
+  * [Training](#training)
+  * [Testing](#testing)
+    + [Decoding](#decoding)
+      - [Sampling](#sampling)
+      - [Exemplo Temperature:](#exemplo-temperature)
+  * [Pros](#pros)
+  * [Cons](#cons)
+- [Prompting](#prompting)
+  * [Techniques](#techniques)
+
+<!-- tocstop -->
+
 # Large Language Models
 
 Um Language Model calcula a probabilidade de cada sequência de tokens. Com LM podemos gerar uma linguagem ao adiciar um token de cada vez, tendo em conta os tokens gerados até agora (autoregressive language models).

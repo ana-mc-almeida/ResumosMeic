@@ -1,3 +1,24 @@
+
+
+<!-- toc -->
+
+  * [Standard Applications of RNNs](#standard-applications-of-rnns)
+  * [Sequence Generation](#sequence-generation)
+  * [Sequence Tagging](#sequence-tagging)
+  * [Pooled Classification](#pooled-classification)
+  * [GRUs and LSTMs - The Vanishing Gradient Problem](#grus-and-lstms---the-vanishing-gradient-problem)
+    + [Gradient Clipping](#gradient-clipping)
+    + [GRUs - Gated Recurrent Units](#grus---gated-recurrent-units)
+    + [LSTMs - Long Short-Term Memory](#lstms---long-short-term-memory)
+  * [Recursive Neural Networks](#recursive-neural-networks)
+  * [Pixel RNNs](#pixel-rnns)
+  * [Tricks of the Trade](#tricks-of-the-trade)
+- [Example Exercises](#example-exercises)
+    + [Problem 1:](#problem-1)
+    + [Solution:](#solution)
+
+<!-- tocstop -->
+
 Recurrent Neural Networks (RNNs) are a class of neural networks that process sequences of inputs by maintaining a hidden state that depends on the previous inputs and outputs.
 
 - Much of the data we want to process is sequential (e.g. time series, sentences, videos, audio):

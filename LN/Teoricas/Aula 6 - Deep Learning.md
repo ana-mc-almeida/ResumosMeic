@@ -1,3 +1,25 @@
+
+
+<!-- toc -->
+
+- [Feed Forward Neural Networks](#feed-forward-neural-networks)
+- [Recurrent Neural Networks - RNN](#recurrent-neural-networks---rnn)
+    + [Exemplos](#exemplos)
+      - [Character-based Example](#character-based-example)
+- [Sequence to Sequence Models](#sequence-to-sequence-models)
+    + [Teacher Forcing](#teacher-forcing)
+      - [Example](#example)
+    + [Melhorias](#melhorias)
+- [Generative Adversarial Networks](#generative-adversarial-networks)
+- [Attention](#attention)
+    + [Example](#example-1)
+- [Transformers](#transformers)
+  * [Algorithm - Mega complexo espero que não seja preciso perceber](#algorithm---mega-complexo-espero-que-nao-seja-preciso-perceber)
+    + [Using multi-head attention mechanism](#using-multi-head-attention-mechanism)
+      - [All together](#all-together)
+
+<!-- tocstop -->
+
 # Feed Forward Neural Networks
 
 Redes neuronais convencionais não são suficientes para Lingua Natural:

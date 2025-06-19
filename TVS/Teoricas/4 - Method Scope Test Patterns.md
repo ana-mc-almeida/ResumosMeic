@@ -1,3 +1,48 @@
+
+
+<!-- toc -->
+
+- [Class Test](#class-test)
+  * [Class Scope Integration](#class-scope-integration)
+    + [Small Pop](#small-pop)
+      - [Testing strategy:](#testing-strategy)
+      - [Testing strategy:](#testing-strategy-1)
+- [Method test design patterns](#method-test-design-patterns)
+    + [Concept - Functional Cohesion](#concept---functional-cohesion)
+  * [Category-Partition](#category-partition)
+    + [Fault Model](#fault-model)
+    + [Strategy Procedure](#strategy-procedure)
+    + [Example](#example)
+      - [1. Identify all functions of the MUT](#1-identify-all-functions-of-the-mut)
+      - [2. Identify input and output parameters of MUT](#2-identify-input-and-output-parameters-of-mut)
+      - [3. Identify categories for each input parameter](#3-identify-categories-for-each-input-parameter)
+      - [4. Partition each category into choices](#4-partition-each-category-into-choices)
+      - [5. Identify constraints on choices](#5-identify-constraints-on-choices)
+      - [6. Generate test cases by enumerating all choices](#6-generate-test-cases-by-enumerating-all-choices)
+      - [7. Develop expected values for each test case](#7-develop-expected-values-for-each-test-case)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria)
+    + [Consequences](#consequences)
+    + [Known uses](#known-uses)
+  * [Combinational Functional Test](#combinational-functional-test)
+    + [Fault Model](#fault-model-1)
+    + [Strategy Procedure Example:](#strategy-procedure-example)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria-1)
+    + [Consequences](#consequences-1)
+    + [Known Uses](#known-uses)
+  * [Recursive Function Test](#recursive-function-test)
+    + [Fault Model](#fault-model-2)
+    + [Strategy: Test procedure](#strategy-test-procedure)
+    + [Entry and exit criteria](#entry-and-exit-criteria)
+    + [Consequences](#consequences-2)
+    + [Known Uses](#known-uses-1)
+  * [Polymorphic Message Test](#polymorphic-message-test)
+    + [Fault Model](#fault-model-3)
+    + [Strategy: Test Procedure](#strategy-test-procedure)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria-2)
+    + [Consequences](#consequences-3)
+
+<!-- tocstop -->
+
 # Class Test
 
 Class scope testing corresponds with the classical definition of unit testing.

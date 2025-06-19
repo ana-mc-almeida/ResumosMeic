@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+- [Concepts](#concepts)
+    + [Paraphrases](#paraphrases)
+    + [Lexical Ambiguity](#lexical-ambiguity)
+    + [Syntactic Ambiguity](#syntactic-ambiguity)
+    + [Ellipsis](#ellipsis)
+    + [Co-Reference](#co-reference)
+- [Main challenges](#main-challenges)
+
+<!-- tocstop -->
+
 # Concepts
 
 ### Paraphrases

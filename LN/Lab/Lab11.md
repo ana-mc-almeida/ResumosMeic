@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+- [Decoding](#decoding)
+  * [1. Greedy](#1-greedy)
+  * [2. Beam Search](#2-beam-search)
+  * [3. Random Decoding](#3-random-decoding)
+  * [4. Top-K Sampling](#4-top-k-sampling)
+  * [5. Top-p Sampling](#5-top-p-sampling)
+  * [6. Top-p Sampling + Temperature](#6-top-p-sampling--temperature)
+
+<!-- tocstop -->
+
 # Decoding
 
 ## 1. Greedy

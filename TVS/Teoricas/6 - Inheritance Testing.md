@@ -1,3 +1,30 @@
+
+
+<!-- toc -->
+
+- [Inheritance Testing](#inheritance-testing)
+    + [Liskov substitution principle](#liskov-substitution-principle)
+    + [Inheritance-related bugs](#inheritance-related-bugs)
+    + [Flattening class scope](#flattening-class-scope)
+    + [For testing at flattened class scope](#for-testing-at-flattened-class-scope)
+  * [Polymorphic Server Test](#polymorphic-server-test)
+    + [Fault model](#fault-model)
+    + [Strategy](#strategy)
+    + [Example](#example)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria)
+    + [Consequences](#consequences)
+  * [Modal Hierarchy Test](#modal-hierarchy-test)
+    + [Strategy](#strategy-1)
+    + [Flattened class](#flattened-class)
+  * [Log String](#log-string)
+  * [Accessing private fields](#accessing-private-fields)
+  * [Crash Test Dummy](#crash-test-dummy)
+  * [Abstract Class Test](#abstract-class-test)
+    + [Strategy](#strategy-2)
+    + [Example](#example-1)
+
+<!-- tocstop -->
+
 # Inheritance Testing
 
 ### Liskov substitution principle

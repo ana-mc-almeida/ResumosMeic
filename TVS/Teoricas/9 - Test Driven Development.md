@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+  * [test-last Approach](#test-last-approach)
+- [Test Driven Development Rhythm](#test-driven-development-rhythm)
+  * [Pick a test](#pick-a-test)
+  * [Red - Write a test that fails](#red---write-a-test-that-fails)
+  * [Green - Write the simplest solution](#green---write-the-simplest-solution)
+  * [Refactor - Improve the code](#refactor---improve-the-code)
+  * [Advantages of TDD](#advantages-of-tdd)
+
+<!-- tocstop -->
+
 There are two aways of developing programs:
 
 - test-last AKA code-first

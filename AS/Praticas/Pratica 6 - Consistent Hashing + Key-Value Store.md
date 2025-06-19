@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Consistent Hashing](#consistent-hashing)
+- [Key-Value Store](#key-value-store)
+
+<!-- tocstop -->
+
 # Consistent Hashing
 
 Considerando um array circular de valores possíveis de hashing, distribuimos os servidores uniformemente pelo array. No entanto, isto traz problemas quando tentamos adicionamos ou removemos um servidor, como sobrecarregar um servidor mais do que os outros.

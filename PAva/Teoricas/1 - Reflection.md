@@ -1,3 +1,24 @@
+
+
+<!-- toc -->
+
+    + [Computational System](#computational-system)
+    + [Computational Meta-System](#computational-meta-system)
+- [Reflection](#reflection)
+    + [Reflective System](#reflective-system)
+    + [Introspection](#introspection)
+    + [Intercession](#intercession)
+  * [Reification](#reification)
+- [Emacs Lisp Intercession](#emacs-lisp-intercession)
+  * [traced-lambda example](#traced-lambda-example)
+  * [memoize example](#memoize-example)
+- [Javassist Intercession](#javassist-intercession)
+    + [Fibonacci example](#fibonacci-example)
+  * [Intercession at Load Time](#intercession-at-load-time)
+  * [Intercession at Run Time](#intercession-at-run-time)
+
+<!-- tocstop -->
+
 ### Computational System
 
 A system that reasons about and acts upon a given domain. The domain is represented by the internal structures of the system:

@@ -1,3 +1,33 @@
+
+
+<!-- toc -->
+
+- [Directional consistency](#directional-consistency)
+  * [Backtrack-free search](#backtrack-free-search)
+    + [Definition](#definition)
+  * [Ordered graph](#ordered-graph)
+    + [Definitions](#definitions)
+    + [Example](#example)
+  * [Induced width and induced graph](#induced-width-and-induced-graph)
+    + [Example](#example-1)
+    + [Observations](#observations)
+  * [Algorithms to find minimum width](#algorithms-to-find-minimum-width)
+    + [Min-Width](#min-width)
+      - [Explanation](#explanation)
+    + [Min-Induced-Width (greedy)](#min-induced-width-greedy)
+  * [Directional arc-consistency](#directional-arc-consistency)
+    + [Definition](#definition-1)
+    + [Algorithm](#algorithm)
+      - [Explanation](#explanation-1)
+      - [Example](#example-2)
+  * [Directional path-consistency](#directional-path-consistency)
+    + [Definition](#definition-2)
+    + [Algorithm](#algorithm-1)
+      - [Explanation](#explanation-2)
+    + [Example](#example-3)
+
+<!-- tocstop -->
+
 # Directional consistency
 
 ## Backtrack-free search

@@ -1,3 +1,28 @@
+
+
+<!-- toc -->
+
+  * [Generics](#generics)
+    + [add example](#add-example)
+    + [factorial example](#factorial-example)
+    + [fibonacci example](#fibonacci-example)
+    + [explain example](#explain-example)
+  * [How it works](#how-it-works)
+    + [Method Combination:](#method-combination)
+    + [Standard Method Combination](#standard-method-combination)
+    + [Simple Method Combination](#simple-method-combination)
+    + [User-Defined Method Combination](#user-defined-method-combination)
+- [Classes](#classes)
+    + [Class Precedence List](#class-precedence-list)
+      - [Example](#example)
+    + [Meta Classes](#meta-classes)
+      - [Obtain class:](#obtain-class)
+    + [`make-instance`](#make-instance)
+    + [Slots](#slots)
+    + [Dynamic Objects](#dynamic-objects)
+
+<!-- tocstop -->
+
 ## Generics
 
 Em CLOS é possível definir generic functions, por exemplo a função add:

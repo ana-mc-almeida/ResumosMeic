@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [Encapsulation](#encapsulation)
+  * [Example](#example)
+- [Inheritance](#inheritance)
+- [Polymorphism](#polymorphism)
+
+<!-- tocstop -->
+
 ## Encapsulation
 
 Because of the encapsulation as access control mechanism we may encounter obstacles when we need to check a certain variable inside an object.

@@ -1,3 +1,16 @@
+
+
+<!-- toc -->
+
+- [Tactics for Availability](#tactics-for-availability)
+  * [Detect Faults](#detect-faults)
+  * [Recover From Faults](#recover-from-faults)
+    + [Preparation and Repair](#preparation-and-repair)
+    + [Reintrodutions](#reintrodutions)
+  * [Prevent Faults](#prevent-faults)
+
+<!-- tocstop -->
+
 # Tactics for Availability
 
 Availability tactics servem para prevenir ou aguentar faults para que o serviço continue a ser prestado como deve de ser. Estas tactics podem ser de três tipos: Detect Faults, Recover from Faults or Prevent Faults.

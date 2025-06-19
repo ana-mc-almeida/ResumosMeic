@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Statistical Machine Translation](#statistical-machine-translation)
+- [Neural Machine Translation](#neural-machine-translation)
+  * [Beam Search](#beam-search)
+- [Encoder-Decoder with Attention](#encoder-decoder-with-attention)
+    + [Attention Mechanism](#attention-mechanism)
+
+<!-- tocstop -->
+
 Exposure bias is the tendency of sequence-to-sequence models to be exposed only to correct target sequence prefixes at training time, and never to their own predictions. This makes them having trouble to recover from their own incorrect predictions at test time, if they are produced early on in the sequence. Exposure bias is caused by auto-regressive teacher forcing, where models are trained to maximize the probability of target sequences and are always assigned the previous target symbols as context.
 
 Within the same batch, all sequences must have the same length, and for this reason they must be padded with padding symbols for making them as long as the longest sentence in the batch. Since in NLP sentences can have very different lengths, if we don't sort sentences by length, we can end up with very unbalanced batches, where some sentences are very short and others are very long, which makes it necessary to add a lot of padding symbols. This process is inefficient and can make training more time consuming. For this reason, sentences are usually sorted by length, which makes each batch more balanced.

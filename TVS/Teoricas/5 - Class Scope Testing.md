@@ -1,3 +1,43 @@
+
+
+<!-- toc -->
+
+- [Class Scope Testing](#class-scope-testing)
+  * [Class Modalities](#class-modalities)
+    + [Message sequence constraints](#message-sequence-constraints)
+    + [Domain constraints](#domain-constraints)
+    + [Types of class modality](#types-of-class-modality)
+- [Class Scope Test Patterns](#class-scope-test-patterns)
+  * [Invariant boundaries](#invariant-boundaries)
+    + [Fault model](#fault-model)
+    + [Strategy](#strategy)
+    + [Example](#example)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria)
+    + [Consequences](#consequences)
+  * [Non-modal Class Test](#non-modal-class-test)
+    + [Fault Model](#fault-model)
+    + [Strategy](#strategy-1)
+    + [Example](#example-1)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria-1)
+  * [FSM based testing](#fsm-based-testing)
+    + [Fault Model](#fault-model-1)
+    + [Conformance Testing](#conformance-testing)
+    + [Non-conformance Testing](#non-conformance-testing)
+  * [Modal Class Test](#modal-class-test)
+    + [Test model](#test-model)
+    + [Strategy](#strategy-2)
+    + [Example - Account class](#example---account-class)
+      - [1. Develop state model for CUT](#1-develop-state-model-for-cut)
+      - [2. Elaborate the state model with a full expansion of conditional transition variants](#2-elaborate-the-state-model-with-a-full-expansion-of-conditional-transition-variants)
+      - [3. Generate transition tree](#3-generate-transition-tree)
+      - [4. Tabulate events and actions along each path to form message sequences](#4-tabulate-events-and-actions-along-each-path-to-form-message-sequences)
+      - [5. Develop test data for each path using Invariant Boundaries pattern for events, messages and actions](#5-develop-test-data-for-each-path-using-invariant-boundaries-pattern-for-events-messages-and-actions)
+      - [7. Develop a sneak path test suite. Add all forbidden transitions in all states and define the expected exception](#7-develop-a-sneak-path-test-suite-add-all-forbidden-transitions-in-all-states-and-define-the-expected-exception)
+    + [Entry and Exit Criteria](#entry-and-exit-criteria-2)
+  * [Quasi-modal Class Test](#quasi-modal-class-test)
+
+<!-- tocstop -->
+
 # Class Scope Testing
 
 The Purpose is to test the interactions of the methods in the class.

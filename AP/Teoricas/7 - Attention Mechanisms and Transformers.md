@@ -1,3 +1,21 @@
+
+
+<!-- toc -->
+
+- [Convolutional Encoder-Decoder](#convolutional-encoder-decoder)
+- [Self-Attention and Transformer Networks](#self-attention-and-transformer-networks)
+    + [Attention Mechanism](#attention-mechanism)
+    + [Self-Attention](#self-attention)
+    + [Masked Attention](#masked-attention)
+- [Transformer](#transformer)
+- [Multi-Head Attention](#multi-head-attention)
+- [Positional Encoding](#positional-encoding)
+- [Example Exercises](#example-exercises)
+    + [Problem 1](#problem-1)
+    + [Solution](#solution)
+
+<!-- tocstop -->
+
 # Convolutional Encoder-Decoder
 
 - Drawbacks of Recurrent Neural Networks:

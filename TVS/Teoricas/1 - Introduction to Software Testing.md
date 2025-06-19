@@ -1,3 +1,28 @@
+
+
+<!-- toc -->
+
+- [What is quality in software?](#what-is-quality-in-software)
+- [Quality cost](#quality-cost)
+    + [Costs of conformance](#costs-of-conformance)
+    + [Costs of nonconformance](#costs-of-nonconformance)
+- [Types of tests](#types-of-tests)
+    + [Unit Test](#unit-test)
+    + [System Test](#system-test)
+    + [Integration testing](#integration-testing)
+    + [Regression testing](#regression-testing)
+- [Limits of Testing](#limits-of-testing)
+    + [Triangle example:](#triangle-example)
+- [Testing Model](#testing-model)
+- [Testing strategies:](#testing-strategies)
+    + [Black box (behavioral) testing](#black-box-behavioral-testing)
+    + [White box testing](#white-box-testing)
+    + [Fault-based testing](#fault-based-testing)
+- [Testing cycle](#testing-cycle)
+    + [When is testing complete?](#when-is-testing-complete)
+
+<!-- tocstop -->
+
 # What is quality in software?
 
 Quality, simplistically, means that a product should meet its specification. From a software point of view it means that a product should meet the requirements. However, some requirements are difficult to specify in an unambiguous way, software specifications are usually incomplete and often inconsistent.

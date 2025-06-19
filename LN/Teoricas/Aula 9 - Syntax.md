@@ -1,3 +1,19 @@
+
+
+<!-- toc -->
+
+  * [Classificação de partes da frase](#classificacao-de-partes-da-frase)
+  * [TreeBank](#treebank)
+- [Syntatic Parsing](#syntatic-parsing)
+    + [Constituents](#constituents)
+  * [Context-Free Grammars - CFGs](#context-free-grammars---cfgs)
+    + [Parsing Example](#parsing-example)
+  * [Probabilistic CFG](#probabilistic-cfg)
+    + [Example](#example)
+  * [Dependency Grammars](#dependency-grammars)
+
+<!-- tocstop -->
+
 Nota: Em inglês "Phrase" refere-se a uma parte da frase e não à frase inteira.
 
 ## Classificação de partes da frase

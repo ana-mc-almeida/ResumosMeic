@@ -1,3 +1,27 @@
+
+
+<!-- toc -->
+
+- [Feature Representation](#feature-representation)
+- [Linear Regression](#linear-regression)
+    + [Regression Losses](#regression-losses)
+- [Ridge Regression and Regularization](#ridge-regression-and-regularization)
+- [Maximum A Posteriori (MAP)](#maximum-a-posteriori-map)
+- [Perceptron](#perceptron)
+    + [Algorithm](#algorithm)
+- [Multi-class classification](#multi-class-classification)
+- [Logistic Regression](#logistic-regression)
+    + [Softmax](#softmax)
+    + [Sigmoid](#sigmoid)
+- [Gradient Descent](#gradient-descent)
+    + [Stochastic Gradient Descent](#stochastic-gradient-descent)
+- [Regularization](#regularization)
+- [Non-Linear Classifiers](#non-linear-classifiers)
+  * [KNN Classifier](#knn-classifier)
+  * [Kernel Methods](#kernel-methods)
+
+<!-- tocstop -->
+
 # Feature Representation
 
 A parte mais difícil de classificar imagens é saber que features devem ser retiradas da imagem.

@@ -1,3 +1,11 @@
+
+
+<!-- toc -->
+
+- [5.](#5)
+
+<!-- tocstop -->
+
 # 5.
 
 > Considere a class IceCreamShop que representa o comportamento de uma gelataria que vende copos e cones, que podem ter vários sabores e toppings:

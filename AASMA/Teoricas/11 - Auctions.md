@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Auctions](#auctions)
+    + [Real world auctions types](#real-world-auctions-types)
+  * [Bidding in First-Price Auctions](#bidding-in-first-price-auctions)
+  * [Bidding in Second-Price Auctions](#bidding-in-second-price-auctions)
+  * [Revenue Equivalence](#revenue-equivalence)
+
+<!-- tocstop -->
+
 # Auctions
 
 ### Real world auctions types

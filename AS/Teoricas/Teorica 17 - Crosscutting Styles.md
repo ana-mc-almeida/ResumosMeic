@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Crosscutting Issues for C&C Styles](#crosscutting-issues-for-cc-styles)
+  * [Concurrency](#concurrency)
+  * [Communicating Processes:](#communicating-processes)
+  * [Tiers](#tiers)
+  * [Dynamic Creation and Destruction](#dynamic-creation-and-destruction)
+
+<!-- tocstop -->
+
 # Crosscutting Issues for C&C Styles
 
 ## Concurrency

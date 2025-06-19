@@ -1,3 +1,20 @@
+
+
+<!-- toc -->
+
+- [Repeated Games](#repeated-games)
+  * [Finitely-Repeated Games](#finitely-repeated-games)
+    + [Prisoner's Dilemma in a two-stage game](#prisoners-dilemma-in-a-two-stage-game)
+  * [Infinitely-Repeated Games](#infinitely-repeated-games)
+    + [Folk Theorem](#folk-theorem)
+      - [Formulas](#formulas)
+    + [Example - Prisoner's Dilemma](#example---prisoners-dilemma)
+    + [Example - Prisoner's Dilemma modified](#example---prisoners-dilemma-modified)
+    + [Notes about hidden part of class](#notes-about-hidden-part-of-class)
+      - [Stag-Hare example](#stag-hare-example)
+
+<!-- tocstop -->
+
 # Repeated Games
 
 When you play the same normal-form game over and over.

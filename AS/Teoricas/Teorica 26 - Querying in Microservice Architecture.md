@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Querying Using the API Composition Pattern](#querying-using-the-api-composition-pattern)
+- [Querying Using the CQRS Pattern](#querying-using-the-cqrs-pattern)
+
+<!-- tocstop -->
+
 # Querying Using the API Composition Pattern
 
 Purpose: This pattern is used to implement queries that require retrieving data from multiple services.

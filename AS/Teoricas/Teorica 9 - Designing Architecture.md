@@ -1,3 +1,19 @@
+
+
+<!-- toc -->
+
+- [Attribute-Driven Design (ADD)](#attribute-driven-design-add)
+  * [Step 1: Review Inputs](#step-1-review-inputs)
+  * [Step 2: Establish iteration goal by selecting drivers](#step-2-establish-iteration-goal-by-selecting-drivers)
+  * [Step 3: Choose one or more elements of the system to refine](#step-3-choose-one-or-more-elements-of-the-system-to-refine)
+  * [Step 4: Choose one or more design concepts that satisfy the selected drivers](#step-4-choose-one-or-more-design-concepts-that-satisfy-the-selected-drivers)
+  * [Step 5: Instatiate architectural elements, allocate responsibilities, and define interfaces](#step-5-instatiate-architectural-elements-allocate-responsibilities-and-define-interfaces)
+  * [Step 6: Sketch views and record design decisions](#step-6-sketch-views-and-record-design-decisions)
+  * [Step 7: Perform analysis of current design and review iteration goal achievement of design purpose.](#step-7-perform-analysis-of-current-design-and-review-iteration-goal-achievement-of-design-purpose)
+  * [Iterate if necessary](#iterate-if-necessary)
+
+<!-- tocstop -->
+
 # Attribute-Driven Design (ADD)
 
 Attribute-Driven Design é feita em rondas, cada uma delas pode consistir num conjunto de iterações de design. Para cada iteração um conjunto de passos são feitos, ADD tem um guia dos passos que precisam de ser feitos em cada iteração.

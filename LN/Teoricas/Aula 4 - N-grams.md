@@ -1,3 +1,28 @@
+
+
+<!-- toc -->
+
+- [N-grams](#n-grams)
+    + [Definition](#definition)
+    + [Examples](#examples)
+      - [Example 1 - Complete sentences](#example-1---complete-sentences)
+      - [Example 2 - Automatic Speech Recognizer](#example-2---automatic-speech-recognizer)
+      - [Example 3 - Machine Translation System](#example-3---machine-translation-system)
+  * [Word Prediction](#word-prediction)
+      - [Example](#example)
+      - [Disadvantages](#disadvantages)
+    + [Markov Assumption](#markov-assumption)
+      - [Example](#example-1)
+  * [Sentence Probability](#sentence-probability)
+    + [Example](#example-2)
+  * [Evaluation of N-Grams](#evaluation-of-n-grams)
+    + [Perplexity](#perplexity)
+  * [Smoothing](#smoothing)
+    + [Laplace (or Add-one)](#laplace-or-add-one)
+      - [Example](#example-3)
+
+<!-- tocstop -->
+
 # N-grams
 
 ### Definition

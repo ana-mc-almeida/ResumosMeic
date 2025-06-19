@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [7. Stateful vs stateless web tier](#7-stateful-vs-stateless-web-tier)
+- [8. Data centers](#8-data-centers)
+- [9. Message queue](#9-message-queue)
+- [10. Logging, metrics, automation](#10-logging-metrics-automation)
+- [11. Sharding](#11-sharding)
+
+<!-- tocstop -->
+
 Continuação da [Pratica 1](Pratica%201.md).
 
 ### 7. Stateful vs stateless web tier

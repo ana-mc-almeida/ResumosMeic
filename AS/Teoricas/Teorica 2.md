@@ -1,3 +1,13 @@
+
+
+<!-- toc -->
+
+- [Perspetivas](#perspetivas)
+  * [Modules](#modules)
+  * [Components and Connectors](#components-and-connectors)
+
+<!-- tocstop -->
+
 # Perspetivas
 
 Há duas perspetivas a ter quando se olha para software: O código e o serviço prestado.

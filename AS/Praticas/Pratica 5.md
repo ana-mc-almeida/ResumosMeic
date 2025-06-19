@@ -1,3 +1,21 @@
+
+
+<!-- toc -->
+
+- [Unique ID Generator](#unique-id-generator)
+    + [Multi-master replication](#multi-master-replication)
+    + [UUID](#uuid)
+    + [Ticket Server](#ticket-server)
+    + [Twitter Snowflake](#twitter-snowflake)
+- [URL Shortener](#url-shortener)
+  * [API Endpoints (REST-style)](#api-endpoints-rest-style)
+    + [301 vs 302 Redirect](#301-vs-302-redirect)
+  * [Hash function](#hash-function)
+    + [Hash + collision resolution](#hash--collision-resolution)
+    + [Base 62 convertion](#base-62-convertion)
+
+<!-- tocstop -->
+
 # Unique ID Generator
 
 ### Multi-master replication

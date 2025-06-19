@@ -1,3 +1,19 @@
+
+
+<!-- toc -->
+
+  * [Image Size, Filter Size, Stride, Channels](#image-size-filter-size-stride-channels)
+  * [Convolutions](#convolutions)
+    + [Pooling Layer](#pooling-layer)
+  * [Residual Networks (ResNets)](#residual-networks-resnets)
+- [Example Exercise](#example-exercise)
+    + [Problem 1:](#problem-1)
+    + [Solution:](#solution)
+    + [Problem 2:](#problem-2)
+    + [Solution](#solution)
+
+<!-- tocstop -->
+
 Convolutional neural networks (CNNs) are a class of deep neural networks that are specialized for processing data that has a grid-like topology, such as images.
 
 - In a fully-connected layer, each neuron is connected to every neuron in the previous layer - all activations depend on all inputs;

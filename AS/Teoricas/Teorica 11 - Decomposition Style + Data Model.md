@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [Decomposition Style](#decomposition-style)
+    + [Resumo](#resumo)
+- [Data Model](#data-model)
+    + [Resumo](#resumo-1)
+
+<!-- tocstop -->
+
 # Decomposition Style
 
 O decomposition style pega nos modules e decompõem-nos em partes mais pequenas. A decomposição de um modulo pode ser para:

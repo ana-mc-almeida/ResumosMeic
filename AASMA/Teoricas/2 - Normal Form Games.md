@@ -1,3 +1,21 @@
+
+
+<!-- toc -->
+
+- [Normal-Form Games](#normal-form-games)
+    + [Prisoner's dilemma](#prisoners-dilemma)
+  * [Strictly dominated action](#strictly-dominated-action)
+- [Solution Concepts](#solution-concepts)
+  * [Iterated elimination of strictly dominated actions](#iterated-elimination-of-strictly-dominated-actions)
+  * [Nash Equilibrium](#nash-equilibrium)
+    + [Prisoner's Dilemma example:](#prisoners-dilemma-example)
+    + [Cournot Model](#cournot-model)
+  * [Mixed Strategy](#mixed-strategy)
+    + [Example Matching Pennies](#example-matching-pennies)
+    + [Example Battle of sexes](#example-battle-of-sexes)
+
+<!-- tocstop -->
+
 # Normal-Form Games
 
 A (finite, n-person) normal-form game is a tuple $(N,A,u)$, where:

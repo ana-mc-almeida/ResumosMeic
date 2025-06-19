@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Coordination](#coordination)
+  * [Games](#games)
+    + [Cars example](#cars-example)
+  * [Social conventions](#social-conventions)
+  * [Roles](#roles)
+
+<!-- tocstop -->
+
 # Coordination
 
 ## Games

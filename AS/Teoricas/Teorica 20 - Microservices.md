@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [Microservices](#microservices)
+  * [Microservice architectural style](#microservice-architectural-style)
+
+<!-- tocstop -->
+
 # Microservices
 
 ## Microservice architectural style

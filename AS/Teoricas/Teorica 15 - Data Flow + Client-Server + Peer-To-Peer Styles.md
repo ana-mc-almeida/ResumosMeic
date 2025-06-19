@@ -1,3 +1,13 @@
+
+
+<!-- toc -->
+
+- [Data Flow Style](#data-flow-style)
+- [Client-Server Style](#client-server-style)
+- [Peer-To-Peer Style](#peer-to-peer-style)
+
+<!-- tocstop -->
+
 # Data Flow Style
 
 Os componentes partilham informação entre eles e os connectors servem para fazer a transferencia de dados de um lado para o outro.

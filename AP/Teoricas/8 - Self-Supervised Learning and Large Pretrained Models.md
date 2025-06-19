@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+- [Contextualized Representations](#contextualized-representations)
+- [Pretraining and Fine-Tuning](#pretraining-and-fine-tuning)
+    + [Pretrained Decoders](#pretrained-decoders)
+    + [Pretrained Encoders](#pretrained-encoders)
+    + [Pretrained Encoder-Decoder](#pretrained-encoder-decoder)
+- [Adapters and Prompting](#adapters-and-prompting)
+- [Few-Shot Learning](#few-shot-learning)
+
+<!-- tocstop -->
+
 # Contextualized Representations
 
 - Contextualized representations are embeddings that depend on the context.

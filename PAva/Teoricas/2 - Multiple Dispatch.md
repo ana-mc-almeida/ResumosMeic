@@ -1,3 +1,15 @@
+
+
+<!-- toc -->
+
+- [Multiple Dispatch](#multiple-dispatch)
+  * [Java](#java)
+    + [Double Dispatch](#double-dispatch)
+    + [User defined method call mechanism](#user-defined-method-call-mechanism)
+  * [C#](#c%23)
+
+<!-- tocstop -->
+
 # Multiple Dispatch
 
 ## Java

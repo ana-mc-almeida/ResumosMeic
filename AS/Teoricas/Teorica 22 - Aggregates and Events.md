@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [Aggregates and Events](#aggregates-and-events)
+  * [Business Logic Organization Patterns](#business-logic-organization-patterns)
+  * [Designing a Domain Model with the DDD Aggregate Pattern](#designing-a-domain-model-with-the-ddd-aggregate-pattern)
+  * [Publishing Domain Events](#publishing-domain-events)
+
+<!-- tocstop -->
+
 # Aggregates and Events
 
 ## Business Logic Organization Patterns

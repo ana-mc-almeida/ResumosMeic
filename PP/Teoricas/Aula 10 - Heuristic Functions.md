@@ -1,3 +1,24 @@
+
+
+<!-- toc -->
+
+    + [RPG - Relaxed Planning Graph](#rpg---relaxed-planning-graph)
+    + [Admissible Heuristic](#admissible-heuristic)
+    + [Minimal Set of Actions](#minimal-set-of-actions)
+    + [Relaxed Solution](#relaxed-solution)
+- [Optimal Relaxed Solution Heuristic](#optimal-relaxed-solution-heuristic)
+    + [Exemplo](#exemplo)
+- [Fast-Forward Heuristic](#fast-forward-heuristic)
+    + [Algoritmo (demasiado complexo para se perceber sem exemplo)](#algoritmo-demasiado-complexo-para-se-perceber-sem-exemplo)
+    + [Exemplo](#exemplo-1)
+      - [Exemplo para $h^{FF}(s_1)$](#exemplo-para-hffs_1)
+      - [Exemplo para $h^{FF}(s_2)$](#exemplo-para-hffs_2)
+  * [Landmark Heuristic](#landmark-heuristic)
+    + [Algoritmo (Nem vale a pena tentar perceber sem exemplo '-')](#algoritmo-nem-vale-a-pena-tentar-perceber-sem-exemplo--)
+    + [Exemplo](#exemplo-2)
+
+<!-- tocstop -->
+
 ### RPG - Relaxed Planning Graph
 
 São os gráficos que tamos a usar aqui, só para me lembrar desta sigla sus '-'

@@ -1,3 +1,17 @@
+
+
+<!-- toc -->
+
+- [Feature Engineering](#feature-engineering)
+    + [Definition](#definition)
+    + [Examples](#examples)
+    + [Algorithms](#algorithms)
+  * [Naive Bayes](#naive-bayes)
+    + [Desvantagens](#desvantagens)
+    + [Example](#example)
+
+<!-- tocstop -->
+
 # Feature Engineering
 
 ### Definition

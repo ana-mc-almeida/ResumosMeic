@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [2.](#2)
+- [4.](#4)
+  * [`add()` method](#add-method)
+  * [`contains()` method](#contains-method)
+
+<!-- tocstop -->
+
 # 2.
 
 > Utilizando o padrão de testes mais apropriado, desenhe os casos de teste para o método responsável pela renovação do seguro automóvel de uma companhia de seguros que tem as seguintes regras:

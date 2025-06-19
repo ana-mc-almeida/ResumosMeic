@@ -1,3 +1,14 @@
+
+
+<!-- toc -->
+
+- [1.](#1)
+      - [Variable x](#variable-x)
+      - [Variable y](#variable-y)
+  * [Extra](#extra)
+
+<!-- tocstop -->
+
 # 1.
 
 > Considere o seguinte pedaço de código Java e desenhe o respectivo grafo de controlo de fluxo, identificando claramente os vários segmentos do código e os vários du-pairs e respectivos dc-paths para as variáveis x e y. Pode ser útil indicar em cada segmento quais as variáveis definidas e utilizadas em cada segmento.

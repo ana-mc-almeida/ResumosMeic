@@ -1,3 +1,16 @@
+
+
+<!-- toc -->
+
+- [1.](#1)
+  * [a.](#a)
+  * [b.](#b)
+- [2.](#2)
+  * [Teste ao nível da classe](#teste-ao-nivel-da-classe)
+  * [Teste ao nível do metodo `add()`](#teste-ao-nivel-do-metodo-add)
+
+<!-- tocstop -->
+
 # 1.
 
 > $-10 < x \leq 40 \wedge y \geq 40 \wedge z \leq 50$

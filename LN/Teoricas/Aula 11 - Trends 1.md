@@ -1,3 +1,26 @@
+
+
+<!-- toc -->
+
+- [Pre-Trained Models](#pre-trained-models)
+    + [Zero-shot learning](#zero-shot-learning)
+    + [Few-shot learning](#few-shot-learning)
+    + [Transfer learning](#transfer-learning)
+    + [Feature-based transfer learning](#feature-based-transfer-learning)
+    + [Fine-Tuning](#fine-tuning)
+  * [Parameter-Efficient Adaptation Methos](#parameter-efficient-adaptation-methos)
+    + [Adaptares](#adaptares)
+    + [LoRA (Low-Rank Adaptation)](#lora-low-rank-adaptation)
+  * [Multi-taks learning](#multi-taks-learning)
+  * [Compression Techiques](#compression-techiques)
+    + [Pruning](#pruning)
+    + [Quantization](#quantization)
+    + [Teacher-Student](#teacher-student)
+      - [Knowledge Distillation](#knowledge-distillation)
+  * [Applications](#applications)
+
+<!-- tocstop -->
+
 # Pre-Trained Models
 
 Modelos de machine learning que são treinados com datasets gigantes para serem usados no futuro. A ideia é treiná-los durante imenso tempo numa certa lingua até ficarem excelentes. No futuro, quando forem usados só é preciso fazer uns ajustes especificos à linguagem.

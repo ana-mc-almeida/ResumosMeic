@@ -1,3 +1,12 @@
+
+
+<!-- toc -->
+
+- [External API Design Issues](#external-api-design-issues)
+- [The API Gateway Pattern](#the-api-gateway-pattern)
+
+<!-- tocstop -->
+
 # External API Design Issues
 
 Purpose: External APIs expose microservices to clients such as mobile apps, browser-based applications, and third-party systems.

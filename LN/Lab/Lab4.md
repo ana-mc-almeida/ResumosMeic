@@ -1,3 +1,24 @@
+
+
+<!-- toc -->
+
+- [1](#1)
+  * [a)](#a)
+  * [b)](#b)
+  * [c)](#c)
+- [2](#2)
+- [3](#3)
+  * [a)](#a-1)
+  * [b)](#b-1)
+- [N-Grams](#n-grams)
+- [1](#1-1)
+  * [a)](#a-2)
+  * [b)](#b-2)
+  * [c)](#c-1)
+- [New email challenge](#new-email-challenge)
+
+<!-- tocstop -->
+
 # 1
 
 ## a)
